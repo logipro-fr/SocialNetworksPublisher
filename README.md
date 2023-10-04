@@ -8,7 +8,7 @@ Use Spark to initialize a php project from scratch. This prepares you to have so
 git clone git@github.com:frederic100/spark.git
 ```
 
-# To Contribut to Spark
+# To Contribute to Spark
 
 ## Requirements
 
