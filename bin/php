@@ -1,13 +1,13 @@
 #!/bin/sh
 
-cmd=`docker container ls | grep 9000.tcp`
+cmd=`docker container ls | grep spark-php`
 status=$?
 if [ $status = 0 ]
 then
 docker exec \
     -ti \
     -e APP_ENV=test \
-    php-spark php $@
+    spark-php php $@
 else
 ## execution de PHP de manière autonome (pas besoin d'un environnement de containers)
 docker run \
@@ -19,6 +19,6 @@ docker run \
     -v "$PWD":"$PWD" \
     --user 1000:1000 \
     -w "$PWD" \
-    php-spark php $@
+    spark-php php $@
 fi
 

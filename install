@@ -5,6 +5,6 @@ if [ ! -d "$DIR_VAR" ]; then
     mkdir $DIR_VAR
 fi
 
-docker build -t php-spark:latest bin/docker/php
+docker build -t spark-php:latest bin/docker/php
 
 bin/composer install

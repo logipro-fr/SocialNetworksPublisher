@@ -1,6 +1,6 @@
 services:
   nginx-devlocal:
-    container_name: "nginx-spark"
+    container_name: "spark-nginx"
     build:
       context: ../.
       dockerfile: docker/nginx/Dockerfile
@@ -17,7 +17,7 @@ services:
       - spark-networks
 
   php-devlocal:
-    container_name: "php-spark"
+    container_name: "spark-php"
     build:
       context: ../.
       dockerfile: docker/php/Dockerfile
@@ -37,7 +37,7 @@ services:
   
   mariadb:
     image: mariadb:10
-    container_name: "mariadb-spark"
+    container_name: "spark-mariadb"
     restart: always
     volumes: 
       - spark-db:/var/lib/mysql
