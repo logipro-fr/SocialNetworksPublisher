@@ -25,25 +25,9 @@ services:
         - php-spark
     user: 1000:1000
     volumes:
-      - ../../log:/var/spark/log
       - "$PWD/..:/var/spark"
       - "$PWD/..:$PWD/.."
     working_dir: $PWD/..
-    depends_on:
-      mariadb:
-        condition: service_started
-    networks:
-      - spark-networks
-  
-  mariadb:
-    image: mariadb:10
-    container_name: "spark-mariadb"
-    restart: always
-    volumes: 
-      - spark-db:/var/lib/mysql
-      - ../../mariabackup:/backup
-    env_file:
-      - ./mariadb/db.env
     networks:
       - spark-networks
 
@@ -53,8 +37,8 @@ networks:
     enable_ipv6: true
     ipam:
       config:
-        - subnet: fd00:1:1::/112
-          gateway: fd00:1:1::1
+        - subnet: fdff:1:1::/112
+          gateway: fdff:1:1::1
 
 volumes:
   spark-db:

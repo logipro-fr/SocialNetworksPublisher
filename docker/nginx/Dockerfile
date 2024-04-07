@@ -1,3 +1,3 @@
-FROM nginx:1.23
+FROM nginx:1.24
 
 CMD [nginx, '-g', 'daemon off;']
