@@ -1,6 +1,6 @@
 services:
   nginx-devlocal:
-    container_name: "spark-nginx"
+    container_name: "socialnetworks-nginx"
     build:
       context: ../.
       dockerfile: docker/nginx/Dockerfile
@@ -9,30 +9,30 @@ services:
       - php-devlocal
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - "$PWD/..:/var/spark"
+      - "$PWD/..:/var/socialnetworks"
     ports:
       - "33080:80"
       - "2443:443"
     networks:
-      - spark-networks
+      - socialnetworks-networks
 
   php-devlocal:
-    container_name: "spark-php"
+    container_name: "socialnetworks-php"
     build:
       context: ../.
       dockerfile: docker/php/Dockerfile
       tags:
-        - php-spark
+        - php-sparsocialnetworksk
     user: 1000:1000
     volumes:
-      - "$PWD/..:/var/spark"
+      - "$PWD/..:/var/socialnetworks"
       - "$PWD/..:$PWD/.."
     working_dir: $PWD/..
     networks:
-      - spark-networks
+      - socialnetworks-networks
 
 networks:
-  spark-networks:
+  socialnetworks-networks:
     driver: bridge
     enable_ipv6: true
     ipam:
@@ -41,4 +41,4 @@ networks:
           gateway: fdff:1:1::1
 
 volumes:
-  spark-db:
+  socialnetworks-db:

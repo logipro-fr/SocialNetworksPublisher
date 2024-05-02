@@ -9,7 +9,7 @@ function create_var_directory() {
 }
 
 function build_php_image() {
-    docker build -t spark-php:latest docker/php
+    docker build -t socialnetworks-php:latest docker/php
 }
 
 
