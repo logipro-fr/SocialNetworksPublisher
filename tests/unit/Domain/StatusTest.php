@@ -1,9 +1,9 @@
 <?php
 
-namespace SocialNetworks\Tests\Domain;
+namespace SocialNetworksPublisher\Tests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworks\Domain\Status;
+use SocialNetworksPublisher\Domain\Status;
 
 class StatusTest extends TestCase
 {

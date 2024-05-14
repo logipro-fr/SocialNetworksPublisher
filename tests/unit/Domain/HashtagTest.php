@@ -1,13 +1,11 @@
 <?php
 
-namespace SocialNetworks\Tests\Domain;
+namespace SocialNetworksPublisher\Tests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworks\Domain\Content;
-use SocialNetworks\Domain\HashTag;
-use SocialNetworks\Domain\Exceptions\BadHashtagFormatException;
-use SocialNetworks\Domain\Exceptions\EmptyContentException;
-use SocialNetworks\Domain\Exceptions\EmptyHashtagException;
+use SocialNetworksPublisher\Domain\HashTag;
+use SocialNetworksPublisher\Domain\Exceptions\BadHashtagFormatException;
+
 
 class HashtagTest extends TestCase
 {

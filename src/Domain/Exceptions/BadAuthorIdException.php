@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialNetworks\Domain\Exceptions;
+namespace SocialNetworksPublisher\Domain\Exceptions;
 
 use Exception;
 

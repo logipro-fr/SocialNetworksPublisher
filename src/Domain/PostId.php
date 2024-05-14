@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialNetworks\Domain;
+namespace SocialNetworksPublisher\Domain;
 
 class PostId
 {

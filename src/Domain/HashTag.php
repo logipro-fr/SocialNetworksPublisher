@@ -1,12 +1,8 @@
 <?php
 
-namespace SocialNetworks\Domain;
+namespace SocialNetworksPublisher\Domain;
 
-use PhpParser\Node\Expr\Empty_;
-use SocialNetworks\Domain\Exceptions\BadHashtagFormatException;
-use SocialNetworks\Domain\Exceptions\EmptyHashtagException;
-
-use function PHPUnit\Framework\isNull;
+use SocialNetworksPublisher\Domain\Exceptions\BadHashtagFormatException;
 
 class HashTag
 {

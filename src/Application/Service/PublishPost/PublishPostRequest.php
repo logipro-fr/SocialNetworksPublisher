@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialNetworks\Application\Service\PublishPost;
+namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
 class PublishPostRequest
 {

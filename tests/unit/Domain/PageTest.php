@@ -1,20 +1,13 @@
 <?php
 
-namespace SocialNetworks\Tests\Domain;
+namespace SocialNetworksPublisher\Tests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworks\Domain\Author;
-use SocialNetworks\Domain\Content;
-use SocialNetworks\Domain\Exceptions\BadSocialNetworksParameterException;
-use SocialNetworks\Domain\Exceptions\EmptyPageIdException;
-use SocialNetworks\Domain\Exceptions\BadPageIdException;
-use SocialNetworks\Domain\HashTag;
-use SocialNetworks\Domain\Page;
-use SocialNetworks\Domain\PageId;
-use SocialNetworks\Domain\Post;
-use SocialNetworks\Domain\PostId;
-use SocialNetworks\Domain\Status;
-use SocialNetworks\Domain\TargetStatus;
+
+use SocialNetworksPublisher\Domain\Exceptions\BadSocialNetworksParameterException;
+use SocialNetworksPublisher\Domain\Exceptions\BadPageIdException;
+use SocialNetworksPublisher\Domain\Page;
+
 
 class PageTest extends TestCase
 {

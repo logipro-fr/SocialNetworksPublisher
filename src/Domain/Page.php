@@ -1,11 +1,9 @@
 <?php
 
-namespace SocialNetworks\Domain;
+namespace SocialNetworksPublisher\Domain;
 
-use SocialNetworks\Domain\Exceptions\BadPageIdException;
-use SocialNetworks\Domain\Exceptions\BadSocialNetworksParameterException;
-
-use function PHPUnit\Framework\isNull;
+use SocialNetworksPublisher\Domain\Exceptions\BadPageIdException;
+use SocialNetworksPublisher\Domain\Exceptions\BadSocialNetworksParameterException;
 
 class Page
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace SocialNetworks\Application\Service;
+namespace SocialNetworksPublisher\Application\Service;
 
-use SocialNetworks\Application\Service\PublishPost\PublishPostResponse;
-use SocialNetworks\Domain\Post;
+use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
+use SocialNetworksPublisher\Domain\Post;
 
 interface ApiInterface
 {

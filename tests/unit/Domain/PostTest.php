@@ -1,17 +1,15 @@
 <?php
 
-namespace SocialNetworks\Tests\Domain;
+namespace SocialNetworksPublisher\Tests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworks\Domain\Author;
-use SocialNetworks\Domain\Content;
-use SocialNetworks\Domain\Post;
-use SocialNetworks\Domain\Exceptions\EmptyPostContentException;
-use SocialNetworks\Domain\HashTag;
-use SocialNetworks\Domain\Page;
-use SocialNetworks\Domain\PostId;
-use SocialNetworks\Domain\Status;
-use SocialNetworks\Domain\TargetStatus;
+use SocialNetworksPublisher\Domain\Author;
+use SocialNetworksPublisher\Domain\Content;
+use SocialNetworksPublisher\Domain\Post;
+use SocialNetworksPublisher\Domain\HashTag;
+use SocialNetworksPublisher\Domain\Page;
+use SocialNetworksPublisher\Domain\PostId;
+use SocialNetworksPublisher\Domain\Status;
 
 class PostTest extends TestCase
 {

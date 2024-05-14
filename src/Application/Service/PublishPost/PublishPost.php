@@ -1,17 +1,14 @@
 <?php
 
-namespace SocialNetworks\Application\Service\PublishPost;
+namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
-use SocialNetworks\Application\Service\ApiInterface;
-use SocialNetworks\Domain\Author;
-use SocialNetworks\Domain\Content;
-use SocialNetworks\Domain\HashTag;
-use SocialNetworks\Domain\Page;
-use SocialNetworks\Domain\Post;
-use SocialNetworks\Domain\Status;
-use SocialNetworks\Domain\TargetStatus;
-
-use function PHPUnit\Framework\isNull;
+use SocialNetworksPublisher\Application\Service\ApiInterface;
+use SocialNetworksPublisher\Domain\Author;
+use SocialNetworksPublisher\Domain\Content;
+use SocialNetworksPublisher\Domain\HashTag;
+use SocialNetworksPublisher\Domain\Page;
+use SocialNetworksPublisher\Domain\Post;
+use SocialNetworksPublisher\Domain\Status;
 
 class PublishPost
 {

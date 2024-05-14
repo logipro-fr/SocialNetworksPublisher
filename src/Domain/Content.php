@@ -1,8 +1,8 @@
 <?php
 
-namespace SocialNetworks\Domain;
+namespace SocialNetworksPublisher\Domain;
 
-use SocialNetworks\Domain\Exceptions\EmptyContentException;
+use SocialNetworksPublisher\Domain\Exceptions\EmptyContentException;
 
 class Content
 {

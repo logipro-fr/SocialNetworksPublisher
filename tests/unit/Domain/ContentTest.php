@@ -1,10 +1,10 @@
 <?php
 
-namespace SocialNetworks\Tests\Domain;
+namespace SocialNetworksPublisher\Tests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworks\Domain\Content;
-use SocialNetworks\Domain\Exceptions\EmptyContentException;
+use SocialNetworksPublisher\Domain\Content;
+use SocialNetworksPublisher\Domain\Exceptions\EmptyContentException;
 
 class ContentTest extends TestCase
 {

@@ -1,13 +1,12 @@
 <?php
 
-namespace SocialNetworks\Tests\Application\Service\PublishPost;
+namespace SocialNetworksPublisher\Tests\Application\Service\PublishPost;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworks\Application\Service\ApiInterface;
-use SocialNetworks\Application\Service\PublishPost\PublishPost;
-use SocialNetworks\Application\Service\PublishPost\PublishPostRequest;
-use SocialNetworks\Application\Service\PublishPost\PublishPostResponse;
-use SocialNetworks\Domain\Author;
+use SocialNetworksPublisher\Application\Service\ApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
+use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
+use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
 
 class PublishPostTest extends TestCase
 {

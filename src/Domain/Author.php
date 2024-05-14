@@ -1,10 +1,10 @@
 <?php
 
-namespace SocialNetworks\Domain;
+namespace SocialNetworksPublisher\Domain;
 
-use SocialNetworks\Domain\Exceptions\BadAuthorIdException;
-use SocialNetworks\Domain\Exceptions\BadPageIdException;
-use SocialNetworks\Domain\Exceptions\BadSocialNetworksParameterException;
+use SocialNetworksPublisher\Domain\Exceptions\BadAuthorIdException;
+use SocialNetworksPublisher\Domain\Exceptions\BadPageIdException;
+use SocialNetworksPublisher\Domain\Exceptions\BadSocialNetworksParameterException;
 
 class Author
 {

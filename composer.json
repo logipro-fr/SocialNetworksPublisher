@@ -1,5 +1,5 @@
 {
-    "name": "logipro/socialnetworks",
+    "name": "logipro/socialnetworkspublisher",
     "type": "app",
     "description": "start a new PHP project with a simple base structure",
     "keywords": ["php", "DDT"],
@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4" : {
-            "SocialNetworks\\" : "src/"
+            "SocialNetworksPublisher\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4" : {
-            "SocialNetworks\\Tests\\" : "tests/"
+            "SocialNetworksPublisher\\Tests\\" : "tests/"
         }
     },
     "config": {

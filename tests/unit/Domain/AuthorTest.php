@@ -1,12 +1,11 @@
 <?php
 
-namespace SocialNetworks\Tests\Domain;
+namespace SocialNetworksPublisher\Tests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworks\Domain\Author;
-use SocialNetworks\Domain\Exceptions\BadAuthorIdException;
-use SocialNetworks\Domain\Exceptions\BadPageIdException;
-use SocialNetworks\Domain\Exceptions\BadSocialNetworksParameterException;
+use SocialNetworksPublisher\Domain\Author;
+use SocialNetworksPublisher\Domain\Exceptions\BadAuthorIdException;
+use SocialNetworksPublisher\Domain\Exceptions\BadSocialNetworksParameterException;
 
 class AuthorTest extends TestCase
 {
