@@ -22,7 +22,7 @@ services:
       context: ../.
       dockerfile: docker/php/Dockerfile
       tags:
-        - php-sparsocialnetworksk
+        - php-socialnetworks
     user: 1000:1000
     volumes:
       - "$PWD/..:/var/socialnetworks"

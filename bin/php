@@ -7,18 +7,18 @@ then
 docker exec \
     -ti \
     -e APP_ENV=test \
-    spark-php php $@
+    socialnetworks-php php $@
 else
 ## execution de PHP de manière autonome (pas besoin d'un environnement de containers)
 docker run \
     --init \
     --rm \
     -ti \
-    --name php-spark-running-script \
+    --name php-socialnetworks-running-script \
     -v "$(pwd)/bin/docker/php/php.ini:/usr/local/etc/php/php.ini" \
     -v "$PWD":"$PWD" \
     --user 1000:1000 \
     -w "$PWD" \
-    spark-php php $@
+    socialnetworks-php php $@
 fi
 
