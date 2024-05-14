@@ -9,6 +9,7 @@ use SocialNetworks\Domain\Exceptions\EmptyPageIdException;
 use SocialNetworks\Domain\Exceptions\EmptyPageNameException;
 use SocialNetworks\Domain\HashTag;
 use SocialNetworks\Domain\Page;
+use SocialNetworks\Domain\PageId;
 use SocialNetworks\Domain\Post;
 use SocialNetworks\Domain\PostId;
 use SocialNetworks\Domain\Status;
@@ -23,7 +24,7 @@ class PageTest extends TestCase
         $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         $hashtag = new HashTag("#test");
-        $page = new Page("Accident Prediction", "123456");
+        $page = new Page("Accident Prediction");
         $targetStatus = new TargetStatus(Status::PUBLISHED);
 
         $this->post = new Post($author, $content, $hashtag, $page, $targetStatus, new PostId("Post 1"));
@@ -31,34 +32,36 @@ class PageTest extends TestCase
     }
     public function testValidPage(): void
     {
-        $page = new Page("Accident Prediction", "123456");
+        $page = new Page("Accident Prediction");
 
         $this->assertEquals("Accident Prediction", $page->getName());
-        $this->assertEquals("123456", $page->getId());
     }
 
     public function testAddPostToPage(): void
     {
-        $page = new Page("Accident Prediction", "123456");
-        $page->addPost($this->post->getId());
-        $postsArray = $page->getPostsId();
-        $this->assertEquals("Post 1", $postsArray[0]);
-        $page->addPost($this->post2->getId());
-        $postsArray = $page->getPostsId();
-        $this->assertEquals("Post 2", $postsArray[1]);
+        $page = new Page("Accident Prediction");
+        $page->addPost($this->post);
+        $postsArray = $page->getPosts();
+        $this->assertEquals("Post 1", $postsArray[0]->getId());
+        $page->addPost($this->post2);
+        $postsArray = $page->getPosts();
+        $this->assertEquals("Post 2", $postsArray[1]->getId());
+    }
+
+    public function testPageWithId() : void {
+        $page = new Page("Test");
+        $this->assertStringStartsWith("pge_", $page->getId());
+    }
+
+    public function testPageInjectedId() : void {
+        $page = new Page("Test", new PageId("Test"));
+        $this->assertEquals("Test", $page->getId());
     }
 
     public function testBadNameException(): void
     {
         $this->expectException(EmptyPageNameException::class);
 
-        new Page("", "123456");
-    }
-
-    public function testBadIdException(): void
-    {
-        $this->expectException(EmptyPageIdException::class);
-
-        new Page("Accident Prediction", "");
+        new Page("");
     }
 }

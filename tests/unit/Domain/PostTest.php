@@ -19,7 +19,7 @@ class PostTest extends TestCase
     {
         $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction", "123456");
+        $page = new Page("Accident Prediction");
         $targetStatus = new TargetStatus(Status::PUBLISHED);
 
         $post = new Post($author, $content, new HashTag(), $page, $targetStatus);
@@ -36,7 +36,7 @@ class PostTest extends TestCase
     {
         $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction", "123456");
+        $page = new Page("Accident Prediction");
         $hashtag = new HashTag("#test1, #test2");
         $targetStatus = new TargetStatus(Status::PUBLISHED);
 
@@ -54,7 +54,7 @@ class PostTest extends TestCase
     {
         $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction", "123456");
+        $page = new Page("Accident Prediction");
         $targetStatus = new TargetStatus(Status::PUBLISHED);
 
         $post = new Post($author, $content, new HashTag(), $page, $targetStatus);
@@ -66,7 +66,7 @@ class PostTest extends TestCase
     {
         $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction", "123456");
+        $page = new Page("Accident Prediction");
         $targetStatus = new TargetStatus(Status::PUBLISHED);
 
         $post = new Post($author, $content, new HashTag("#cool"), $page, $targetStatus, new PostId("pst_test"));

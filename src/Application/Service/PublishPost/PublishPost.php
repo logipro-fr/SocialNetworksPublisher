@@ -33,7 +33,7 @@ class PublishPost
         $author = new Author($request->authorType, $request->authorId, $request->authorName);
         $content = new Content($request->content);
         $hashtag = new HashTag($request->hashtag);
-        $page = new Page($request->pageName, $request->pageId);
+        $page = new Page($request->pageName);
         $targetStatus = new TargetStatus(Status::from($request->targetStatus));
         return new Post($author, $content, $hashtag, $page, $targetStatus);
     }
