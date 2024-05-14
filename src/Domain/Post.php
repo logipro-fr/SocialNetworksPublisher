@@ -10,7 +10,7 @@ class Post
         private Content $content,
         private HashTag $hashTags,
         private Page $page,
-        private TargetStatus $targetStatus,
+        private Status $status,
         ?PostId $postId = null,
     ) {
         if ($postId == null) {
@@ -35,9 +35,9 @@ class Post
         return $this->page;
     }
 
-    public function getTargetStatus(): TargetStatus
+    public function getStatus(): Status
     {
-        return $this->targetStatus;
+        return $this->status;
     }
 
     public function getId(): PostId

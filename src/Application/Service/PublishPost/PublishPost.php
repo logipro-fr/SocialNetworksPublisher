@@ -30,12 +30,12 @@ class PublishPost
 
     private function createPost(PublishPostRequest $request): Post
     {
-        $author = new Author($request->authorType, $request->authorId, $request->authorName);
+        $author = new Author($request->socialNetworks, $request->authorId);
         $content = new Content($request->content);
         $hashtag = new HashTag($request->hashtag);
-        $page = new Page($request->pageName);
-        $targetStatus = new TargetStatus(Status::from($request->targetStatus));
-        return new Post($author, $content, $hashtag, $page, $targetStatus);
+        //Suspect
+        $page = new Page($request->socialNetworks, $request->pageId);
+        return new Post($author, $content, $hashtag, $page, Status::READY);
     }
 
     public function getResponse(): PublishPostResponse

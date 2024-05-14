@@ -3,42 +3,47 @@
 namespace SocialNetworks\Domain;
 
 use SocialNetworks\Domain\Exceptions\BadAuthorIdException;
-use SocialNetworks\Domain\Exceptions\BadAuthorNameException;
-use SocialNetworks\Domain\Exceptions\BadAuthorTypeException;
+use SocialNetworks\Domain\Exceptions\BadPageIdException;
+use SocialNetworks\Domain\Exceptions\BadSocialNetworksParameterException;
 
 class Author
 {
-    public const ORGANIZATION = "urn:li:organization:";
-    public const PERSON = "urn:li:person:";
-    private string $urn;
-    public function __construct(private string $type, private string $id, private string $name)
+    private const LINKEDIN = "linkedin";
+    private const FACEBOOK = "facebook";
+    private string $socialNetwork = "undefined";
+    
+    public function __construct(string $socialNetwork, private string $id)
     {
-        $this->isValidAuthor();
+        $this->isValidAuthor($socialNetwork);
+        $this->searchSocialNetworks($socialNetwork);
 
-        $this->urn = $this->type . $this->id;
     }
 
-    public function getUrn(): string
+    public function getId(): string
     {
-        return $this->urn;
+        return $this->id;
     }
 
-    public function getName(): string
-    {
-        return $this->name;
+    public function getSocialNetwork(): string {
+        return $this->socialNetwork;
     }
 
-    private function isValidAuthor(): void
+    private function isValidAuthor(string $socialNetwork): void
     {
-        if (empty($this->type)) {
-            throw new BadAuthorTypeException("The author type cannot be null");
+        if (empty($socialNetwork)) {
+            throw new BadSocialNetworksParameterException("The social network parameters cannot be empty");
         }
         if (empty($this->id)) {
-            throw new BadAuthorIdException("The author id cannot be null");
+            throw new BadAuthorIdException("The id parameters cannot be empty");
         }
+    }
 
-        if (empty($this->name)) {
-            throw new BadAuthorNameException("The author name cannot be null");
+    private function searchSocialNetworks(string $find) : void {
+        if (str_contains(strtolower($find), "linkedin")) {
+            $this->socialNetwork = self::LINKEDIN;
+        }
+        if (str_contains(strtolower($find), "facebook")) {
+            $this->socialNetwork = self::FACEBOOK;
         }
     }
 }

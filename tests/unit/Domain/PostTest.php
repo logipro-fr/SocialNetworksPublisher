@@ -17,60 +17,51 @@ class PostTest extends TestCase
 {
     public function testValidPost(): void
     {
-        $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
+        $author = new Author('facebook', '123za45g');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction");
-        $targetStatus = new TargetStatus(Status::PUBLISHED);
+        $page = new Page("facebook","98ad48644");
 
-        $post = new Post($author, $content, new HashTag(), $page, $targetStatus);
+        $post = new Post($author, $content, new HashTag(), $page, Status::READY);
 
         $this->assertInstanceOf(Post::class, $post);
         $this->assertEquals($author, $post->getAuthor());
         $this->assertEquals($content, $post->getContent());
         $this->assertEquals($page, $post->getPage());
         $this->assertEquals(new HashTag(), $post->getHashTags());
-        $this->assertEquals($targetStatus, $post->getTargetStatus());
+        $this->assertEquals(Status::READY, $post->getStatus());
     }
 
     public function testValidPostWithHashTag(): void
     {
-        $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
+        $author = new Author('facebook', '123za45g');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction");
+        $page = new Page("facebook","98ad48644");
         $hashtag = new HashTag("#test1, #test2");
-        $targetStatus = new TargetStatus(Status::PUBLISHED);
-
-        $post = new Post($author, $content, $hashtag, $page, $targetStatus);
+        $post = new Post($author, $content, $hashtag, $page, Status::DRAFT);
 
         $this->assertInstanceOf(Post::class, $post);
         $this->assertEquals($author, $post->getAuthor());
         $this->assertEquals($content, $post->getContent());
         $this->assertEquals($hashtag, $post->getHashTags());
         $this->assertEquals($page, $post->getPage());
-        $this->assertEquals($targetStatus, $post->getTargetStatus());
+        $this->assertEquals(Status::DRAFT, $post->getStatus());
     }
 
     public function testPostId(): void
     {
-        $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
+        $author = new Author('facebook', '123za45g');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction");
-        $targetStatus = new TargetStatus(Status::PUBLISHED);
-
-        $post = new Post($author, $content, new HashTag(), $page, $targetStatus);
-
+        $page = new Page("facebook","98ad48644");
+        $post = new Post($author, $content, new HashTag(), $page, Status::READY);
         $this->assertStringStartsWith('pst_', $post->getId());
     }
 
     public function testInjectedPostId(): void
     {
-        $author = new Author(Author::ORGANIZATION, '123456', 'Logipro');
+        $author = new Author('facebook', '123za45g');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("Accident Prediction");
-        $targetStatus = new TargetStatus(Status::PUBLISHED);
-
-        $post = new Post($author, $content, new HashTag("#cool"), $page, $targetStatus, new PostId("pst_test"));
-
+        $page = new Page("facebook","98ad48644");
+        $post = new Post($author, $content, new HashTag("#cool"), $page, Status::READY, new PostId("pst_test"));
         $this->assertEquals('pst_test', $post->getId());
     }
 

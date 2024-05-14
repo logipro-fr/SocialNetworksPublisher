@@ -24,11 +24,9 @@ class PublishPostTest extends TestCase
 
         $service = new PublishPost($mockInterface);
         $request = new PublishPostRequest(
-            "Pedro",
-            Author::PERSON,
-            "123453",
-            "Accident Predict",
-            "789465",
+            "facebook",
+            "1a84fvb",
+            "5adf78bfdsg",
             self::TEXT_CONTENT,
             "#AccidentPrediction,#RoadSafety",
             "published"
@@ -51,14 +49,11 @@ class PublishPostTest extends TestCase
 
         $service = new PublishPost($mockInterface);
         $request = new PublishPostRequest(
-            "Pedro",
-            Author::PERSON,
-            "123453",
-            "Accident Predict",
-            "789465",
+            "facebook",
+            "1a84fvb",
+            "5adf78bfdsg",
             self::TEXT_CONTENT,
-            "",
-            "published"
+            ""
         );
 
         $service->execute($request);
@@ -80,11 +75,9 @@ class PublishPostTest extends TestCase
             );
 
         $request = new PublishPostRequest(
-            "Pedro",
-            Author::PERSON,
-            "123453",
-            "Accident Predict",
-            "789465",
+            "facebook",
+            "1a84fvb",
+            "5adf78bfdsg",
             self::TEXT_CONTENT,
             "#PEdro",
             "published"
@@ -97,11 +90,9 @@ class PublishPostTest extends TestCase
         $this->assertEquals("published", $response->status);
 
         $request2 = new PublishPostRequest(
-            "Pedro",
-            Author::PERSON,
-            "123453",
-            "Accident Predict",
-            "789465",
+            "facebook",
+            "1a84fvb",
+            "5adf78bfdsg",
             self::TEXT_CONTENT,
             "",
             "draft"

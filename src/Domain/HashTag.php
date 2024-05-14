@@ -16,7 +16,7 @@ class HashTag
      * @param string $hashTags
      */
     public function __construct(string $hashTags = "")
-    { 
+    {
         $this->hashTagslist = explode(", ", $hashTags);
         if (!empty($hashTags) && $this->checkHashTag($this->hashTagslist)) {
             throw new BadHashtagFormatException("Error: Missing or invalid hashtag format.");

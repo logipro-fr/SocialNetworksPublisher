@@ -2,48 +2,47 @@
 
 namespace SocialNetworks\Domain;
 
-use SocialNetworks\Domain\Exceptions\EmptyPageIdException;
-use SocialNetworks\Domain\Exceptions\EmptyPageNameException;
+use SocialNetworks\Domain\Exceptions\BadPageIdException;
+use SocialNetworks\Domain\Exceptions\BadSocialNetworksParameterException;
 
 use function PHPUnit\Framework\isNull;
 
 class Page
 {
-    /** @var Post[] */
-    private array $postsList = [];
-    private PageId $id;
-    public function __construct(private string $name, ?PageId $id = null,)
+    private const LINKEDIN = "linkedin";
+    private const FACEBOOK = "facebook";
+
+    public function __construct(private string $socialNetwork, private string $id)
     {
-        if ($id == null) {
-            $this->id = new PageId();
-        } else {
-            $this->id = $id;
-        }
-
-        if (empty($this->name)) {
-            throw new EmptyPageNameException();
-        }
-
+        $this->isValidPage();
+        $this->searchSocialNetworks();
     }
 
-    public function addPost(Post $post): void
+    public function getSocialNetwork(): string
     {
-        $this->postsList[] = $post;
+        return $this->socialNetwork;
     }
 
-    /** @return Post[] */
-    public function getPosts(): array
+    public function getId(): string
     {
-        return $this->postsList;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getId(): PageId {
         return $this->id;
     }
 
+    private function isValidPage() : void {
+        if (empty($this->socialNetwork)) {
+            throw new BadSocialNetworksParameterException("The social network parameters cannot be empty");
+        }
+        if (empty($this->id)) {
+            throw new BadPageIdException("The id parameters cannot be empty");
+        }
+    }
+    
+    private function searchSocialNetworks() :void {
+        if (str_contains(strtolower($this->socialNetwork), "linkedin")) {
+            $this->socialNetwork = self::LINKEDIN;
+        }
+        if (str_contains(strtolower($this->socialNetwork), "facebook")) {
+            $this->socialNetwork = self::FACEBOOK;
+        }
+    }
 }

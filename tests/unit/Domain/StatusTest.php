@@ -9,7 +9,7 @@ class StatusTest extends TestCase
 {
     public function testStatus(): void
     {
-        $this->assertInstanceOf(Status::class, Status::PUBLISHED);
+        $this->assertInstanceOf(Status::class, Status::READY);
         $this->assertInstanceOf(Status::class, Status::DRAFT);
     }
 }
