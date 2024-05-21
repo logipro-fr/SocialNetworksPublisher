@@ -2,11 +2,15 @@
 
 namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
+use SocialNetworksPublisher\Domain\Model\Post\PostId;
+
 class PublishPostResponse
 {
     public function __construct(
+        public readonly bool $success,
         public readonly int $statusCode,
-        public readonly string $status
+        public readonly object $data,
+        public readonly string $message = "",
     ) {
     }
 }

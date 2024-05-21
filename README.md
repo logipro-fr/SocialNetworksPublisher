@@ -1,14 +1,14 @@
-# Spark
+# SocialNetworksPublisher
 
-Use Spark to initialize a php project from scratch. This prepares you to have some basic tools to practice TDD, etc.
+Allow to
 
 # Install
 
 ```console
-git clone git@github.com:frederic100/spark.git
+git clone git@github.com:
 ```
 
-# To Contribute to Spark
+# To Contribute to SocialNetworkPublisher
 
 ## Requirements
 
@@ -41,7 +41,7 @@ Some indicators that seem interesting.
 
 * phpcs PSR12
 * phpstan level 9
-* coverage >=100%
+* coverage = 100%
 * infection MSI >=100%
 
 Quick check with:

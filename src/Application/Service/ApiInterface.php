@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Application\Service;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
-use SocialNetworksPublisher\Domain\Post;
+use SocialNetworksPublisher\Domain\Model\Post\Post;
 
 interface ApiInterface
 {

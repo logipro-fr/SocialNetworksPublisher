@@ -9,15 +9,14 @@ Feature: Publish content on a socialNetworks
       """
       Following a prediction made at 10:00, an accident occurred on N02 at 10:35. This underscores the importance of accident prediction in prevention.
       """
-    And the hashtags are '#AccidentPrediction, #RoadSafety'
+    And the hashtags are "#AccidentPrediction, #RoadSafety"
     And the status is "ReadyToPublish"
     When I publish the post on <social networks>
     Then my post has a scoial networks status "published" 
-
-      Example:
-        | social networks |
-        | LinkedIn        |
-        | Facebook        |
+  Examples:
+    | social networks |
+    | LinkedIn        |
+    | Facebook        |
 
   # Scenario Outline: Manage Content draft
   #   Given I have written a draft post for the page "Accident Predict":
