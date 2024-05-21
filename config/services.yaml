@@ -21,7 +21,7 @@ services:
   SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController:
     autowire: true
     arguments:
-      $api: '@SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory'
+      $api: '@simplePost.api'
       $repo: '@post.repository'
 
   post.repository:

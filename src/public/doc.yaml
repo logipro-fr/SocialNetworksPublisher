@@ -2,3 +2,138 @@ openapi: 3.1.0
 info:
   title: SocialNetworksPublisher API
   version: 1.0.0
+paths:
+  /api/v1/publishPost:
+    get:
+      summary: Publish a post on social networks
+      operationId: publishPost
+      parameters:
+        - name: socialNetworks
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The social network to post to
+          example: simpleBlog
+        - name: authorId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The ID of the author on the social network
+          example: 1584514
+        - name: pageId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The ID of the page where the post will be published
+          example: 4a75fe6
+        - name: content
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The content of the post
+          example: Ceci est un simple post
+        - name: hashtag
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional hashtags for the post
+          example: "#test, #FizzBuzz"
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the publication was successful
+                    example: true
+                  statusCode:
+                    type: integer
+                    description: HTTP status code of the response
+                    example: 201
+                  data:
+                    type: object
+                    properties:
+                      postId:
+                        type: string
+                        description: The ID of the published post
+                        example: pos_664c52f9c90cb
+                    description: Data returned by the publication service
+                  message:
+                    type: string
+                    description: Message associated with the response
+                    example: ""
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the publication was successful
+                    example: false
+                  statusCode:
+                    type: integer
+                    description: HTTP status code of the response
+                    example: 400
+                  data:
+                    type: object
+                    description: Data returned by the publication service
+                  message:
+                    type: string
+                    description: Message associated with the response
+                    example: Invalid request
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the publication was successful
+                    example: false
+                  statusCode:
+                    type: integer
+                    description: HTTP status code of the response
+                    example: 422
+                  data:
+                    type: object
+                    description: Data returned by the publication service
+                  message:
+                    type: string
+                    description: Message associated with the response
+                    example: Unprocessable entity
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the publication was successful
+                    example: false
+                  statusCode:
+                    type: integer
+                    description: HTTP status code of the response
+                    example: 500
+                  data:
+                    type: object
+                    description: Data returned by the publication service
+                  message:
+                    type: string
+                    description: Message associated with the response
+                    example: Internal server error

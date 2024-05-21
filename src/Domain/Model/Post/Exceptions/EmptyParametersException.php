@@ -6,5 +6,5 @@ use Exception;
 
 class EmptyParametersException extends LoggedException
 {
-    public const ERROR_CODE = 412;
+    public const ERROR_CODE = 400;
 }

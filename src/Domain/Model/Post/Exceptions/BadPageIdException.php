@@ -6,5 +6,5 @@ use Exception;
 
 class BadPageIdException extends LoggedException
 {
-    public const ERROR_CODE = 413;
+    public const ERROR_CODE = 422;
 }

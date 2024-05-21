@@ -8,5 +8,5 @@ class EmptyContentException extends LoggedException
 {
     public const MESSAGE =
      "An EmptyContentException has occurred: Unable to perform operation due to empty content.";
-     public const ERROR_CODE = 411;
+     public const ERROR_CODE = 422;
 }

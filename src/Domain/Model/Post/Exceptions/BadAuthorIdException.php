@@ -6,5 +6,5 @@ use Exception;
 
 class BadAuthorIdException extends LoggedException
 {
-    public const ERROR_CODE = 406;
+    public const ERROR_CODE = 422;
 }
