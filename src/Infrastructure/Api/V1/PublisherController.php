@@ -5,6 +5,7 @@ namespace SocialNetworksPublisher\Infrastructure\Api\V1;
 use SocialNetworksPublisher\Application\Service\ApiInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
+use SocialNetworksPublisher\Domain\Model\Post\Exceptions\LoggedException;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,8 +22,20 @@ class PublisherController
     public function execute(Request $request): JsonResponse
     {
         $publishRequest = $this->buildPublishRequest($request);
+
         $service = new PublishPost($this->api, $this->repo);
-        $service->execute($publishRequest);
+        try {
+            $service->execute($publishRequest);
+        } catch (LoggedException $e) {
+            return new JsonResponse(
+                [
+                    'succes' => false,
+                    'statusCode' => $e->getCode(),
+                    'data' => "",
+                    'message' => $e->getMessage(),
+                ]
+            );
+        }
         $publishResponse = $service->getResponse();
         return new JsonResponse(
             [

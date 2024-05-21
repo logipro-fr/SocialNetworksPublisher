@@ -1,7 +1,8 @@
-[21.05.2024 08:57:57] 0: Log test
-[21.05.2024 08:57:57] 422: The social network parameters cannot be empty
-[21.05.2024 08:57:57] 422: The id parameters cannot be empty
-[21.05.2024 08:57:57] 422: An EmptyContentException has occurred: Unable to perform operation due to empty content.
-[21.05.2024 08:57:57] 422: Error: Missing or invalid hashtag format.
-[21.05.2024 08:57:57] 422: The social network parameters cannot be empty
-[21.05.2024 08:57:57] 422: The id parameters cannot be empty
+[21.05.2024 11:55:15] 0: Log test
+[21.05.2024 11:55:15] 422: The social network parameters cannot be empty
+[21.05.2024 11:55:15] 422: The id parameters cannot be empty
+[21.05.2024 11:55:15] 422: An EmptyContentException has occurred: Unable to perform operation due to empty content.
+[21.05.2024 11:55:15] 422: Error: Missing or invalid hashtag format.
+[21.05.2024 11:55:15] 422: The social network parameters cannot be empty
+[21.05.2024 11:55:15] 422: The id parameters cannot be empty
+[21.05.2024 11:55:15] 422: The social network parameters cannot be empty

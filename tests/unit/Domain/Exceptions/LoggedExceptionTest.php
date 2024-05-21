@@ -9,8 +9,10 @@ use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 
 use function Safe\file_get_contents;
 
-class LoggedExceptionTest extends TestCase {
-    public function testLoggedException(): void {
+class LoggedExceptionTest extends TestCase
+{
+    public function testLoggedException(): void
+    {
         $filePath = CurrentWorkDirPath::getPath() . LoggedException::LOG_FILE_PATH;
         if (file_exists($filePath)) {
             unlink($filePath);
@@ -22,5 +24,4 @@ class LoggedExceptionTest extends TestCase {
             $this->assertStringEndsWith("0: Log test\n", $logs);
         }
     }
-
 }

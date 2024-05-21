@@ -10,7 +10,6 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
-use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory;
 
 class PublishPostTest extends TestCase
@@ -19,7 +18,6 @@ class PublishPostTest extends TestCase
     private PublishPostRequest $requestWithoutHashTag;
     private PublishPostRequest $request2;
     private PostRepositoryInMemory $repository;
-    private Post $post;
 
     private const TEXT_CONTENT =
         "Following a prediction made at 10:00, an accident occurred on N02 at 10:35. 
@@ -50,9 +48,6 @@ class PublishPostTest extends TestCase
             self::TEXT_CONTENT,
             ""
         );
-
-        $this->post = (new PostFactory())->buildPostFromRequest($this->requestHashTag);
-
         $this->repository = new PostRepositoryInMemory();
     }
     public function testExecuteWithHashTag(): void

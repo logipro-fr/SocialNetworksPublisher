@@ -28,12 +28,34 @@ class PublisherControllerTest extends WebTestCase
         );
         /** @var string */
         $responseContent = $client->getResponse()->getContent();
-        $this->assertResponseIsSuccessful();
-        var_dump($client->getResponse());
 
+        $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('"success":true', $responseContent);
         $this->assertStringContainsString('"statusCode":201', $responseContent);
         $this->assertStringContainsString('"postId":"pos_', $responseContent);
+        $this->assertStringContainsString('"message":"', $responseContent);
+    }
+
+    public function testControllerErrorResponse(): void
+    {
+        $client = static::createClient();
+        $client->request(
+            "GET",
+            "/api/v1/publishPost",
+            [
+                "socialNetworks" => "",
+                "authorId" => "1584514",
+                "pageId" => "4a75fe6",
+                "content" => "Ceci est un simple post",
+                "hashtag" => "#test, #FizzBuzz",
+            ]
+        );
+        /** @var string */
+        $responseContent = $client->getResponse()->getContent();
+
+        $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('"succes":false', $responseContent);
+        $this->assertStringContainsString('"statusCode":422', $responseContent);
         $this->assertStringContainsString('"message":"', $responseContent);
     }
 
@@ -56,9 +78,11 @@ class PublisherControllerTest extends WebTestCase
                 "hashtag" => "#test, #FizzBuzz",
             ]
         );
+
         $response = $controller->execute($request);
         /** @var string */
         $responseContent = $response->getContent();
+
         $this->assertJson($responseContent);
     }
 }

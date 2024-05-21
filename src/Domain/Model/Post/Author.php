@@ -30,10 +30,16 @@ class Author
     private function validate(string $socialNetwork): void
     {
         if (empty($socialNetwork)) {
-            throw new BadSocialNetworksParameterException("The social network parameters cannot be empty", BadSocialNetworksParameterException::ERROR_CODE);
+            throw new BadSocialNetworksParameterException(
+                "The social network parameters cannot be empty",
+                BadSocialNetworksParameterException::ERROR_CODE
+            );
         }
         if (empty($this->id)) {
-            throw new BadAuthorIdException("The id parameters cannot be empty", BadAuthorIdException::ERROR_CODE);
+            throw new BadAuthorIdException(
+                "The id parameters cannot be empty",
+                BadAuthorIdException::ERROR_CODE
+            );
         }
     }
 

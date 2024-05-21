@@ -29,10 +29,16 @@ class Page
     private function validatePage(): void
     {
         if (empty($this->socialNetwork)) {
-            throw new BadSocialNetworksParameterException("The social network parameters cannot be empty", BadSocialNetworksParameterException::ERROR_CODE);
+            throw new BadSocialNetworksParameterException(
+                "The social network parameters cannot be empty",
+                BadSocialNetworksParameterException::ERROR_CODE
+            );
         }
         if (empty($this->id)) {
-            throw new BadPageIdException("The id parameters cannot be empty", BadPageIdException::ERROR_CODE);
+            throw new BadPageIdException(
+                "The id parameters cannot be empty",
+                BadPageIdException::ERROR_CODE
+            );
         }
     }
 

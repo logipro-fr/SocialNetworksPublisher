@@ -11,10 +11,9 @@ class PublishPost
     private PublishPostResponse $response;
     public function __construct(
         private ApiInterface $api,
-         private PostRepositoryInterface $repository,
-          private string $postIdName = ""
-          )
-    {
+        private PostRepositoryInterface $repository,
+        private string $postIdName = ""
+    ) {
     }
     public function execute(PublishPostRequest $request): void
     {
