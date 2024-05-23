@@ -11,6 +11,7 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory;
+use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
 
 class PublishPostTest extends TestCase
 {
@@ -56,18 +57,16 @@ class PublishPostTest extends TestCase
         $mockInterface
             ->expects($this->once())
             ->method('postApiRequest')
-            ->willReturn(new PublishPostResponse(true, 201, new PostId()));
+            ->willReturn(new ProviderResponse(new PostId("test"), "simpleBlog"));
         $service = new PublishPost($mockInterface, $this->repository, "test");
 
         $service->execute($this->requestHashTag);
         $response = $service->getResponse();
 
         $this->assertInstanceOf(PublishPostResponse::class, $response);
-        $this->assertTrue($response->success);
-        $this->assertEquals(201, $response->statusCode);
-        $this->assertEquals("", $response->message);
-        $this->assertNotEmpty($response->data);
-        $this->assertEquals("test", $this->repository->findById(new PostId("test"))->getPostId());
+        $this->assertEquals("simpleBlog", $response->socialNetworks);
+        $this->assertEquals("test", $response->postId);
+        $this->assertEquals('test', $this->repository->findById(new PostId("test"))->getPostId());
     }
 
     public function testExecuteWithoutHashTag(): void
@@ -76,16 +75,15 @@ class PublishPostTest extends TestCase
         $mockInterface
             ->expects($this->once())
             ->method('postApiRequest')
-            ->willReturn(new PublishPostResponse(true, 201, new PostId()));
+            ->willReturn(new ProviderResponse(new PostId("test"), "simpleBlog"));
         $service = new PublishPost($mockInterface, $this->repository);
 
         $service->execute($this->requestWithoutHashTag);
         $response = $service->getResponse();
 
-        $this->assertTrue($response->success);
-        $this->assertEquals(201, $response->statusCode);
-        $this->assertEquals("", $response->message);
-        $this->assertNotEmpty($response->data);
+        $this->assertInstanceOf(PublishPostResponse::class, $response);
+        $this->assertEquals("simpleBlog", $response->socialNetworks);
+        $this->assertEquals("test", $response->postId);
     }
 
     public function testExecuteMultipleTime(): void
@@ -95,8 +93,8 @@ class PublishPostTest extends TestCase
             ->expects($this->exactly(2))
             ->method('postApiRequest')
             ->willReturnOnConsecutiveCalls(
-                new PublishPostResponse(true, 201, new PostId()),
-                new PublishPostResponse(true, 201, new PostId()),
+                new ProviderResponse(new PostId("test1"), "simpleBlog"),
+                new ProviderResponse(new PostId("test2"), "simpleBlog"),
             );
         $service = new PublishPost($mockInterface, $this->repository);
 
@@ -105,15 +103,11 @@ class PublishPostTest extends TestCase
         $service->execute($this->request2);
         $responseOther = $service->getResponse();
 
-        $this->assertTrue($response->success);
-        $this->assertEquals(201, $response->statusCode);
-        $this->assertEquals("", $response->message);
-        $this->assertNotEmpty($response->data);
+        $this->assertEquals("simpleBlog", $response->socialNetworks);
+        $this->assertEquals("test1", $response->postId);
 
-        $this->assertTrue($responseOther->success);
-        $this->assertEquals(201, $responseOther->statusCode);
-        $this->assertNotEmpty($responseOther->data);
-        $this->assertEquals("", $responseOther->message);
+        $this->assertEquals("simpleBlog", $responseOther->socialNetworks);
+        $this->assertEquals("test2", $responseOther->postId);
     }
 
     public function testPostFactory(): void

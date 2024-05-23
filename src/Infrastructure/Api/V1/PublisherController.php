@@ -18,7 +18,8 @@ class PublisherController
         private PostRepositoryInterface $repo
     ) {
     }
-    #[Route('/api/v1/publishPost', "publish_post", methods: ['GET'])]
+
+    #[Route('/api/v1/post/publish', "publish_post", methods: ['POST'])]
     public function execute(Request $request): JsonResponse
     {
         $publishRequest = $this->buildPublishRequest($request);
@@ -26,25 +27,29 @@ class PublisherController
         $service = new PublishPost($this->api, $this->repo);
         try {
             $service->execute($publishRequest);
-        } catch (LoggedException $e) {
+        } catch (\Throwable $e) {
+            $fullClassName = get_class($e);
+            $className = (new \ReflectionClass($e))->getShortName();
             return new JsonResponse(
                 [
                     'succes' => false,
-                    'statusCode' => $e->getCode(),
-                    'data' => "",
+                    'ErrorCode' => $className,
+                    'data' => '',
                     'message' => $e->getMessage(),
-                ]
+                ],
+                $e->getCode(),
             );
         }
         $publishResponse = $service->getResponse();
         return new JsonResponse(
             [
-                'success' => $publishResponse->success,
-                'statusCode' => $publishResponse->statusCode,
-                'data' => $publishResponse->data,
-                'message' => $publishResponse->message,
+                'success' => true,
+                'ErrorCode' => "",
+                'data' => ['postId' =>  $publishResponse->postId,
+                            'socialNetworks' => $publishResponse->socialNetworks],
+                'message' => "",
             ],
-            $publishResponse->statusCode
+            201
         );
     }
 
