@@ -8,5 +8,6 @@ class PostCreated extends Event
 {
     public function __construct(public readonly string $postId)
     {
+        parent::__construct();
     }
 }

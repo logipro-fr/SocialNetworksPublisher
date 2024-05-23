@@ -2,7 +2,7 @@
 
 namespace SocialNetworksPublisher\Tests\Domain\Model\Post;
 
-use Phariscope\Event\EventPublisherBase;
+use DateTimeImmutable;
 use Phariscope\Event\Tools\SpyListener;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
@@ -99,5 +99,16 @@ class PostTest extends TestCase
 
         $this->assertInstanceOf(PostCreated::class, $spy->domainEvent);
         $this->assertEquals($post->getPostId()->__toString(), $event->postId);
+        $this->assertInstanceOf(DateTimeImmutable::class, $event->occurredOn());
+    }
+
+    public function testPostCreatedAt(): void
+    {
+        $author = new Author('facebook', '123za45g');
+        $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        $page = new Page("facebook", "98ad48644");
+        $date = new DateTimeImmutable();
+        $post = new Post($author, $content, new HashTagArray(), $page, Status::READY, new PostId(), $date);
+        $this->assertEquals($date, $post->getCreatedAt());
     }
 }

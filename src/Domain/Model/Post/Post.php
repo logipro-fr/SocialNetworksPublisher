@@ -2,6 +2,7 @@
 
 namespace SocialNetworksPublisher\Domain\Model\Post;
 
+use DateTimeImmutable;
 use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
 use SocialNetworksPublisher\Domain\Model\Post\Event\PostCreated;
 
@@ -14,6 +15,7 @@ class Post
         private Page $page,
         private Status $status,
         private PostId $postId = new PostId(),
+        private DateTimeImmutable $createdAt = new DateTimeImmutable()
     ) {
         (new EventFacade())->dispatch(new PostCreated($this->postId));
     }
@@ -46,5 +48,10 @@ class Post
     public function getHashTags(): HashTagArray
     {
         return $this->hashTags;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }
