@@ -13,13 +13,84 @@ use Behat\Gherkin\Node\TableNode;
 class FeatureContext implements Context
 {
     /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
+     * @Given I am a LinkedIn author
      */
-    public function __construct()
+    public function iAmALinkedinAuthor(): void
     {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given I have written a post for the page :arg1:
+     */
+    public function iHaveWrittenAPostForThePage(string $arg1, PyStringNode $string): void
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given the hashtags are :arg1
+     */
+    public function theHashtagsAre(string $arg1): void
+    {
+        throw new PendingException();
+    }
+
+
+
+    /**
+     * @Then my post has a scoial networks status :arg1
+     */
+    public function myPostHasAScoialNetworksStatus(string $arg1): void
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given I am a Facebook author
+     */
+    public function iAmAFacebookAuthor(): void
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given the status is :arg1
+     */
+    public function theStatusIs(string $arg1): void
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I publish the post on LinkedIn
+     */
+    public function iPublishThePostOnLinkedin(): void
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I publish the post on Facebook
+     */
+    public function iPublishThePostOnFacebook(): void
+    {
+        throw new PendingException();
+    }
+
+     /**
+     * @Given I am a SimpleBlog author
+     */
+    public function iAmASimpleblogAuthor(): void
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I publish the post on SimpleBlog
+     */
+    public function iPublishThePostOnSimpleblog(): void
+    {
+        throw new PendingException();
     }
 }

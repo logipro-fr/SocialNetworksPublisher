@@ -17,6 +17,7 @@ Feature: Publish content on a socialNetworks
     | social networks |
     | LinkedIn        |
     | Facebook        |
+    | SimpleBlog      |
 
   # Scenario Outline: Manage Content draft
   #   Given I have written a draft post for the page "Accident Predict":
