@@ -2,47 +2,41 @@ openapi: 3.1.0
 info:
   title: SocialNetworksPublisher API
   version: 1.0.0
+servers:
+  - url: http://localhost:10980/
+    description: Local server
 paths:
-  /api/v1/publishPost:
-    get:
+  /api/v1/post/publish:
+    post:
       summary: Publish a post on social networks
       operationId: publishPost
-      parameters:
-        - name: socialNetworks
-          in: query
-          required: true
-          schema:
-            type: string
-          description: The social network to post to
-          example: simpleBlog
-        - name: authorId
-          in: query
-          required: true
-          schema:
-            type: string
-          description: The ID of the author on the social network
-          example: 1584514
-        - name: pageId
-          in: query
-          required: true
-          schema:
-            type: string
-          description: The ID of the page where the post will be published
-          example: 4a75fe6
-        - name: content
-          in: query
-          required: true
-          schema:
-            type: string
-          description: The content of the post
-          example: Ceci est un simple post
-        - name: hashtag
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Optional hashtags for the post
-          example: "#test, #FizzBuzz"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                socialNetworks:
+                  type: string
+                  description: The social network to post to
+                  example: simpleBlog
+                authorId:
+                  type: string
+                  description: The ID of the author on the social network
+                  example: 1584514
+                pageId:
+                  type: string
+                  description: The ID of the page where the post will be published
+                  example: 4a75fe6
+                content:
+                  type: string
+                  description: The content of the post
+                  example: Ceci est un simple post
+                hashtag:
+                  type: string
+                  description: Optional hashtags for the post
+                  example: "#test, #FizzBuzz"
       responses:
         '201':
           description: Successful response
@@ -55,10 +49,10 @@ paths:
                     type: boolean
                     description: Indicates whether the publication was successful
                     example: true
-                  statusCode:
-                    type: integer
-                    description: HTTP status code of the response
-                    example: 201
+                  errorCode:
+                    type: string
+                    description: Name of the exception class if any error occurs
+                    example: null
                   data:
                     type: object
                     properties:
@@ -82,10 +76,10 @@ paths:
                     type: boolean
                     description: Indicates whether the publication was successful
                     example: false
-                  statusCode:
-                    type: integer
-                    description: HTTP status code of the response
-                    example: 400
+                  errorCode:
+                    type: string
+                    description: Name of the exception class if any error occurs
+                    example: InvalidRequestException
                   data:
                     type: object
                     description: Data returned by the publication service
@@ -104,10 +98,10 @@ paths:
                     type: boolean
                     description: Indicates whether the publication was successful
                     example: false
-                  statusCode:
-                    type: integer
-                    description: HTTP status code of the response
-                    example: 422
+                  errorCode:
+                    type: string
+                    description: Name of the exception class if any error occurs
+                    example: UnprocessableEntityException
                   data:
                     type: object
                     description: Data returned by the publication service
@@ -126,10 +120,10 @@ paths:
                     type: boolean
                     description: Indicates whether the publication was successful
                     example: false
-                  statusCode:
-                    type: integer
-                    description: HTTP status code of the response
-                    example: 500
+                  errorCode:
+                    type: string
+                    description: Name of the exception class if any error occurs
+                    example: InternalServerErrorException
                   data:
                     type: object
                     description: Data returned by the publication service
