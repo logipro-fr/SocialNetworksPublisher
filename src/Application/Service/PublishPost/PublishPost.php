@@ -21,10 +21,8 @@ class PublishPost
         $this->repository->add($post);
         $apiResponse = $this->api->postApiRequest($post);
         $this->response = new PublishPostResponse(
-            $apiResponse->success,
-            $apiResponse->statusCode,
-            $apiResponse->data,
-            ""
+            $apiResponse->postId,
+            $apiResponse->socialNetworks,
         );
     }
 

@@ -1,14 +1,15 @@
 <?php
 
-namespace SocialNetworksPublisher\Tests\Infrastructure;
+namespace SocialNetworksPublisher\Tests\Infrastructure\Provider\SimpleBlog;
 
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory;
-use SocialNetworksPublisher\Infrastructure\SimpleBlog;
+use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 
 use function Safe\file_get_contents;
+use function Safe\fopen;
 
 class SimpleBlogTest extends TestCase
 {
@@ -16,7 +17,7 @@ class SimpleBlogTest extends TestCase
     public function testOnePostOnSimpleBlog(): void
     {
         $repository = new PostRepositoryInMemory();
-        $blog = new SimpleBlog(getcwd() . "/src/Infrastructure/simple_blog.txt");
+        $blog = new SimpleBlog(getcwd() . "/var/simple_blog.txt");
         $service = new PublishPost($blog, $repository);
         $requestHashTag = new PublishPostRequest(
             "facebook",
@@ -26,16 +27,16 @@ class SimpleBlogTest extends TestCase
             "#Pedro",
         );
         $service->execute($requestHashTag);
-        $blogContent = file_get_contents(getcwd() . "/src/Infrastructure/simple_blog.txt");
+        $blogContent = file_get_contents(getcwd() . "/var/simple_blog.txt");
 
-        $this->assertFileExists(getcwd() . "/src/Infrastructure/simple_blog.txt");
+        $this->assertFileExists(getcwd() . "/var/simple_blog.txt");
         $this->assertEquals("Ceci est un test #Pedro \n\n", $blogContent);
     }
 
     public function testMultiplePostOnSimpleBlog(): void
     {
         $repository = new PostRepositoryInMemory();
-        $blog = new SimpleBlog(getcwd() . "/src/Infrastructure/simple_blog_multiple.txt");
+        $blog = new SimpleBlog(getcwd() . "/var/simple_blog_multiple.txt");
         $service = new PublishPost($blog, $repository);
         $requestHashTag = new PublishPostRequest(
             "facebook",
@@ -47,7 +48,7 @@ class SimpleBlogTest extends TestCase
         $service->execute($requestHashTag);
         $service->execute($requestHashTag);
 
-        $blogContent = file_get_contents(getcwd() . "/src/Infrastructure/simple_blog_multiple.txt");
+        $blogContent = file_get_contents(getcwd() . "/var/simple_blog_multiple.txt");
 
         $this->assertEquals(self::TEXTCONTENT, $blogContent);
     }

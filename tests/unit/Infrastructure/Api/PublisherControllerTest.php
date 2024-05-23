@@ -4,7 +4,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Api;
 
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
 use SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory;
-use SocialNetworksPublisher\Infrastructure\SimpleBlog;
+use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -16,8 +16,8 @@ class PublisherControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request(
-            "GET",
-            "/api/v1/publishPost",
+            "POST",
+            "/api/v1/post/publish",
             [
                 "socialNetworks" => "simpleBlog",
                 "authorId" => "1584514",
@@ -28,11 +28,13 @@ class PublisherControllerTest extends WebTestCase
         );
         /** @var string */
         $responseContent = $client->getResponse()->getContent();
-
+        $responseCode = $client->getResponse()->getStatusCode();
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('"success":true', $responseContent);
-        $this->assertStringContainsString('"statusCode":201', $responseContent);
+        $this->assertEquals(201, $responseCode);
+        $this->assertStringContainsString('"ErrorCode":', $responseContent);
         $this->assertStringContainsString('"postId":"pos_', $responseContent);
+        $this->assertStringContainsString('"socialNetworks":"simpleBlog', $responseContent);
         $this->assertStringContainsString('"message":"', $responseContent);
     }
 
@@ -40,8 +42,8 @@ class PublisherControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request(
-            "GET",
-            "/api/v1/publishPost",
+            "POST",
+            "/api/v1/post/publish",
             [
                 "socialNetworks" => "",
                 "authorId" => "1584514",
@@ -52,11 +54,15 @@ class PublisherControllerTest extends WebTestCase
         );
         /** @var string */
         $responseContent = $client->getResponse()->getContent();
-
-        $this->assertResponseIsSuccessful();
+        $responseCode = $client->getResponse()->getStatusCode();
+        $this->assertResponseIsUnprocessable();
+        $this->assertEquals(422, $responseCode);
         $this->assertStringContainsString('"succes":false', $responseContent);
-        $this->assertStringContainsString('"statusCode":422', $responseContent);
-        $this->assertStringContainsString('"message":"', $responseContent);
+        $this->assertStringContainsString('"ErrorCode":"BadSocialNetworksParameterException"', $responseContent);
+        $this->assertStringContainsString(
+            '"message":"The social network parameters cannot be empty"',
+            $responseContent
+        );
     }
 
     public function testExecute(): void
@@ -69,7 +75,7 @@ class PublisherControllerTest extends WebTestCase
         );
         $request = Request::create(
             "/api/v1/publishPost",
-            "GET",
+            "POST",
             [
                 "socialNetworks" => "simpleBlog",
                 "authorId" => "1584514",
