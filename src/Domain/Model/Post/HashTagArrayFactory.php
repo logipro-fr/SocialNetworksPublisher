@@ -30,7 +30,9 @@ class HashTagArrayFactory
         /** @var HashTag[] */
         $hashTagTab = array();
         for ($i = 0; $i < count($tab); $i++) {
-            $hashTagTab[$i] = new HashTag($tab[$i]);
+            if (!empty($tab[$i])) {
+                $hashTagTab[$i] = new HashTag($tab[$i]);
+            }
         }
          return $this->buildHashTagArrayFromArray($hashTagTab);
     }

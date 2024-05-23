@@ -8,7 +8,12 @@ class HashTag
 {
     public function __construct(private string $hashTag)
     {
-        if (!empty($hashTag) && substr_compare($this->hashTag, "#", 0, 1) !== 0) {
+        if (substr($hashTag, 0, 1) !== '#') {
+            $hashTag = '#' . $hashTag;
+        }
+        if (preg_match('/^#(?!#)\w+$/u', $hashTag) && strlen($hashTag) > 1) {
+            $this->hashTag = $hashTag;
+        } else {
             throw new BadHashtagFormatException(
                 "Error: Missing or invalid hashtag format.",
                 BadHashtagFormatException::ERROR_CODE

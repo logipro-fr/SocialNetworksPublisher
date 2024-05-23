@@ -4,7 +4,6 @@ namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
 use SocialNetworksPublisher\Domain\Model\Post\Author;
 use SocialNetworksPublisher\Domain\Model\Post\Content;
-use SocialNetworksPublisher\Domain\Model\Post\HashTag;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArrayFactory;
 use SocialNetworksPublisher\Domain\Model\Post\Page;
 use SocialNetworksPublisher\Domain\Model\Post\Post;

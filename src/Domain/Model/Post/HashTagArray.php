@@ -2,8 +2,6 @@
 
 namespace SocialNetworksPublisher\Domain\Model\Post;
 
-use function PHPUnit\Framework\isNull;
-
 class HashTagArray
 {
     /** @var HashTag[] */

@@ -3,6 +3,7 @@
 namespace SocialNetworksPublisher\Tests\Domain\Model\Post;
 
 use PHPUnit\Framework\TestCase;
+use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadHashtagFormatException;
 use SocialNetworksPublisher\Domain\Model\Post\Exceptions\EmptyParametersException;
 use SocialNetworksPublisher\Domain\Model\Post\HashTag;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArray;
@@ -12,10 +13,12 @@ class HashTagArrayTest extends TestCase
 {
     public function testValidHashtags(): void
     {
-        $hashTag1 = new HashTag("#test1");
+        $hashTag1 = new HashTag("test1");
         $hashTag2 = new HashTag("#test2");
-        $hashTag3 = new HashTag("#test3");
-        $hashTags = new HashTagArray($hashTag1);
+        $hashTag3 = new HashTag("test3");
+        $hashTags = new HashTagArray();
+
+        $hashTags->add($hashTag1);
         $hashTags->add($hashTag2);
         $hashTags->add($hashTag3);
 
@@ -28,7 +31,7 @@ class HashTagArrayTest extends TestCase
     public function testHashTagsToString(): void
     {
         $hashTag1 = new HashTag("#test1");
-        $hashTag2 = new HashTag("#test2");
+        $hashTag2 = new HashTag("test2");
         $hashTag3 = new HashTag("#test3");
         $hashTags = new HashTagArray($hashTag1);
 
@@ -57,9 +60,12 @@ class HashTagArrayTest extends TestCase
     {
         $factory = new HashTagArrayFactory();
 
-        $hashTags  = $factory->buildHashTagArrayFromSentence("#1, #2, #3", ", ");
+        $hashTags  = $factory->buildHashTagArrayFromSentence("1, #2, 3, , ", ", ");
 
+        $this->assertEquals(new HashTag("#1"), $hashTags->getHashTags()[0]);
         $this->assertEquals(new HashTag("#2"), $hashTags->getHashTags()[1]);
+        $this->assertEquals(new HashTag("#3"), $hashTags->getHashTags()[2]);
+        $this->assertArrayNotHasKey(3, $hashTags->getHashTags());
     }
 
     public function testEmptyStringException(): void
@@ -69,5 +75,15 @@ class HashTagArrayTest extends TestCase
         $hashTags  = $factory->buildHashTagArrayFromSentence("", ", ");
 
         $this->assertEmpty($hashTags->getHashTags());
+    }
+
+    public function testBadHashtagFormat(): void
+    {
+        $this->expectException(BadHashtagFormatException::class);
+        $this->expectExceptionCode(BadHashtagFormatException::ERROR_CODE);
+        $this->expectExceptionMessage(BadHashtagFormatException::MESSAGE);
+
+        $factory = new HashTagArrayFactory();
+        $factory->buildHashTagArrayFromSentence("1,3,8,az az,", ",");
     }
 }
