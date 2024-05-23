@@ -28,6 +28,39 @@ services:
       - "$PWD/..:/var/socialnetworkspublisher"
       - "$PWD/..:$PWD/.."
     working_dir: $PWD/..
+    depends_on:
+      socialnetworkspublisher-mariadb:
+        condition: service_started
+    networks:
+      - socialnetworkspublisher-network
+
+  socialnetworkspublisher-mariadb:
+    image: socialnetworkspublisher-mariadb:latest
+    container_name: "socialnetworkspublisher-mariadb"
+    build:
+      context: .
+      dockerfile: mariadb/Dockerfile
+      tags:
+        - latest
+    restart: always
+    volumes:
+      - /home/debian/projet/socialnetworkspublisher-mariadb/_data:/var/lib/mysql
+      - ../../mariabackup:/backup
+    env_file:
+      - ./mariadb/db.env
+    networks:
+      - socialnetworkspublisher-network
+    
+  socialnetworkspublisher-phpmyadmin:
+    image: phpmyadmin
+    container_name: "socialnetworkspublisher-phpmyadmin"
+    restart: always
+    environment:
+      PMA_HOST: socialnetworkspublisher-mariadb
+    depends_on:
+      - socialnetworkspublisher-mariadb
+    ports:
+      - "172.17.0.1:10990:80"
     networks:
       - socialnetworkspublisher-network
 

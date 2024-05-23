@@ -12,7 +12,7 @@ services:
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
   simplePost.api:
-    class: SocialNetworksPublisher\Infrastructure\SimpleBlog
+    class: SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog
     public: true
     autowire: true
     arguments:
