@@ -12,6 +12,6 @@
             <generator strategy="NONE"/>
         </id>
         <field name="createdAt" type="datetime_immutable" column="created_at"/>
-
+        <field name="author" type="author" column="author"/>
     </entity>
 </doctrine-mapping>
