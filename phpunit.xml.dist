@@ -15,6 +15,7 @@
   <php>
     <env name="APP_ENV" value="test" force="true"/>
     <env name="KERNEL_CLASS" value="SocialNetworksPublisher\Infrastructure\Shared\Symfony\Kernel"/>
+    <env name="DATABASE_URL" value="sqlite:///var/sqlite-unit-test.db"/>
   </php>
   <source>
     <include>

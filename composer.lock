@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3371bd9ab365d94794370d986f25e579",
+    "content-hash": "83c2031c172e565f69c2ccac183a4992",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -990,16 +990,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "3.1.3",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "8ca99fdfdca3dc129ed93124e95e7f88b791a354"
+                "reference": "37946d3a21ddf837c0d84f8156ee60a92102e332"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/8ca99fdfdca3dc129ed93124e95e7f88b791a354",
-                "reference": "8ca99fdfdca3dc129ed93124e95e7f88b791a354",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/37946d3a21ddf837c0d84f8156ee60a92102e332",
+                "reference": "37946d3a21ddf837c0d84f8156ee60a92102e332",
                 "shasum": ""
             },
             "require": {
@@ -1021,12 +1021,12 @@
             "require-dev": {
                 "doctrine/coding-standard": "^12.0",
                 "phpbench/phpbench": "^1.0",
-                "phpstan/phpstan": "1.10.59",
+                "phpstan/phpstan": "1.11.1",
                 "phpunit/phpunit": "^10.4.0",
                 "psr/log": "^1 || ^2 || ^3",
                 "squizlabs/php_codesniffer": "3.7.2",
                 "symfony/cache": "^5.4 || ^6.2 || ^7.0",
-                "vimeo/psalm": "5.22.2"
+                "vimeo/psalm": "5.24.0"
             },
             "suggest": {
                 "ext-dom": "Provides support for XSD validation for XML mapping files",
@@ -1072,9 +1072,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/3.1.3"
+                "source": "https://github.com/doctrine/orm/tree/3.2.0"
             },
-            "time": "2024-04-30T07:14:13+00:00"
+            "time": "2024-05-23T14:27:52+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -1555,64 +1555,6 @@
             "time": "2023-12-03T20:05:35+00:00"
         },
         {
-            "name": "phariscope/doctrineenumtype",
-            "version": "v0.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phariscope/DoctrineEnumType.git",
-                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phariscope/DoctrineEnumType/zipball/565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
-                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "3.*",
-                "phariscope/safephp": "1.*",
-                "php": ">=8.1"
-            },
-            "require-dev": {
-                "infection/extension-installer": "0.1.2",
-                "infection/infection": "^0.27",
-                "phpstan/phpdoc-parser": "^1.20",
-                "phpstan/phpstan": "1.10.15",
-                "phpunit/phpunit": "^10",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Phariscope\\DoctrineEnumType\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frédéric Royet",
-                    "email": "frederic.royet@logipro.com",
-                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
-                    "role": "Project Founder"
-                }
-            ],
-            "description": "A way to create quickly and well tested doctrine type for your php enums",
-            "homepage": "https://github.com/phariscope/DoctrineEnumType",
-            "keywords": [
-                "doctrine",
-                "enum",
-                "type"
-            ],
-            "support": {
-                "issues": "https://github.com/phariscope/DoctrineEnumType/issues",
-                "source": "https://github.com/phariscope/DoctrineEnumType/tree/v0.0.4"
-            },
-            "time": "2024-05-03T07:42:58+00:00"
-        },
-        {
             "name": "phariscope/event",
             "version": "1.1.0",
             "source": {
@@ -1665,69 +1607,6 @@
                 "source": "https://github.com/phariscope/Event/tree/1.1.0"
             },
             "time": "2024-02-29T22:34:37+00:00"
-        },
-        {
-            "name": "phariscope/safephp",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phariscope/SafePHP.git",
-                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phariscope/SafePHP/zipball/83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
-                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0"
-            },
-            "require-dev": {
-                "infection/extension-installer": "0.1.2",
-                "infection/infection": "^0.27",
-                "phpstan/phpdoc-parser": "^1.20",
-                "phpstan/phpstan": "1.10.15",
-                "phpunit/phpunit": "^10",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/hash.php",
-                    "src/val.php",
-                    "src/getenv.php"
-                ],
-                "classmap": [
-                    "src/Exceptions/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frédéric Royet",
-                    "email": "frederic.royet@logipro.com",
-                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
-                    "role": "Project Founder"
-                }
-            ],
-            "description": "A PHP library complementary to SafePHP containing currently unsupported functions.",
-            "homepage": "https://github.com/phariscope/SafePHP",
-            "keywords": [
-                "Safe PHP",
-                "boolval",
-                "floatval",
-                "intval",
-                "strval"
-            ],
-            "support": {
-                "issues": "https://github.com/phariscope/SafePHP/issues",
-                "source": "https://github.com/phariscope/SafePHP/tree/1.0.2"
-            },
-            "time": "2023-11-26T05:31:17+00:00"
         },
         {
             "name": "psr/cache",
@@ -2797,6 +2676,80 @@
                 }
             ],
             "time": "2024-04-28T11:44:19+00:00"
+        },
+        {
+            "name": "symfony/dotenv",
+            "version": "v7.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dotenv.git",
+                "reference": "0fd573c141e1990848702d56329050efd5bf25cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/0fd573c141e1990848702d56329050efd5bf25cc",
+                "reference": "0fd573c141e1990848702d56329050efd5bf25cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "conflict": {
+                "symfony/console": "<6.4",
+                "symfony/process": "<6.4"
+            },
+            "require-dev": {
+                "symfony/console": "^6.4|^7.0",
+                "symfony/process": "^6.4|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Dotenv\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Registers environment variables from a .env file",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/dotenv/tree/v7.0.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-04-18T09:29:19+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -5430,12 +5383,12 @@
             "version": "v5.2.13",
             "source": {
                 "type": "git",
-                "url": "https://github.com/justinrainbow/json-schema.git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "shasum": ""
             },
@@ -5490,8 +5443,8 @@
                 "schema"
             ],
             "support": {
-                "issues": "https://github.com/justinrainbow/json-schema/issues",
-                "source": "https://github.com/justinrainbow/json-schema/tree/v5.2.13"
+                "issues": "https://github.com/jsonrainbow/json-schema/issues",
+                "source": "https://github.com/jsonrainbow/json-schema/tree/v5.2.13"
             },
             "time": "2023-09-26T02:20:38+00:00"
         },
@@ -7514,16 +7467,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.9.2",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480"
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/aac1f6f347a5c5ac6bc98ad395007df00990f480",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/8f90f7a53ce271935282967f53d0894f8f1ff877",
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877",
                 "shasum": ""
             },
             "require": {
@@ -7590,7 +7543,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-04-23T20:25:34+00:00"
+            "time": "2024-05-22T21:24:41+00:00"
         },
         {
             "name": "symfony/browser-kit",

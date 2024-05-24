@@ -2,11 +2,17 @@ doctrine:
   dbal:
     url: "%env(resolve:DATABASE_URL)%"
     types:
-      #map_id: Datamaps\Infrastructure\Persistence\Doctrine\Types\MapIdType
+      post_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostIdType
+      author: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\AuthorType
+      content: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\ContentType
+      #status: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\StatusIdType
+      page: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageType
   orm:
     auto_generate_proxy_classes: true
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
+    controller_resolver:
+      auto_mapping: true
     mappings:
       SocialNetworksPublisher:
         is_bundle: false
