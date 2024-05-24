@@ -13,5 +13,7 @@
         </id>
         <field name="createdAt" type="datetime_immutable" column="created_at"/>
         <field name="author" type="author" column="author"/>
+        <field name="content" type="content" column="content"/>
+
     </entity>
 </doctrine-mapping>
