@@ -28,4 +28,8 @@ class PageTypeTest extends TestCase
         );
         $this->assertEquals($page, $phpValue);
     }
+    public function testSqlDeclaration(): void
+    {
+        $this->assertEquals('text', (new PageType())->getSQLDeclaration([], new SqlitePlatform()));
+    }
 }

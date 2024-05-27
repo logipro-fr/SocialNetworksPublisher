@@ -22,7 +22,7 @@ class AuthorType extends Type
     {
         return 'text';
     }
-    
+
     /**
      * @param string $value
      */

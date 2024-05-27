@@ -35,6 +35,4 @@ class AuthorTypeTest extends TestCase
 
         $this->assertEquals("text", $sqlDeclaration);
     }
-
-
 }

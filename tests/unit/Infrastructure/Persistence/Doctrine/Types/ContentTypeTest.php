@@ -26,4 +26,7 @@ class ContentTypeTest extends TestCase
         $phpValue = $type->convertToPHPValue($dbValue, new SqlitePlatform());
         $this->assertEquals($content, $phpValue);
     }
+    public function testSqlDeclaration(): void {
+        $this->assertEquals('text', (new ContentType())->getSQLDeclaration([], new SqlitePlatform()));
+    }
 }

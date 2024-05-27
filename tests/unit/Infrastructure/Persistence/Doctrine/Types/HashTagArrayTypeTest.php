@@ -38,8 +38,9 @@ class HashTagArrayTypeTest extends TestCase
         $hashTags  = $factory->buildHashTagArrayFromSentence("1, #2, 3, , ", ", ");
         return $hashTags;
     }
-    
-    public function testSqlDeclaration(): void {
+
+    public function testSqlDeclaration(): void
+    {
         $this->assertEquals('text', (new HashTagArrayType())->getSQLDeclaration([], new SqlitePlatform()));
     }
 }
