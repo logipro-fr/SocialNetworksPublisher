@@ -31,11 +31,15 @@ class HashTagArrayTypeTest extends TestCase
         $this->assertIsString($dbValue);
         $this->assertEquals($hashTags, $phpValue);
     }
-    
+
     public function generateHashTagArray(): HashTagArray
     {
         $factory = new HashTagArrayFactory();
         $hashTags  = $factory->buildHashTagArrayFromSentence("1, #2, 3, , ", ", ");
         return $hashTags;
+    }
+    
+    public function testSqlDeclaration(): void {
+        $this->assertEquals('text', (new HashTagArrayType())->getSQLDeclaration([], new SqlitePlatform()));
     }
 }
