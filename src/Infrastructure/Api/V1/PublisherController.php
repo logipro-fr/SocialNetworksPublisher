@@ -27,6 +27,7 @@ class PublisherController
         $service = new PublishPost($this->api, $this->repo);
         try {
             $service->execute($publishRequest);
+            //flush
         } catch (\Throwable $e) {
             $fullClassName = get_class($e);
             $className = (new \ReflectionClass($e))->getShortName();

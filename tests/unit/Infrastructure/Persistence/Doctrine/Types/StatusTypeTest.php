@@ -22,5 +22,5 @@ class StatusTypeTest extends TestCase
          $this->assertIsString($dbValue);
          $phpValue = $type->convertToPHPValue($dbValue, new SqlitePlatform());
          $this->assertEquals($status, $phpValue);
-     }
+    }
 }
