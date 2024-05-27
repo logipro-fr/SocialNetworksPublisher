@@ -9,7 +9,7 @@ use SocialNetworksPublisher\Domain\Model\Post\HashTagArray;
 
 class HashTagArrayType extends Type
 {
-    public const TYPE_NAME = "hashTagArray";
+    public const TYPE_NAME = "hash_tag_array";
     public function getName(): string
     {
         return self::TYPE_NAME;

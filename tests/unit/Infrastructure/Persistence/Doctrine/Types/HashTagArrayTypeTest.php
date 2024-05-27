@@ -12,7 +12,7 @@ class HashTagArrayTypeTest extends TestCase
 {
     public function testGetName(): void
     {
-        $this->assertEquals('hashTagArray', (new HashTagArrayType())->getName());
+        $this->assertEquals('hash_tag_array', (new HashTagArrayType())->getName());
     }
 
     public function testConvertValue(): void

@@ -15,6 +15,7 @@
         <field name="author" type="author" column="author"/>
         <field name="content" type="content" column="content"/>
         <field name="page" type="page" column="page"/>
-
+        <field name="status" type="status" column="status"/>
+        <field name="hashTagArray" type="hash_tag_array" column="hash_tag_array"/>
     </entity>
 </doctrine-mapping>
