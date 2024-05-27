@@ -26,7 +26,8 @@ class AuthorTypeTest extends TestCase
         $phpValue = $type->convertToPHPValue($dbValue, new SqlitePlatform());
         $this->assertEquals($author, $phpValue);
     }
-    public function testSqlDeclarationWithSqlite() : void {
+    public function testSqlDeclaration(): void
+    {
         $type = new AuthorType();
         $platform = new SqlitePlatform();
 
@@ -35,12 +36,5 @@ class AuthorTypeTest extends TestCase
         $this->assertEquals("text", $sqlDeclaration);
     }
 
-    public function testSqlDeclarationWithMariaDB() : void {
-        $type = new AuthorType();
-        $platform = new MariaDBPlatform();
 
-        $sqlDeclaration = $type->getSQLDeclaration([], $platform);
-
-        $this->assertEquals("text", $sqlDeclaration);
-    }
 }

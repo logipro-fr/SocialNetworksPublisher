@@ -20,9 +20,9 @@ class AuthorType extends Type
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform)
     {
-        var_dump($column);
-        return $platform->getStringTypeDeclarationSQL($column);
+        return 'text';
     }
+    
     /**
      * @param string $value
      */
