@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83c2031c172e565f69c2ccac183a4992",
+    "content-hash": "ce883fadbdc88f835557361547eb3f71",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -1555,6 +1555,64 @@
             "time": "2023-12-03T20:05:35+00:00"
         },
         {
+            "name": "phariscope/doctrineenumtype",
+            "version": "v0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phariscope/DoctrineEnumType.git",
+                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phariscope/DoctrineEnumType/zipball/565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
+                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "3.*",
+                "phariscope/safephp": "1.*",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "infection/extension-installer": "0.1.2",
+                "infection/infection": "^0.27",
+                "phpstan/phpdoc-parser": "^1.20",
+                "phpstan/phpstan": "1.10.15",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phariscope\\DoctrineEnumType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frédéric Royet",
+                    "email": "frederic.royet@logipro.com",
+                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "A way to create quickly and well tested doctrine type for your php enums",
+            "homepage": "https://github.com/phariscope/DoctrineEnumType",
+            "keywords": [
+                "doctrine",
+                "enum",
+                "type"
+            ],
+            "support": {
+                "issues": "https://github.com/phariscope/DoctrineEnumType/issues",
+                "source": "https://github.com/phariscope/DoctrineEnumType/tree/v0.0.4"
+            },
+            "time": "2024-05-03T07:42:58+00:00"
+        },
+        {
             "name": "phariscope/event",
             "version": "1.1.0",
             "source": {
@@ -1607,6 +1665,69 @@
                 "source": "https://github.com/phariscope/Event/tree/1.1.0"
             },
             "time": "2024-02-29T22:34:37+00:00"
+        },
+        {
+            "name": "phariscope/safephp",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phariscope/SafePHP.git",
+                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phariscope/SafePHP/zipball/83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
+                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "infection/extension-installer": "0.1.2",
+                "infection/infection": "^0.27",
+                "phpstan/phpdoc-parser": "^1.20",
+                "phpstan/phpstan": "1.10.15",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/hash.php",
+                    "src/val.php",
+                    "src/getenv.php"
+                ],
+                "classmap": [
+                    "src/Exceptions/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frédéric Royet",
+                    "email": "frederic.royet@logipro.com",
+                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "A PHP library complementary to SafePHP containing currently unsupported functions.",
+            "homepage": "https://github.com/phariscope/SafePHP",
+            "keywords": [
+                "Safe PHP",
+                "boolval",
+                "floatval",
+                "intval",
+                "strval"
+            ],
+            "support": {
+                "issues": "https://github.com/phariscope/SafePHP/issues",
+                "source": "https://github.com/phariscope/SafePHP/tree/1.0.2"
+            },
+            "time": "2023-11-26T05:31:17+00:00"
         },
         {
             "name": "psr/cache",

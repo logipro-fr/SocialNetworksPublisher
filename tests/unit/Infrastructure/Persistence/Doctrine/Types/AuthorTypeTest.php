@@ -2,6 +2,7 @@
 
 namespace SocialNetworksPublisher\Tests\Infrastructure\Persistence\Doctrine\Types;
 
+use Doctrine\DBAL\Platforms\MariaDBPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Domain\Model\Post\Author;
@@ -24,5 +25,22 @@ class AuthorTypeTest extends TestCase
         $this->assertIsString($dbValue);
         $phpValue = $type->convertToPHPValue($dbValue, new SqlitePlatform());
         $this->assertEquals($author, $phpValue);
+    }
+    public function testSqlDeclarationWithSqlite() : void {
+        $type = new AuthorType();
+        $platform = new SqlitePlatform();
+
+        $sqlDeclaration = $type->getSQLDeclaration([], $platform);
+
+        $this->assertEquals("text", $sqlDeclaration);
+    }
+
+    public function testSqlDeclarationWithMariaDB() : void {
+        $type = new AuthorType();
+        $platform = new MariaDBPlatform();
+
+        $sqlDeclaration = $type->getSQLDeclaration([], $platform);
+
+        $this->assertEquals("text", $sqlDeclaration);
     }
 }
