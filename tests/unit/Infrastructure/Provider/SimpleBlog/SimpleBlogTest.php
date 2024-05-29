@@ -5,7 +5,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Provider\SimpleBlog;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
-use SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory;
+use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 
 use function Safe\file_get_contents;

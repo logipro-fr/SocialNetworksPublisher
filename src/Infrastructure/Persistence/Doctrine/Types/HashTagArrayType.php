@@ -2,7 +2,6 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types;
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArray;

@@ -27,7 +27,7 @@ services:
   post.repository:
     public: true
     autowire: true
-    class: SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory
+    class: SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine
 
   SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface: "@post.repository"
   SocialNetworksPublisher\Application\Service\ApiInterface: "@simplePost.api"
