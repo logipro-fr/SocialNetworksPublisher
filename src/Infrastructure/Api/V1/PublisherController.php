@@ -2,6 +2,7 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Api\V1;
 
+use Doctrine\ORM\EntityManagerInterface;
 use SocialNetworksPublisher\Application\Service\ApiInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
@@ -15,7 +16,8 @@ class PublisherController
 {
     public function __construct(
         private ApiInterface $api,
-        private PostRepositoryInterface $repo
+        private PostRepositoryInterface $repo,
+        private EntityManagerInterface $entityManager
     ) {
     }
 
@@ -27,7 +29,7 @@ class PublisherController
         $service = new PublishPost($this->api, $this->repo);
         try {
             $service->execute($publishRequest);
-            //flush
+            $this->entityManager->flush();
         } catch (\Throwable $e) {
             $fullClassName = get_class($e);
             $className = (new \ReflectionClass($e))->getShortName();
