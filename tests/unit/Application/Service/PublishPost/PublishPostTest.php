@@ -10,7 +10,7 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
-use SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory;
+use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
 
 class PublishPostTest extends TestCase

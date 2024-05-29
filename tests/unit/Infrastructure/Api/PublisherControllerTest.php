@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Tests\Infrastructure\Api;
 
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
-use SocialNetworksPublisher\Infrastructure\Persistence\PostRepositoryInMemory;
+use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -14,7 +14,7 @@ class PublisherControllerTest extends WebTestCase
 {
     public function testControllerRouting(): void
     {
-        $client = static::createClient();
+        $client = static::createClient(["debug" => false]);
         $client->request(
             "POST",
             "/api/v1/post/publish",
@@ -40,7 +40,7 @@ class PublisherControllerTest extends WebTestCase
 
     public function testControllerErrorResponse(): void
     {
-        $client = static::createClient();
+        $client = static::createClient(["debug" => false]);
         $client->request(
             "POST",
             "/api/v1/post/publish",
