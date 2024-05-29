@@ -6,6 +6,7 @@ use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
+use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -13,10 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 use function Safe\getcwd;
+use function Safe\json_encode;
 
 class PublisherControllerTest extends WebTestCase
 {
-
     use DoctrineRepositoryTesterTrait;
 
     private KernelBrowser $client;
@@ -38,14 +39,18 @@ class PublisherControllerTest extends WebTestCase
         $this->client->request(
             "POST",
             "/api/v1/post/publish",
-            [
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
                 "socialNetworks" => "",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",
                 "hashtag" => "#test, #FizzBuzz",
-            ]
+            ])
         );
+        print_r($this->client->getRequest());
         /** @var string */
         $responseContent = $this->client->getResponse()->getContent();
         $responseCode = $this->client->getResponse()->getStatusCode();
@@ -64,18 +69,23 @@ class PublisherControllerTest extends WebTestCase
         $this->client->request(
             "POST",
             "/api/v1/post/publish",
-            [
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
                 "socialNetworks" => "simpleBlog",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",
                 "hashtag" => "#test, #FizzBuzz",
-            ]
+            ])
         );
         /** @var string */
         $responseContent = $this->client->getResponse()->getContent();
         $responseCode = $this->client->getResponse()->getStatusCode();
+        /** @var array<mixed,array<mixed>> */
         $array = json_decode($responseContent, true);
+        /** @var string */
         $postId = $array['data']['postId'];
         $post = $this->repository->findById(new PostId($postId));
 
@@ -88,6 +98,4 @@ class PublisherControllerTest extends WebTestCase
         $this->assertStringContainsString('"message":"', $responseContent);
         $this->assertEquals("Ceci est un simple post", $post->getContent());
     }
-
-    
 }

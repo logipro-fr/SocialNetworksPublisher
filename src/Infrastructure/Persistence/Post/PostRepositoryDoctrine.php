@@ -10,6 +10,9 @@ use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 
+/**
+ * @extends EntityRepository<Post>
+ */
 class PostRepositoryDoctrine extends EntityRepository implements PostRepositoryInterface
 {
     public function __construct(EntityManagerInterface $em)
@@ -22,11 +25,11 @@ class PostRepositoryDoctrine extends EntityRepository implements PostRepositoryI
         $this->getEntityManager()->persist($post);
     }
 
-    public function findById(PostId $searchId): Post 
+    public function findById(PostId $searchId): Post
     {
         $post = $this->getEntityManager()->find(Post::class, $searchId);
         if ($post === null) {
-            throw new PostNotFoundException(sprintf("Error can't find the postId %s",$searchId), 400);
+            throw new PostNotFoundException(sprintf("Error can't find the postId %s", $searchId), 400);
         }
         return $post;
     }

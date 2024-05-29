@@ -20,7 +20,7 @@ class PostRepositoryInMemory implements PostRepositoryInterface
     {
         $postIdString = $searchId->__toString();
         if (!isset($this->posts[$postIdString])) {
-            throw new PostNotFoundException(sprintf("Error can't find the postId %s",$postIdString), 400);
+            throw new PostNotFoundException(sprintf("Error can't find the postId %s", $postIdString), 400);
         }
         return $this->posts[$postIdString];
     }

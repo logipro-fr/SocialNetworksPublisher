@@ -7,8 +7,8 @@ use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctri
 
 class PostRepositoryDoctrineTest extends PostRepositoryTestBase
 {
-
     use DoctrineRepositoryTesterTrait;
+
     protected function initialize(): void
     {
         $this->initDoctrineTester();
