@@ -2,9 +2,12 @@
 
 namespace SocialNetworksPublisher\Tests\Infrastructure\Api;
 
+use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
+use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -12,10 +15,26 @@ use function Safe\getcwd;
 
 class PublisherControllerTest extends WebTestCase
 {
+    use DoctrineRepositoryTesterTrait;
+
+    private KernelBrowser $client;
+    private PostRepositoryInterface $repository;
+
+    public function setUp(): void
+    {
+        $this->initDoctrineTester();
+        $this->clearTables(["posts"]);
+
+        $this->client = static::createClient(["debug" => false]);
+
+        /** @var PostRepositoryDoctrine $autoInjectedRepo */
+        $autoInjectedRepo = $this->client->getContainer()->get("post.repository");
+        $this->repository = $autoInjectedRepo;
+    }
+
     public function testControllerRouting(): void
     {
-        $client = static::createClient(["debug" => false]);
-        $client->request(
+        $this->client->request(
             "POST",
             "/api/v1/post/publish",
             [
@@ -27,8 +46,8 @@ class PublisherControllerTest extends WebTestCase
             ]
         );
         /** @var string */
-        $responseContent = $client->getResponse()->getContent();
-        $responseCode = $client->getResponse()->getStatusCode();
+        $responseContent = $this->client->getResponse()->getContent();
+        $responseCode = $this->client->getResponse()->getStatusCode();
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('"success":true', $responseContent);
         $this->assertEquals(201, $responseCode);
@@ -40,8 +59,7 @@ class PublisherControllerTest extends WebTestCase
 
     public function testControllerErrorResponse(): void
     {
-        $client = static::createClient(["debug" => false]);
-        $client->request(
+        $this->client->request(
             "POST",
             "/api/v1/post/publish",
             [
@@ -53,8 +71,8 @@ class PublisherControllerTest extends WebTestCase
             ]
         );
         /** @var string */
-        $responseContent = $client->getResponse()->getContent();
-        $responseCode = $client->getResponse()->getStatusCode();
+        $responseContent = $this->client->getResponse()->getContent();
+        $responseCode = $this->client->getResponse()->getStatusCode();
         $this->assertResponseIsUnprocessable();
         $this->assertEquals(422, $responseCode);
         $this->assertStringContainsString('"succes":false', $responseContent);
@@ -71,7 +89,8 @@ class PublisherControllerTest extends WebTestCase
             new SimpleBlog(
                 getcwd() . "/var/simpleBlog.txt"
             ),
-            new PostRepositoryInMemory()
+            $this->repository,
+            $this->getEntityManager(),
         );
         $request = Request::create(
             "/api/v1/publishPost",
@@ -88,7 +107,6 @@ class PublisherControllerTest extends WebTestCase
         $response = $controller->execute($request);
         /** @var string */
         $responseContent = $response->getContent();
-
         $this->assertJson($responseContent);
     }
 }

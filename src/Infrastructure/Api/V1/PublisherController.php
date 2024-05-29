@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+use function Safe\json_decode;
+
 class PublisherController
 {
     public function __construct(
@@ -59,16 +61,28 @@ class PublisherController
     private function buildPublishRequest(Request $request): PublishPostRequest
     {
         $content = $request->getContent();
+        $data = json_decode($content, true);
+
         /** @var string */
-        $socialNetworks = $request->get("socialNetworks");
+        $socialNetworks = $data['socialNetworks'];
         /** @var string */
-        $authorId = $request->get("authorId");
+        $authorId = $data['authorId'];
         /** @var string */
-        $pageId = $request->get("pageId");
+        $pageId = $data['pageId'];
         /** @var string */
-        $content = $request->get("content");
+        $content = $data['content'];
         /** @var string */
-        $hashtag = $request->get("hashtag");
+        $hashtag = $data['hashtag'];
+        // /** @var string */
+        // $socialNetworks = $request->get("socialNetworks");
+        // /** @var string */
+        // $authorId = $request->get("authorId");
+        // /** @var string */
+        // $pageId = $request->get("pageId");
+        // /** @var string */
+        // $content = $request->get("content");
+        // /** @var string */
+        // $hashtag = $request->get("hashtag");
         return new PublishPostRequest($socialNetworks, $authorId, $pageId, $content, $hashtag);
     }
 }
