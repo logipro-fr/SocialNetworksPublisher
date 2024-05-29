@@ -11,6 +11,6 @@ class Kernel extends BaseKernel
 
     public function __construct(string $environment, bool $debug)
     {
-        parent::__construct($environment, $debug);
+        parent::__construct($environment, true);
     }
 }

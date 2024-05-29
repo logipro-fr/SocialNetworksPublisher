@@ -3,10 +3,12 @@ info:
   title: SocialNetworksPublisher API
   version: 1.0.0
 servers:
-  - url: http://localhost:10980/
+  - url: /api/v1
+    description: Local server
+  - url: http://172.17.0.1:10980/api/v1
     description: Local server
 paths:
-  /api/v1/post/publish:
+  /post/publish:
     post:
       summary: Publish a post on social networks
       operationId: publishPost
