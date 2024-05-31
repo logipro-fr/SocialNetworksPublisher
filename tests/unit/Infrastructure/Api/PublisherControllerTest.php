@@ -37,13 +37,16 @@ class PublisherControllerTest extends WebTestCase
         $this->client->request(
             "POST",
             "/api/v1/post/publish",
-            [
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
                 "socialNetworks" => "simpleBlog",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",
                 "hashtag" => "#test, #FizzBuzz",
-            ]
+            ])
         );
         /** @var string */
         $responseContent = $this->client->getResponse()->getContent();
@@ -62,13 +65,16 @@ class PublisherControllerTest extends WebTestCase
         $this->client->request(
             "POST",
             "/api/v1/post/publish",
-            [
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
                 "socialNetworks" => "",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",
                 "hashtag" => "#test, #FizzBuzz",
-            ]
+            ])
         );
         /** @var string */
         $responseContent = $this->client->getResponse()->getContent();
@@ -95,13 +101,17 @@ class PublisherControllerTest extends WebTestCase
         $request = Request::create(
             "/api/v1/publishPost",
             "POST",
-            [
-                "socialNetworks" => "simpleBlog",
+            [],
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
+                "socialNetworks" => "",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",
                 "hashtag" => "#test, #FizzBuzz",
-            ]
+            ])
         );
 
         $response = $controller->execute($request);
