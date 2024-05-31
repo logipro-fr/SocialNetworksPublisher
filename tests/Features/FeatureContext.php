@@ -83,7 +83,7 @@ class FeatureContext implements Context
      */
     public function iAmASimpleblogAuthor(): void
     {
-        throw new PendingException();
+        throw new PendingException(); 
     }
 
     /**
@@ -91,6 +91,6 @@ class FeatureContext implements Context
      */
     public function iPublishThePostOnSimpleblog(): void
     {
-        throw new PendingException();
+        throw new PendingException(); 
     }
 }

@@ -12,7 +12,7 @@ Feature: Publish content on a socialNetworks
     And the hashtags are "#AccidentPrediction, #RoadSafety"
     And the status is "ReadyToPublish"
     When I publish the post on <social networks>
-    Then my post has a scoial networks status "published" 
+    Then my post has a social networks status "published" 
   Examples:
     | social networks |
     | LinkedIn        |
