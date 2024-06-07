@@ -10,6 +10,7 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Post\Status;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
 
@@ -62,11 +63,14 @@ class PublishPostTest extends TestCase
 
         $service->execute($this->requestHashTag);
         $response = $service->getResponse();
+        $post = $this->repository->findById(new PostId($response->postId));
+        var_dump($post);
 
         $this->assertInstanceOf(PublishPostResponse::class, $response);
         $this->assertEquals("simpleBlog", $response->socialNetworks);
         $this->assertEquals("test", $response->postId);
-        $this->assertEquals('test', $this->repository->findById(new PostId("test"))->getPostId());
+        $this->assertEquals("test", $this->repository->findById(new PostId("test"))->getPostId());
+        $this->assertEquals(Status::PUBLISHED, $post->getStatus());
     }
 
     public function testExecuteWithoutHashTag(): void

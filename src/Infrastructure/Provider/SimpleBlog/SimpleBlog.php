@@ -4,6 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog;
 
 use SocialNetworksPublisher\Application\Service\ApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Domain\Model\Post\Status;
 use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
 use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponseInterface;
 
@@ -24,6 +25,7 @@ class SimpleBlog implements ApiInterface
     public function postApiRequest(Post $post): ProviderResponse
     {
         fwrite($this->file, $post->getContent()->__toString() . " " . $post->getHashTags()->__toString() . "\n\n");
+        $post->setStatus(Status::PUBLISHED);
         return new ProviderResponse(
             $post->getPostId()->__toString(),
             "simpleBlog",
