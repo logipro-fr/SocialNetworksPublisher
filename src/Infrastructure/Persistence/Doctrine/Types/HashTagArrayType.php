@@ -6,6 +6,8 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArray;
 
+use function Safe\json_encode;
+
 class HashTagArrayType extends Type
 {
     public const TYPE_NAME = "hash_tag_array";
@@ -16,18 +18,22 @@ class HashTagArrayType extends Type
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform)
     {
-        return 'text';
+        return 'json';
     }
     /** @param HashTagArray $value */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
-        return serialize($value);
+        return json_encode($value->toArray());
+        //return serialize($value);
+        
+        //return json_encode($value->getHashTags());
     }
     /** @param string $value
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): HashTagArray
     {
-        /** @var HashTagArray */
-        return unserialize($value);
+        //return unserialize($value);
+        $data = json_decode($value);
+        return HashTagArray::fromArray($data);
     }
 }

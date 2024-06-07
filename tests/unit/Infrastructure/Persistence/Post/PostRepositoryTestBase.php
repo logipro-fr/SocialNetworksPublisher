@@ -31,7 +31,14 @@ abstract class PostRepositoryTestBase extends TestCase
         $author = new Author('facebook', '123za45g');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         $page = new Page("facebook", "98ad48644");
-        $post = new Post($author, $content, (new HashTagArrayFactory())->buildHashTagArrayFromSentence("1,2,3", ','), $page, Status::READY, new PostId("prime"));
+        $post = new Post(
+            $author,
+            $content,
+            (new HashTagArrayFactory())->buildHashTagArrayFromSentence("1,2,3", ','),
+            $page,
+            Status::READY,
+            new PostId("prime")
+        );
         $post2 = new Post($author, $content, new HashTagArray(), $page, Status::READY, new PostId("prime2"));
 
         $this->postRepository->add($post);

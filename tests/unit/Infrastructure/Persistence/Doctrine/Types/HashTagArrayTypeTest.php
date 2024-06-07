@@ -23,6 +23,7 @@ class HashTagArrayTypeTest extends TestCase
             $hashTags = $this->generateHashTagArray(),
             new SqlitePlatform(),
         );
+
         $phpValue = $type->convertToPHPValue(
             $dbValue,
             new SqlitePlatform(),
@@ -41,6 +42,6 @@ class HashTagArrayTypeTest extends TestCase
 
     public function testSqlDeclaration(): void
     {
-        $this->assertEquals('text', (new HashTagArrayType())->getSQLDeclaration([], new SqlitePlatform()));
+        $this->assertEquals('json', (new HashTagArrayType())->getSQLDeclaration([], new SqlitePlatform()));
     }
 }
