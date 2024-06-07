@@ -1,88 +1,74 @@
 <?php
-
 namespace Features;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
-use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
-use SocialNetworksPublisher\Infrastructure\Shared\Symfony\Kernel;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
+use PHPUnit\Framework\Assert;
+use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use Symfony\Component\HttpKernel\KernelInterface;
-
-use function Safe\json_encode;
-
+use SocialNetworksPublisher\Domain\Model\Post\Status;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends WebTestCase implements Context
+class FeatureContext implements Context
 {
-    private string $socialNetworksLinkedIn;
-    private string $socialNetworksSimpleBlog;
-    private string $socialNetworksFacebook;
-    private string $authorIdLinkedIn;
-    private string $authorIdFacebook;
-    private string $authorIdSimpleBlog;
-    private string $pageIdLinkedIn;
-    private string $pageIdFacebook;
-    private string $pageIdSimpleBlog;
-    private string $hashTags;
-    private string $status;
-    private string $postContent;
-    
-    private KernelBrowser $client;
-    
-    use DoctrineRepositoryTesterTrait;
-
-
-    public function __construct()
+    private string $socialNetwork;
+    private string $authorId;
+    private string $pageId;
+    private string $writtenPost;
+    private string $hashtag;
+    private string $statusGive;
+    private string $response;
+    private static KernelInterface $kernel;
+   
+    /**
+     * @BeforeSuite
+     */
+    public static function prepare(BeforeSuiteScope $scope)
     {
-        $this->initDoctrineTester();
-        $this->clearTables(["posts"]);
-
-        $this->client = static::createClient(["debug" => false]);
+        self::$kernel = new \SocialNetworksPublisher\Infrastructure\Shared\Symfony\Kernel('test', true);
+        self::$kernel->boot();
     }
 
     /**
-     * @Given I intend to publish on LinkedIn
+     * @Given I intend to publish on :socialNetwork
      */
-    public function iIntendToPublishOnLinkedin()
+    public function iIntendToPublishOn($socialNetwork)
     {
-        $this->socialNetworksLinkedIn = "linkedIn";
+        $this->socialNetwork = $socialNetwork;
     }
 
     /**
-     * @Given I have the LinkedIn author id :authorId
+     * @Given I have the author id :authorId
      */
-    public function iHaveTheLinkedinAuthorId($authorId)
+    public function iHaveTheAuthorId($authorId)
     {
-        $this->authorIdLinkedIn = $authorId;
+        $this->authorId = $authorId;
     }
 
     /**
-     * @Given I have the LinkedIn page id :pageId
+     * @Given I have the page id :pageId
      */
-    public function iHaveTheLinkedinPageId($pageId)
+    public function iHaveThePageId($pageId)
     {
-        throw new PendingException();
+        $this->pageId = $pageId;
     }
 
     /**
      * @Given I have written a post:
      */
-    public function iHaveWrittenAPost(PyStringNode $postContent)
+    public function iHaveWrittenAPost(PyStringNode $string)
     {
-        $this->postContent = $postContent;
+        $this->writtenPost = $string;
     }
 
     /**
-     * @Given the hashtags are :hashTags
+     * @Given the hashtags are :hashtag
      */
-    public function theHashtagsAre($hashTags)
+    public function theHashtagsAre($hashtag)
     {
-        $this->hashTags = $hashTags;
+        $this->hashtag = $hashtag;
     }
 
     /**
@@ -90,116 +76,46 @@ class FeatureContext extends WebTestCase implements Context
      */
     public function theStatusIs($status)
     {
-        $this->status = $status;
+        $this->statusGive = $status;
     }
 
     /**
-     * @When I publish the post on LinkedIn
+     * @When I publish the post
      */
-    public function iPublishThePostOnLinkedin()
+    public function iPublishThePost()
     {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then my post has a LinkedIn status :arg1
-     */
-    public function myPostHasALinkedinStatus($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given I intend to publish on Facebook
-     */
-    public function iIntendToPublishOnFacebook()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given I have the Facebook author id :authorId
-     */
-    public function iHaveTheFacebookAuthorId($authorId)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given I have the Facebook page id :pageId
-     */
-    public function iHaveTheFacebookPageId($pageId)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When I publish the post on Facebook
-     */
-    public function iPublishThePostOnFacebook()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then my post has a Facebook status :arg1
-     */
-    public function myPostHasAFacebookStatus($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given I intend to publish on SimpleBlog
-     */
-    public function iIntendToPublishOnSimpleblog()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given I have the SimpleBlog author id :authorId
-     */
-    public function iHaveTheSimpleblogAuthorId($authorId)
-    {
-        $this->authorIdSimpleBlog = $authorId;
-    }
-
-    /**
-     * @Given I have the SimpleBlog page id :pageId
-     */
-    public function iHaveTheSimpleblogPageId($pageId)
-    {
-        $this->pageIdSimpleBlog = $pageId;
-    }
-
-    /**
-     * @When I publish the post on SimpleBlog
-     */
-    public function iPublishThePostOnSimpleblog()
-    {
-        $this->client->request(
+        $client = self::$kernel->getContainer()->get('test.client');
+        $client->request(
             "POST",
-            "api/v1/post/publish",
+            "/api/v1/post/publish",
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
-                "socialNetworks" => $this->socialNetworksSimpleBlog,
-                "authorId" => $this->authorIdSimpleBlog,
-                "pageId" => $this->pageIdSimpleBlog,
-                "content" => $this->postContent,
-                "hashTags" => $this->hashTags,
-            ]),
+                "socialNetworks" => $this->socialNetwork,
+                "authorId" => $this->authorId,
+                "pageId" => $this->pageId,
+                "content" => $this->writtenPost,
+                "hashtag" => $this->hashtag,
+                "status" => $this->statusGive,
+            ])
         );
-        $this->assertResponseIsSuccessful();
+        $this->response = $client->getResponse()->getContent();
+        
     }
 
     /**
-     * @Then my post has a SimpleBlog status :arg1
+     * @Then my post has a status :statusExpected
      */
-    public function myPostHasASimpleblogStatus($arg1)
+    public function myPostHasAStatus($statusExpected)
     {
-        throw new PendingException();
+        $container = self::$kernel->getContainer();
+        $postRepository = $container->get('post.repository');
+        $responseArray = json_decode($this->response, true);
+        $postId = $responseArray['data']['postId'];
+        $post = $postRepository->findById(new PostId($postId));
+        /** @var Status */
+        $status = $post->getStatus();
+        Assert::assertEquals($statusExpected, $status->getValue());
     }
 }
