@@ -26,4 +26,16 @@ class HashtagTest extends TestCase
         $this->expectExceptionMessage(BadHashtagFormatException::MESSAGE);
         new HashTag("te st");
     }
+
+    public function testToArray(): void
+    {
+        $hashTag = new HashTag('dd');
+        $this->assertEquals(['#dd'], $hashTag->toArray());
+    }
+
+    public function testFromArray(): void
+    {
+        $array = ["#test"];
+        $this->assertEquals('#test', HashTag::fromArray($array));
+    }
 }
