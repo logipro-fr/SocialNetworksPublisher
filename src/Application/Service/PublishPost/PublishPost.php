@@ -4,7 +4,9 @@ namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
 use SocialNetworksPublisher\Application\Service\ApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
+use SocialNetworksPublisher\Domain\Model\Post\Status;
 
 class PublishPost
 {
@@ -18,8 +20,10 @@ class PublishPost
     public function execute(PublishPostRequest $request): void
     {
         $post = $this->createPost($request);
-        $this->repository->add($post);
         $apiResponse = $this->api->postApiRequest($post);
+        $this->repository->add($post);
+        $post->setStatus(Status::PUBLISHED);
+
         $this->response = new PublishPostResponse(
             $apiResponse->postId,
             $apiResponse->socialNetworks,
