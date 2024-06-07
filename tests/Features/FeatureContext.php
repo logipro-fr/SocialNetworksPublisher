@@ -128,6 +128,6 @@ class FeatureContext implements Context
         $post = $postRepository->findById(new PostId($postId));
         /** @var Status */
         $status = $post->getStatus();
-        Assert::assertEquals($statusExpected, $status->getValue());
+        Assert::assertEquals($statusExpected, $status->value);
     }
 }

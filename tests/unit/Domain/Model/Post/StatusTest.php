@@ -11,5 +11,6 @@ class StatusTest extends TestCase
     {
         $this->assertInstanceOf(Status::class, Status::READY);
         $this->assertInstanceOf(Status::class, Status::DRAFT);
+        $this->assertInstanceOf(Status::class, Status::READY);
     }
 }
