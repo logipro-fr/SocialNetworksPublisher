@@ -6,11 +6,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use SocialNetworksPublisher\Application\Service\ApiInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
-use SocialNetworksPublisher\Domain\Model\Post\Exceptions\LoggedException;
+use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 use function Safe\json_decode;
 
@@ -26,35 +27,52 @@ class PublisherController
     #[Route('/api/v1/post/publish', "publish_post", methods: ['POST'])]
     public function execute(Request $request): JsonResponse
     {
-        $publishRequest = $this->buildPublishRequest($request);
-
-        $service = new PublishPost($this->api, $this->repo);
-        try {
+        return $this->handleRequest(function() use ($request) {
+            $publishRequest = $this->buildPublishRequest($request);
+            $service = new PublishPost($this->api, $this->repo);
             $service->execute($publishRequest);
+            $publishResponse = $service->getResponse();
             $this->entityManager->flush();
-        } catch (\Throwable $e) {
-            $fullClassName = get_class($e);
-            $className = (new \ReflectionClass($e))->getShortName();
-            return new JsonResponse(
-                [
-                    'succes' => false,
-                    'ErrorCode' => $className,
-                    'data' => '',
-                    'message' => $e->getMessage(),
-                ],
-                $e->getCode(),
-            );
+            return $this->writeSuccessfulResponse($publishResponse);
+        });
+    }
+
+    private function handleRequest(callable $function): JsonResponse
+    {
+        try {
+            return $function();
+        } catch (Throwable $e) {
+            return $this->writeUnSuccessFulResponse($e);
         }
-        $publishResponse = $service->getResponse();
+    }
+
+    private function writeSuccessfulResponse(PublishPostResponse $publishResponse): JsonResponse
+    {
         return new JsonResponse(
             [
                 'success' => true,
                 'ErrorCode' => "",
-                'data' => ['postId' =>  $publishResponse->postId,
-                            'socialNetworks' => $publishResponse->socialNetworks],
+                'data' => [
+                    'postId' => $publishResponse->postId,
+                    'socialNetworks' => $publishResponse->socialNetworks
+                ],
                 'message' => "",
             ],
             201
+        );
+    }
+
+    private function writeUnSuccessFulResponse(Throwable $e): JsonResponse
+    {
+        $className = (new \ReflectionClass($e))->getShortName();
+        return new JsonResponse(
+            [
+                'success' => false,
+                'ErrorCode' => $className,
+                'data' => '',
+                'message' => $e->getMessage(),
+            ],
+            $e->getCode() ?: 500,
         );
     }
 
@@ -73,16 +91,7 @@ class PublisherController
         $content = $data['content'];
         /** @var string */
         $hashtag = $data['hashtag'];
-        // /** @var string */
-        // $socialNetworks = $request->get("socialNetworks");
-        // /** @var string */
-        // $authorId = $request->get("authorId");
-        // /** @var string */
-        // $pageId = $request->get("pageId");
-        // /** @var string */
-        // $content = $request->get("content");
-        // /** @var string */
-        // $hashtag = $request->get("hashtag");
+
         return new PublishPostRequest($socialNetworks, $authorId, $pageId, $content, $hashtag);
     }
 }
