@@ -20,11 +20,11 @@ class ContentType extends Type
     }
 
     /**
-     * @param string $value
+     * @param Content $value
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return serialize($value);
+        return $value->__toString();
     }
     /**
      * @param string $value
@@ -32,6 +32,6 @@ class ContentType extends Type
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         /** @var Content */
-        return unserialize($value);
+        return new Content($value);
     }
 }

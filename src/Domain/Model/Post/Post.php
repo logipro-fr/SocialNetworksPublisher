@@ -54,7 +54,8 @@ class Post
     {
         return $this->createdAt;
     }
-    public function setStatus(Status $newStatus): void {
+    public function setStatus(Status $newStatus): void
+    {
         $this->status = $newStatus;
     }
 }

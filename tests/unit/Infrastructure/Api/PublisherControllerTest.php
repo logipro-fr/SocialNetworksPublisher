@@ -5,6 +5,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Api;
 use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
+use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 use function Safe\getcwd;
+use function Safe\json_encode;
 
 class PublisherControllerTest extends WebTestCase
 {
@@ -26,8 +28,7 @@ class PublisherControllerTest extends WebTestCase
         $this->clearTables(["posts"]);
 
         $this->client = static::createClient(["debug" => false]);
-
-        /** @var PostRepositoryDoctrine $autoInjectedRepo */
+        /** @var PostRepositoryDoctrine */
         $autoInjectedRepo = $this->client->getContainer()->get("post.repository");
         $this->repository = $autoInjectedRepo;
     }

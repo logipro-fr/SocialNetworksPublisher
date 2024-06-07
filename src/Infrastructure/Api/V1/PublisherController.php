@@ -27,7 +27,7 @@ class PublisherController
     #[Route('/api/v1/post/publish', "publish_post", methods: ['POST'])]
     public function execute(Request $request): JsonResponse
     {
-        return $this->handleRequest(function() use ($request) {
+        return $this->handleRequest(function () use ($request) {
             $publishRequest = $this->buildPublishRequest($request);
             $service = new PublishPost($this->api, $this->repo);
             $service->execute($publishRequest);
@@ -78,7 +78,9 @@ class PublisherController
 
     private function buildPublishRequest(Request $request): PublishPostRequest
     {
+        /** @var string */
         $content = $request->getContent();
+        /** @var array<string> */
         $data = json_decode($content, true);
 
         /** @var string */

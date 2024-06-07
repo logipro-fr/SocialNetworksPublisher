@@ -64,7 +64,6 @@ class PublishPostTest extends TestCase
         $service->execute($this->requestHashTag);
         $response = $service->getResponse();
         $post = $this->repository->findById(new PostId($response->postId));
-        var_dump($post);
 
         $this->assertInstanceOf(PublishPostResponse::class, $response);
         $this->assertEquals("simpleBlog", $response->socialNetworks);

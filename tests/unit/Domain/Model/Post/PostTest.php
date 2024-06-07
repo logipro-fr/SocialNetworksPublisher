@@ -42,7 +42,7 @@ class PostTest extends TestCase
 
     public function testValidPostWithHashTag(): void
     {
-        $hashTags = (new HashTagArrayFactory)->buildHashTagArrayFromSentence("#test1, #test2", ", ");
+        $hashTags = (new HashTagArrayFactory())->buildHashTagArrayFromSentence("#test1, #test2", ", ");
         $this->post = new Post($this->author, $this->content, $hashTags, $this->page, Status::READY);
 
         $this->assertInstanceOf(Post::class, $this->post);
@@ -83,7 +83,13 @@ class PostTest extends TestCase
         $spy = new SpyListener();
         (new EventFacade())->subscribe($spy);
         //EventPublisherBase::instance()->distributeImmmediatly();
-        $this->post = new Post($this->author, $this->content, new HashTagArray(), $this->page, Status::READY);
+        $this->post = new Post(
+            $this->author,
+            $this->content,
+            new HashTagArray(),
+            $this->page,
+            Status::READY
+        );
 
         (new EventFacade())->distribute();
         /** @var PostCreated */
@@ -97,11 +103,20 @@ class PostTest extends TestCase
     public function testPostCreatedAt(): void
     {
         $date = new DateTimeImmutable();
-        $post = new Post($this->author, $this->content, new HashTagArray(), $this->page, Status::READY, new PostId(), $date);
+        $post = new Post(
+            $this->author,
+            $this->content,
+            new HashTagArray(),
+            $this->page,
+            Status::READY,
+            new PostId(),
+            $date
+        );
         $this->assertEquals($date, $post->getCreatedAt());
     }
 
-    public function testSetStatus(): void {
+    public function testSetStatus(): void
+    {
         $this->post->setStatus(Status::PUBLISHED);
         $this->assertEquals(Status::PUBLISHED, $this->post->getStatus());
     }
