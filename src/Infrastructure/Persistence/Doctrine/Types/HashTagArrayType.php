@@ -5,7 +5,9 @@ namespace SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArray;
+use SocialNetworksPublisher\Domain\Model\Post\HashTagArrayFactory;
 
+use function Safe\json_decode;
 use function Safe\json_encode;
 
 class HashTagArrayType extends Type
@@ -25,14 +27,14 @@ class HashTagArrayType extends Type
     {
         return json_encode($value->toArray());
         //return serialize($value);
-        
+
         //return json_encode($value->getHashTags());
     }
     /** @param string $value
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): HashTagArray
     {
-        //return unserialize($value);
+        /** @var array<string> */
         $data = json_decode($value);
         return HashTagArray::fromArray($data);
     }

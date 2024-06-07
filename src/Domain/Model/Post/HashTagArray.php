@@ -31,14 +31,18 @@ class HashTagArray
         }
         return $result;
     }
-
+    /**
+     * @return array<string>
+     */
     public function toArray(): array
     {
-        return array_map(function(HashTag $hashTag) {
+        return array_map(function (HashTag $hashTag) {
             return $hashTag->toArray()[0];
         }, $this->hashTags);
     }
-
+    /**
+     * @param array<string> $data
+     */
     public static function fromArray(array $data): self
     {
         $hashTagArray = new self();

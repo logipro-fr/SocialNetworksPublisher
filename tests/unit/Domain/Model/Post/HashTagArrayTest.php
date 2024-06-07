@@ -86,4 +86,17 @@ class HashTagArrayTest extends TestCase
         $factory = new HashTagArrayFactory();
         $factory->buildHashTagArrayFromSentence("1,3,8,az az,", ",");
     }
+
+    public function testToArray(): void
+    {
+        $hashTags  = (new HashTagArrayFactory())->buildHashTagArrayFromSentence("1, #2, 3, , ", ", ");
+
+        $this->assertEquals(["#1", "#2","#3"], $hashTags->toArray());
+    }
+    public function fromArray(): void
+    {
+        $array = ["#1", "#2","#3"];
+        $hashTags  = (new HashTagArrayFactory())->buildHashTagArrayFromSentence("1, #2, 3, , ", ", ");
+        $this->assertEquals($hashTags, HashTag::fromArray($array));
+    }
 }
