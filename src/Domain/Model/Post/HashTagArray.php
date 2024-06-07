@@ -31,4 +31,20 @@ class HashTagArray
         }
         return $result;
     }
+
+    public function toArray(): array
+    {
+        return array_map(function(HashTag $hashTag) {
+            return $hashTag->toArray()[0];
+        }, $this->hashTags);
+    }
+
+    public static function fromArray(array $data): self
+    {
+        $hashTagArray = new self();
+        foreach ($data as $hashTagText) {
+            $hashTagArray->add(new HashTag($hashTagText));
+        }
+        return $hashTagArray;
+    }
 }

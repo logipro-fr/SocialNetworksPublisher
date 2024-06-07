@@ -30,4 +30,16 @@ class HashTag
     {
         return $this->hashTag;
     }
+
+    public function toArray(): array
+    {
+        return [
+            $this->hashTag,
+        ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        return new self($data[0]);
+    }
 }
