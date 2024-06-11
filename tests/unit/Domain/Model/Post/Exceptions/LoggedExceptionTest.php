@@ -14,9 +14,12 @@ use function Safe\unlink;
 class LoggedExceptionTest extends TestCase
 {
     private string $logFilePath;
+    private string $logDirPath;
+    
     protected function setUp(): void
     {
         $this->logFilePath = CurrentWorkDirPath::getPath() . LoggedException::LOG_FILE_PATH;
+        $this->logDirPath = dirname($this->logFilePath);
     }
 
     public function testLoggedException(): void
@@ -48,5 +51,33 @@ class LoggedExceptionTest extends TestCase
         if (file_exists($this->logFilePath)) {
             unlink($this->logFilePath);
         }
+    }
+
+    public function testEnsureLogDirectoryExists(): void
+    {
+        $loggedExceptionTester = new LoggedExceptionTester("message", 0);
+
+        if (is_dir($this->logDirPath)) {
+            unlink($this->logFilePath);
+            rmdir($this->logDirPath);
+        }
+
+        $loggedExceptionTester->publicEnsureLogDirectoryExists($this->logDirPath);
+
+        $this->assertDirectoryExists($this->logDirPath);
+    }
+
+    public function testEnsureLogFileExists(): void
+    {
+        $loggedExceptionTester = new LoggedExceptionTester("message", 0);
+
+        if (file_exists($this->logFilePath)) {
+            unlink($this->logFilePath);
+        }
+
+        $loggedExceptionTester->publicEnsureLogFileExists($this->logFilePath);
+
+        $this->assertFileExists($this->logFilePath);
+        
     }
 }

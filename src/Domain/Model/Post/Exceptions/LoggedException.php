@@ -26,20 +26,18 @@ class LoggedException extends \Exception
         error_log($this->getMessageInFormat($message, $code), 3, $logFilePath);
     }
 
-    private function ensureLogDirectoryExists(string $directoryPath): void
+    protected function ensureLogDirectoryExists(string $directoryPath): void
     {
         if (!is_dir($directoryPath)) {
-            mkdir($directoryPath, 0755, true);
+            mkdir($directoryPath);
         }
     }
 
-    private function ensureLogFileExists(string $filePath): void
+    protected function ensureLogFileExists(string $filePath): void
     {
         if (!file_exists($filePath)) {
             $fileHandle = fopen($filePath, 'c+b');
-            if ($fileHandle !== false) {
-                fclose($fileHandle);
-            }
+            fclose($fileHandle);
         }
     }
 
