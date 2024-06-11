@@ -11,7 +11,7 @@ class HashTag
         if (substr($hashTag, 0, 1) !== '#') {
             $hashTag = '#' . $hashTag;
         }
-        if (preg_match('/^#(?!#)\w+$/u', $hashTag) && strlen($hashTag) > 1) {
+        if (preg_match('/^#(?!#)\w+$/u', $hashTag) && strlen($hashTag) >= 2) {
             $this->hashTag = $hashTag;
         } else {
             throw new BadHashtagFormatException(

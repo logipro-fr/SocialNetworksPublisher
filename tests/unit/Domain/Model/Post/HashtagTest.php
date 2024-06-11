@@ -11,10 +11,10 @@ class HashtagTest extends TestCase
 {
     public function testValidHashtag(): void
     {
-        $hashTag = new HashTag("test");
+        $hashTag = new HashTag("t");
         $hashTag2 = new HashTag("#test");
 
-        $this->assertEquals('#test', $hashTag->getHashtag());
+        $this->assertEquals('#t', $hashTag->getHashtag());
         $this->assertEquals('#test', $hashTag2->getHashtag());
     }
 

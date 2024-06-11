@@ -5,7 +5,6 @@ namespace SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArray;
-use SocialNetworksPublisher\Domain\Model\Post\HashTagArrayFactory;
 
 use function Safe\json_decode;
 use function Safe\json_encode;

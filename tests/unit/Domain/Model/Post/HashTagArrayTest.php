@@ -93,10 +93,16 @@ class HashTagArrayTest extends TestCase
 
         $this->assertEquals(["#1", "#2","#3"], $hashTags->toArray());
     }
-    public function fromArray(): void
+    public function testFromArray(): void
     {
         $array = ["#1", "#2","#3"];
         $hashTags  = (new HashTagArrayFactory())->buildHashTagArrayFromSentence("1, #2, 3, , ", ", ");
-        $this->assertEquals($hashTags, HashTag::fromArray($array));
+        $this->assertEquals($hashTags, HashTagArray::fromArray($array));
+    }
+
+    public function testEmptySentence(): void {
+        $this->assertEquals(new HashTagArray(),(new HashTagArrayFactory())->buildHashTagArrayFromSentence('', ''));
+        $this->assertEquals(new HashTagArray(),(new HashTagArrayFactory())->buildHashTagArrayFromSentence('', ','));
+        $this->assertEquals(new HashTagArray(),(new HashTagArrayFactory())->buildHashTagArrayFromSentence('az, zz', ''));
     }
 }
