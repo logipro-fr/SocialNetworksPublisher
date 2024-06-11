@@ -19,13 +19,6 @@ abstract class PostRepositoryTestBase extends TestCase
 {
     protected PostRepositoryInterface $postRepository;
 
-    protected function setUp(): void
-    {
-        $this->initialize();
-    }
-
-    abstract protected function initialize(): void;
-
     public function testFindById(): void
     {
         $author = new Author('facebook', '123za45g');

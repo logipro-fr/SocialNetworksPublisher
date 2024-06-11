@@ -9,12 +9,11 @@ class PostRepositoryDoctrineTest extends PostRepositoryTestBase
 {
     use DoctrineRepositoryTesterTrait;
 
-    protected function initialize(): void
+    protected function setUp(): void
     {
         $this->initDoctrineTester();
         $this->clearTables(['posts']);
         $this->postRepository = new PostRepositoryDoctrine($this->getEntityManager());
-        //$this->postRepository = new FlushingMapRepositoryDoctrine($this->getEntityManager());
     }
 
     public function testFlush(): void

@@ -6,7 +6,7 @@ use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemo
 
 class PostRepositoryInMemoryTest extends PostRepositoryTestBase
 {
-    protected function initialize(): void
+    protected function setUp(): void
     {
         $this->postRepository = new PostRepositoryInMemory();
     }
