@@ -5,7 +5,7 @@ namespace SocialNetworksPublisher\Application\Service;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
 
-interface ApiInterface
+interface SocialNetworksApiInterface
 {
     public function postApiRequest(Post $post): ProviderResponse;
 }
