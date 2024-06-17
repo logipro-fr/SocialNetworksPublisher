@@ -93,7 +93,7 @@ class PublisherControllerTest extends WebTestCase
         $this->assertEquals(201, $responseCode);
         $this->assertStringContainsString('"ErrorCode":', $responseContent);
         $this->assertStringContainsString('"postId":"pos_', $responseContent);
-        $this->assertStringContainsString('"socialNetworks":"simpleBlog', $responseContent);
+        $this->assertStringContainsString('"socialNetworks":"simpleblog', $responseContent);
         $this->assertStringContainsString('"message":"', $responseContent);
         $this->assertEquals("Ceci est un simple post", $post->getContent());
     }

@@ -3,7 +3,8 @@
 namespace SocialNetworksPublisher\Infrastructure\Api\V1;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SocialNetworksPublisher\Application\Service\ApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
+use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
@@ -18,7 +19,7 @@ use function Safe\json_decode;
 class PublisherController
 {
     public function __construct(
-        private ApiInterface $api,
+        private AbstractFactorySocialNetworksApi $socialNetworksApiFactory,
         private PostRepositoryInterface $repo,
         private EntityManagerInterface $entityManager
     ) {
@@ -29,7 +30,7 @@ class PublisherController
     {
         return $this->handleRequest(function () use ($request) {
             $publishRequest = $this->buildPublishRequest($request);
-            $service = new PublishPost($this->api, $this->repo);
+            $service = new PublishPost($this->socialNetworksApiFactory, $this->repo);
             $service->execute($publishRequest);
             $publishResponse = $service->getResponse();
             $this->entityManager->flush();
@@ -72,7 +73,7 @@ class PublisherController
                 'data' => '',
                 'message' => $e->getMessage(),
             ],
-            $e->getCode() ?: 500,
+            $e->getCode(),
         );
     }
 
