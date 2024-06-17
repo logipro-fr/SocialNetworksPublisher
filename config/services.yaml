@@ -11,17 +11,15 @@ services:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-  simplePost.api:
-    class: SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog
+  api.factory:
+    class: SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi
     public: true
     autowire: true
-    arguments:
-      $filePath: '%kernel.project_dir%/var/simpleBlog.txt'
 
   SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController:
     autowire: true
     arguments:
-      $api: '@simplePost.api'
+      $socialNetworksApiFactory: '@api.factory'
       $repo: '@post.repository'
 
   post.repository:
@@ -30,7 +28,7 @@ services:
     class: SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine
 
   SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface: "@post.repository"
-  SocialNetworksPublisher\Application\Service\ApiInterface: "@simplePost.api"
+  SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi: "@api.factory"
   
 
   SocialNetworksPublisher\Infrastructure\Api\V1\:

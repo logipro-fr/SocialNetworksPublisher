@@ -18,6 +18,7 @@ services:
 
   socialnetworkspublisher-php:
     container_name: "socialnetworkspublisher-php"
+    image: "socialnetworkspublisher-php"
     build:
       context: ../.
       dockerfile: docker/php/Dockerfile
