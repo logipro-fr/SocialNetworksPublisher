@@ -1,6 +1,6 @@
 # SocialNetworksPublisher
 
-Allow to
+Allow to Post on social networks.
 
 # Install
 
@@ -29,7 +29,12 @@ Using Test-Driven Development (TDD) principles (thanks to Kent Beck and others),
 ```console
 ./start
 ```
-have a local look at http://127.0.0.1:33080/ in your navigator
+Then, you can access Swagger at http://172.17.0.1:10902/ in your browser to test different routes. 
+You can also access phpMyAdmin at http://172.17.0.1:10990/.
+
+In `docker/mariad/db.env`, you can set a new password for the root user.
+
+To stop the application, use:
 
 ```console
 ./stop
@@ -47,6 +52,7 @@ Some indicators that seem interesting.
 Quick check with:
 ```console
 ./codecheck
+./bin/phpunit
 ```
 
 Check coverage with:
