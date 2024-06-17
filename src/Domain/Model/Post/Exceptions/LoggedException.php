@@ -36,6 +36,7 @@ class LoggedException extends \Exception
     protected function ensureLogFileExists(string $filePath): void
     {
         if (!file_exists($filePath)) {
+            /** @var resource file pointer resource*/
             $fileHandle = fopen($filePath, 'c+b');
             fclose($fileHandle);
         }

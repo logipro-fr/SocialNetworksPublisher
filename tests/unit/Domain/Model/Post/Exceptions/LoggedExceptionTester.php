@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialNetworksPublisher\Tests\Domain\Model\Post\Exceptions;
 
 use SocialNetworksPublisher\Domain\Model\Post\Exceptions\LoggedException;
