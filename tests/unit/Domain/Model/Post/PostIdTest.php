@@ -11,7 +11,8 @@ class PostIdTest extends TestCase
     {
         $id1 = new PostId();
         $id2 = new PostId();
-
+        $this->assertIsString($id1->__toString());
+        $this->assertStringStartsWith("pos_", $id1);
         $this->assertFalse($id1->equals($id2));
     }
 
