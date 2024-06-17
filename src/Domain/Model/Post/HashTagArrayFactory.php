@@ -29,10 +29,12 @@ class HashTagArrayFactory
         $tab = explode($separator, $sentence);
         /** @var HashTag[] */
         $hashTagTab = array();
-        for ($i = 0; $i < count($tab); $i++) {
+        $i = 0;
+        foreach ($tab as $hashTag) {
             if (!empty($tab[$i])) {
                 $hashTagTab[$i] = new HashTag($tab[$i]);
             }
+            $i++;
         }
          return $this->buildHashTagArrayFromArray($hashTagTab);
     }

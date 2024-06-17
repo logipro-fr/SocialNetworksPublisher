@@ -25,6 +25,28 @@ class HashtagTest extends TestCase
         $this->expectExceptionCode(BadHashtagFormatException::ERROR_CODE);
         $this->expectExceptionMessage(BadHashtagFormatException::MESSAGE);
         new HashTag("te st");
+
+        $this->expectException(BadHashtagFormatException::class);
+        $this->expectExceptionCode(BadHashtagFormatException::ERROR_CODE);
+        $this->expectExceptionMessage(BadHashtagFormatException::MESSAGE);
+        new HashTag(" test");
+
+        $this->expectException(BadHashtagFormatException::class);
+        $this->expectExceptionCode(BadHashtagFormatException::ERROR_CODE);
+        $this->expectExceptionMessage(BadHashtagFormatException::MESSAGE);
+        new HashTag("# test");
+    }
+
+    public function testValidUTF8Hashtag(): void
+    {
+        $hashTag = new HashTag("例子");
+        $this->assertEquals("#例子", $hashTag->getHashtag());
+    }
+
+    public function testInvalidUTF8Hashtag(): void
+    {
+        $this->expectException(BadHashtagFormatException::class);
+        new HashTag("例@子");
     }
 
     public function testToArray(): void

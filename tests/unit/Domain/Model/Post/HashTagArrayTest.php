@@ -54,6 +54,7 @@ class HashTagArrayTest extends TestCase
         $hashTags  = $factory->buildHashTagArrayFromArray([new HashTag("#1"), new HashTag("#2")]);
 
         $this->assertEquals(new HashTag("#2"), $hashTags->getHashTags()[1]);
+        $this->assertEquals(2, count($hashTags->getHashTags()));
     }
 
     public function testHashTagArrayFactoryBuildFromSentenceWithDelimiter(): void
@@ -100,9 +101,13 @@ class HashTagArrayTest extends TestCase
         $this->assertEquals($hashTags, HashTagArray::fromArray($array));
     }
 
-    public function testEmptySentence(): void {
-        $this->assertEquals(new HashTagArray(),(new HashTagArrayFactory())->buildHashTagArrayFromSentence('', ''));
-        $this->assertEquals(new HashTagArray(),(new HashTagArrayFactory())->buildHashTagArrayFromSentence('', ','));
-        $this->assertEquals(new HashTagArray(),(new HashTagArrayFactory())->buildHashTagArrayFromSentence('az, zz', ''));
+    public function testEmptySentence(): void
+    {
+        $this->assertEquals(new HashTagArray(), (new HashTagArrayFactory())
+        ->buildHashTagArrayFromSentence('', ''));
+        $this->assertEquals(new HashTagArray(), (new HashTagArrayFactory())
+        ->buildHashTagArrayFromSentence('', ','));
+        $this->assertEquals(new HashTagArray(), (new HashTagArrayFactory())
+        ->buildHashTagArrayFromSentence('az, zz', ''));
     }
 }
