@@ -1,0 +1,37 @@
+default:
+  autoload:
+    '': '%paths.base%/tests'
+  formatters:
+    progress: true
+    pretty: true
+  suites:
+    default:
+      paths:
+        - '%paths.base%/features/'
+      contexts:
+        - Features\FeatureContext
+  extensions:
+      FriendsOfBehat\SymfonyExtension:
+          bootstrap: features/bootstrap/bootstrap.php
+          kernel:
+              environment: test
+              class: 'SocialNetworksPublisher\Infrastructure\Shared\Symfony\Kernel'
+              path: 'src/Infrastructure/Shared/Symfony/Kernel.php'
+
+
+
+
+              
+      # Behat\MinkExtension: Ne sert à rien !
+      #       sessions:
+      #           default:
+      #               symfony: ~
+#  extensions:
+#    DVDoug\Behat\CodeCoverage\Extension:
+#      filter:
+#        include:
+#          directories:
+#            'src': ~
+#      reports:
+#        text:
+#          showColors: true
