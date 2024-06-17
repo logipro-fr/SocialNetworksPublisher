@@ -49,6 +49,7 @@ abstract class PostRepositoryTestBase extends TestCase
     {
         $this->expectException(PostNotFoundException::class);
         $this->expectExceptionMessage("Error can't find the postId");
+        $this->expectExceptionCode(400);
         $this->postRepository->findById(new PostId("prime54845"));
     }
 }
