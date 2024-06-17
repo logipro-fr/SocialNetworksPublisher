@@ -2,7 +2,7 @@
 
 namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
-use SocialNetworksPublisher\Application\Service\ApiInterface;
+use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
@@ -12,7 +12,7 @@ class PublishPost
 {
     private PublishPostResponse $response;
     public function __construct(
-        private ApiInterface $api,
+        private AbstractFactorySocialNetworksApi $socialNetworksFactory,
         private PostRepositoryInterface $repository,
         private string $postIdName = ""
     ) {
@@ -20,7 +20,11 @@ class PublishPost
     public function execute(PublishPostRequest $request): void
     {
         $post = $this->createPost($request);
-        $apiResponse = $this->api->postApiRequest($post);
+        $apiResponse = $this->socialNetworksFactory
+            ->buildApi($request->socialNetworks)
+            ->postApiRequest($post);
+
+
         $this->repository->add($post);
         $post->setStatus(Status::PUBLISHED);
 

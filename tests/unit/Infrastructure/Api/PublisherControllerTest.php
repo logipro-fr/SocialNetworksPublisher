@@ -2,11 +2,17 @@
 
 namespace SocialNetworksPublisher\Tests\Infrastructure\Api;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
+use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
+use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
+use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
+use SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,13 +58,22 @@ class PublisherControllerTest extends WebTestCase
         /** @var string */
         $responseContent = $this->client->getResponse()->getContent();
         $responseCode = $this->client->getResponse()->getStatusCode();
+
+        /** @var array<mixed,array<mixed>> */
+        $array = json_decode($responseContent, true);
+        /** @var string */
+        $postId = $array['data']['postId'];
+        $post = $this->repository->findById(new PostId($postId));
+
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('"success":true', $responseContent);
         $this->assertEquals(201, $responseCode);
         $this->assertStringContainsString('"ErrorCode":', $responseContent);
         $this->assertStringContainsString('"postId":"pos_', $responseContent);
-        $this->assertStringContainsString('"socialNetworks":"simpleBlog', $responseContent);
+        $this->assertStringContainsString('"socialNetworks":"simpleblog', $responseContent);
         $this->assertStringContainsString('"message":"', $responseContent);
+        $this->assertStringStartsWith("pos_", $post->getPostId());
+        $this->assertEquals($postId, $post->getPostId());
     }
 
     public function testControllerErrorResponse(): void
@@ -92,13 +107,25 @@ class PublisherControllerTest extends WebTestCase
 
     public function testExecute(): void
     {
+        $metadata = $this->createMock(ClassMetadata::class);
+        $metadata->name = PublisherControllerTest::class;
+
+        $entityManager = $this->createMock(EntityManagerInterface::class);
+        $entityManager
+            ->expects($this->once())
+            ->method('flush');
+
+
+        $entityManager
+            ->method('getClassMetadata')
+            ->willReturn($metadata);
+
         $controller = new PublisherController(
-            new SimpleBlog(
-                getcwd() . "/var/simpleBlog.txt"
-            ),
-            $this->repository,
-            $this->getEntityManager(),
+            new FactorySocialNetworksApi(),
+            new PostRepositoryDoctrine($entityManager),
+            $entityManager
         );
+
         $request = Request::create(
             "/api/v1/publishPost",
             "POST",
@@ -107,7 +134,7 @@ class PublisherControllerTest extends WebTestCase
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
-                "socialNetworks" => "",
+                "socialNetworks" => "simpleBlog",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",
