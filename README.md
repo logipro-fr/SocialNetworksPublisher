@@ -46,8 +46,9 @@ Some indicators that seem interesting.
 
 * phpcs PSR12
 * phpstan level 9
-* coverage = 100%
-* infection MSI >=100%
+* 100% coverage obtained naturally thanks to the “classic school” TDD approach
+* we hunt mutants with “Infection”. We aim for an MSI score of 100% for “panache”
+
 
 Quick check with:
 ```console
