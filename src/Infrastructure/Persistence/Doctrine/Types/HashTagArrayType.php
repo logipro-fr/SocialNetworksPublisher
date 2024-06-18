@@ -25,9 +25,6 @@ class HashTagArrayType extends Type
     public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
         return json_encode($value->toArray());
-        //return serialize($value);
-
-        //return json_encode($value->getHashTags());
     }
     /** @param string $value
      */
