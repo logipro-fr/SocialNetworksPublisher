@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Infrastructure\Provider;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;

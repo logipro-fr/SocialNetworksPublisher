@@ -2,7 +2,7 @@
 
 namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 
 abstract class AbstractFactorySocialNetworksApi

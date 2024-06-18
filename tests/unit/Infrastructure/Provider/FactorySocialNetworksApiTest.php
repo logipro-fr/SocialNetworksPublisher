@@ -4,7 +4,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Provider;
 
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;

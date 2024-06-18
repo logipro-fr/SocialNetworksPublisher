@@ -2,14 +2,14 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Provider\Facebook;
 
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
-use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
+use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 
 class Facebook implements SocialNetworksApiInterface
 {
     public function postApiRequest(Post $post): ProviderResponse
     {
-        return new ProviderResponse($post->getPostId(), "facebook");
+        return new ProviderResponse(false);
     }
 }

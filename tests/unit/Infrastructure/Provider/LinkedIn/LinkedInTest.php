@@ -8,7 +8,7 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
-use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
+use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 
 class LinkedInTest extends TestCase
 {
@@ -31,15 +31,13 @@ class LinkedInTest extends TestCase
         $sut = new LinkedIn();
         $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request, "test"));
         $this->assertInstanceOf(ProviderResponse::class, $response);
-        $this->assertEquals("test", $response->postId);
-        $this->assertEquals("linkedIn", $response->socialNetworks);
+        $this->assertFalse( $response->success);
     }
     public function testApiPostRequest(): void
     {
         $sut = new LinkedIn();
         $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request));
         $this->assertInstanceOf(ProviderResponse::class, $response);
-        $this->assertStringStartsWith("pos_", $response->postId);
-        $this->assertEquals("linkedIn", $response->socialNetworks);
+        $this->assertFalse( $response->success);
     }
 }

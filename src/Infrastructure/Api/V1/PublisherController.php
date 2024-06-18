@@ -4,7 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Api\V1;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;

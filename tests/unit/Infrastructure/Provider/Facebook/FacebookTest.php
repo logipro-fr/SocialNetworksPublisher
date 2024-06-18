@@ -7,7 +7,7 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
-use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
+use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 
 class FacebookTest extends TestCase
 {
@@ -30,15 +30,13 @@ class FacebookTest extends TestCase
         $sut = new Facebook();
         $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request, "test"));
         $this->assertInstanceOf(ProviderResponse::class, $response);
-        $this->assertEquals("test", $response->postId);
-        $this->assertEquals("facebook", $response->socialNetworks);
+        $this->assertFalse($response->success);
     }
     public function testApiPostRequest(): void
     {
         $sut = new Facebook();
         $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request));
         $this->assertInstanceOf(ProviderResponse::class, $response);
-        $this->assertStringStartsWith("pos_", $response->postId);
-        $this->assertEquals("facebook", $response->socialNetworks);
+        $this->assertFalse($response->success);
     }
 }

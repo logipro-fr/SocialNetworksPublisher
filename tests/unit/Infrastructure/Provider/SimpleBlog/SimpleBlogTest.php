@@ -27,11 +27,12 @@ class SimpleBlogTest extends TestCase
             "#Pedro",
         );
 
-        $blog->postApiRequest((new PostFactory())->buildPostFromRequest($requestHashTag));
+        $response = $blog->postApiRequest((new PostFactory())->buildPostFromRequest($requestHashTag));
         $blogContent = file_get_contents(getcwd() . "/var/simple_blog.txt");
 
         $this->assertFileExists(getcwd() . "/var/simple_blog.txt");
         $this->assertEquals("Ceci est un test #Pedro \n\n", $blogContent);
+        $this->assertTrue($response->success);
     }
 
     public function testMultiplePostOnSimpleBlog(): void
@@ -45,10 +46,12 @@ class SimpleBlogTest extends TestCase
             "#Pedro",
         );
 
-        $blog->postApiRequest((new PostFactory())->buildPostFromRequest($requestHashTag));
-        $blog->postApiRequest((new PostFactory())->buildPostFromRequest($requestHashTag));
+        $response = $blog->postApiRequest((new PostFactory())->buildPostFromRequest($requestHashTag));
+        $response2 = $blog->postApiRequest((new PostFactory())->buildPostFromRequest($requestHashTag));
         $blogContent = file_get_contents(getcwd() . "/var/simple_blog_multiple.txt");
 
+        $this->assertTrue($response->success);
+        $this->assertTrue($response2->success);
         $this->assertEquals(self::TEXTCONTENT, $blogContent);
     }
 

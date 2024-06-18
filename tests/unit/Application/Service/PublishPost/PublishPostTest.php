@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Tests\Application\Service\PublishPost;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;

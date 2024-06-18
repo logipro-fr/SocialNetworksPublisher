@@ -2,7 +2,7 @@
 
 namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
@@ -29,8 +29,8 @@ class PublishPost
         $post->setStatus(Status::PUBLISHED);
 
         $this->response = new PublishPostResponse(
-            $apiResponse->postId,
-            $apiResponse->socialNetworks,
+            $post->getPostId(),
+            $request->socialNetworks,
         );
     }
 

@@ -2,14 +2,14 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Provider\LinkedIn;
 
-use SocialNetworksPublisher\Application\Service\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
-use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponse;
+use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 
 class LinkedIn implements SocialNetworksApiInterface
 {
     public function postApiRequest(Post $post): ProviderResponse
     {
-        return new ProviderResponse($post->getPostId(), "linkedIn");
+        return new ProviderResponse(false);
     }
 }
