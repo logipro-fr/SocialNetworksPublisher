@@ -20,7 +20,7 @@ class LoggedExceptionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->logFilePath = CurrentWorkDirPath::getPath() . LoggedException::LOG_FILE_PATH;
+        $this->logFilePath = getcwd(). LoggedException::LOG_FILE_PATH;
         $this->logDirPath = dirname($this->logFilePath);
     }
 

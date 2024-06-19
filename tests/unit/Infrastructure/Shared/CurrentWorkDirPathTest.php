@@ -3,6 +3,7 @@
 namespace SocialNetworksPublisher\Tests\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
+use SocialNetworksPublisher\Infrastructure\Exceptions\NoPWDException;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 
 class CurrentWorkDirPathTest extends TestCase
@@ -33,17 +34,6 @@ class CurrentWorkDirPathTest extends TestCase
         }
     }
 
-    public function testGetFullPathWithoutENV(): void
-    {
-        unset($_ENV['PWD']);
-        putenv('PWD');
-        $this->assertFalse(isset($_ENV['PWD']));
-        $this->assertFalse(getenv('PWD'));
-
-        $path = CurrentWorkDirPath::getPath();
-        $this->assertEquals(getcwd(), $path);
-    }
-
     public function testGetFullPathWithEnv(): void
     {
         $_ENV['PWD'] = self::MY_CURRENT_WORKING_DIR;
@@ -64,5 +54,14 @@ class CurrentWorkDirPathTest extends TestCase
 
         $path = CurrentWorkDirPath::getPath();
         $this->assertEquals(self::MY_CURRENT_WORKING_DIR, $path);
+    }
+
+    public function testNoPWDException(): void
+    {
+        $this->expectException(NoPWDException::class);
+        $this->expectExceptionMessage("Environment variable PWD not found");
+        unset($_ENV['PWD']);
+        putenv('PWD');
+        CurrentWorkDirPath::getPath();
     }
 }

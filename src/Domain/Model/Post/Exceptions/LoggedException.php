@@ -20,7 +20,7 @@ class LoggedException extends \Exception
     {
         parent::__construct($message, $code);
 
-        $logFilePath = CurrentWorkDirPath::getPath() . self::LOG_FILE_PATH;
+        $logFilePath = getcwd() . self::LOG_FILE_PATH;
         $this->ensureLogDirectoryExists(dirname($logFilePath));
         $this->ensureLogFileExists($logFilePath);
         error_log($this->getMessageInFormat($message, $code), 3, $logFilePath);
