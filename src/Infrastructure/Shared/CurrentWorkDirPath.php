@@ -2,6 +2,8 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Shared;
 
+use SocialNetworksPublisher\Infrastructure\Exceptions\NoPWDException;
+
 class CurrentWorkDirPath
 {
     public static function getPath(): string
@@ -9,9 +11,12 @@ class CurrentWorkDirPath
         if (isset($_ENV["PWD"])) {
             return $_ENV["PWD"];
         }
-        if (getenv('PWD')) {
-            return getenv('PWD');
+
+        $pwdFromEnv = getenv('PWD');
+        if ($pwdFromEnv !== false) {
+            return $pwdFromEnv;
         }
-        return getcwd() ? getcwd() : "";
+
+        throw new NoPWDException("Environment variable PWD not found");
     }
 }

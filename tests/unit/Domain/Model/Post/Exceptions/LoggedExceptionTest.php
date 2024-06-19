@@ -20,7 +20,7 @@ class LoggedExceptionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->logFilePath = getcwd(). LoggedException::LOG_FILE_PATH;
+        $this->logFilePath = getcwd() . LoggedException::LOG_FILE_PATH;
         $this->logDirPath = dirname($this->logFilePath);
     }
 
@@ -46,7 +46,7 @@ class LoggedExceptionTest extends TestCase
     public function isExceptionThrowed(): void
     {
         $this->expectException(LoggedException::class);
-        new Author("df", "");
+        new Author("");
     }
 
     private function deleteLogFile(): void

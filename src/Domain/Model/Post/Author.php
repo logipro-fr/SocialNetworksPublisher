@@ -6,9 +6,10 @@ use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadAuthorIdException;
 
 class Author
 {
-    public function __construct( private string $id)
+    public function __construct(private string $id)
     {
-        $this->validate();    }
+        $this->validate();
+    }
 
     public function getId(): string
     {

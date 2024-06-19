@@ -22,9 +22,9 @@ abstract class PostRepositoryTestBase extends TestCase
 
     public function testFindById(): void
     {
-        $author = new Author('facebook', '123za45g');
+        $author = new Author('123za45g');
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("facebook", "98ad48644");
+        $page = new Page("98ad48644");
         $post = new Post(
             $author,
             $content,
@@ -34,14 +34,15 @@ abstract class PostRepositoryTestBase extends TestCase
             SocialNetworks::Facebook,
             new PostId("prime")
         );
-        $post2 = new Post($author,
-         $content,
-          new HashTagArray(),
-           $page,
-            Status::READY,  
+        $post2 = new Post(
+            $author,
+            $content,
+            new HashTagArray(),
+            $page,
+            Status::READY,
             SocialNetworks::Facebook,
-        new PostId("prime2")
-    );
+            new PostId("prime2")
+        );
 
         $this->postRepository->add($post);
         $found = $this->postRepository->findById(new PostId("prime"));

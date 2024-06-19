@@ -4,6 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
 use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
@@ -21,6 +22,8 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
                 return new Facebook();
             case SocialNetworks::LinkedIn:
                 return new LinkedIn();
+            default:
+                throw new BadSocialNetworksParameterException("", BadSocialNetworksParameterException::ERROR_CODE);
         }
     }
 }

@@ -19,7 +19,7 @@ class AuthorTypeTest extends TestCase
     {
         $type = new AuthorType();
         $dbValue = $type->convertToDatabaseValue(
-            $author = new Author("facebook", "123456"),
+            $author = new Author("123456"),
             new SqlitePlatform()
         );
         $this->assertIsString($dbValue);

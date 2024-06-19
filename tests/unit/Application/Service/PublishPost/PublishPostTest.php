@@ -120,9 +120,10 @@ class PublishPostTest extends TestCase
         $this->assertEquals("test", $post->getPostId());
     }
 
-    public function testBadPostForPostFactory(): void {
+    public function testBadPostForPostFactory(): void
+    {
         $this->expectException(BadSocialNetworksParameterException::class);
-        
+
         $postFactory = new PostFactory();
         $postFactory->buildPostFromRequest($this->badRequest, "test");
     }

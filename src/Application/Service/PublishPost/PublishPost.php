@@ -10,7 +10,6 @@ use SocialNetworksPublisher\Domain\Model\Post\Status;
 
 class PublishPost
 {
-    
     private PublishPostResponse $response;
     public function __construct(
         private AbstractFactorySocialNetworksApi $socialNetworksFactory,

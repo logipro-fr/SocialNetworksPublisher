@@ -8,6 +8,7 @@ use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInt
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
+use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,7 @@ class PublisherController
             $publishRequest = $this->buildPublishRequest($request);
             $service = new PublishPost($this->socialNetworksApiFactory, $this->repo);
             $service->execute($publishRequest);
+            (new EventFacade())->distribute();
             $publishResponse = $service->getResponse();
             $this->entityManager->flush();
             return $this->writeSuccessfulResponse($publishResponse);

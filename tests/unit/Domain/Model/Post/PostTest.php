@@ -29,7 +29,14 @@ class PostTest extends TestCase
         $this->author = new Author('123za45g');
         $this->content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         $this->page = new Page("98ad48644");
-        $this->post = new Post($this->author, $this->content, new HashTagArray(), $this->page, Status::READY, SocialNetworks::Facebook);
+        $this->post = new Post(
+            $this->author,
+            $this->content,
+            new HashTagArray(),
+            $this->page,
+            Status::READY,
+            SocialNetworks::Facebook
+        );
     }
     public function testValidPost(): void
     {
@@ -45,7 +52,14 @@ class PostTest extends TestCase
     public function testValidPostWithHashTag(): void
     {
         $hashTags = (new HashTagArrayFactory())->buildHashTagArrayFromSentence("#test1, #test2", ", ");
-        $this->post = new Post($this->author, $this->content, $hashTags, $this->page, Status::READY, SocialNetworks::Facebook);
+        $this->post = new Post(
+            $this->author,
+            $this->content,
+            $hashTags,
+            $this->page,
+            Status::READY,
+            SocialNetworks::Facebook
+        );
 
         $this->assertInstanceOf(Post::class, $this->post);
         $this->assertEquals($this->author, $this->post->getAuthor());
@@ -62,7 +76,14 @@ class PostTest extends TestCase
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         $page = new Page("98ad48644");
 
-        $post = new Post($author, $content, new HashTagArray(), $page, Status::READY, SocialNetworks::LinkedIn);
+        $post = new Post(
+            $author,
+            $content,
+            new HashTagArray(),
+            $page,
+            Status::READY,
+            SocialNetworks::LinkedIn
+        );
 
         $this->assertStringStartsWith("pos_", $post->getPostId());
     }
@@ -86,7 +107,6 @@ class PostTest extends TestCase
     {
         $spy = new SpyListener();
         (new EventFacade())->subscribe($spy);
-        //EventPublisherBase::instance()->distributeImmmediatly();
         $this->post = new Post(
             $this->author,
             $this->content,

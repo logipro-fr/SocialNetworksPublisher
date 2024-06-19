@@ -153,6 +153,5 @@ class PublisherControllerTest extends WebTestCase
         /** @var string */
         $responseContent = $response->getContent();
         $this->assertJson($responseContent);
-
     }
 }

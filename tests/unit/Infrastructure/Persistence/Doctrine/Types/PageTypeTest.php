@@ -18,7 +18,7 @@ class PageTypeTest extends TestCase
     {
         $type = new PageType();
         $dbValue = $type->convertToDatabaseValue(
-            $page = new Page("facebook", "123456"),
+            $page = new Page("123456"),
             new SqlitePlatform()
         );
         $this->assertIsString($dbValue);

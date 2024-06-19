@@ -24,7 +24,11 @@ class SimpleBlog implements SocialNetworksApiInterface
     }
     public function postApiRequest(Post $post): ProviderResponse
     {
-        fwrite($this->file, sprintf(self::POST_PATTERN, $post->getContent()->__toString(), $post->getHashTags()->__toString()));
+        fwrite($this->file, sprintf(
+            self::POST_PATTERN,
+            $post->getContent()->__toString(),
+            $post->getHashTags()->__toString()
+        ));
         return new ProviderResponse(
             true
         );

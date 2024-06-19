@@ -31,13 +31,13 @@ class LinkedInTest extends TestCase
         $sut = new LinkedIn();
         $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request, "test"));
         $this->assertInstanceOf(ProviderResponse::class, $response);
-        $this->assertFalse( $response->success);
+        $this->assertFalse($response->success);
     }
     public function testApiPostRequest(): void
     {
         $sut = new LinkedIn();
         $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request));
         $this->assertInstanceOf(ProviderResponse::class, $response);
-        $this->assertFalse( $response->success);
+        $this->assertFalse($response->success);
     }
 }
