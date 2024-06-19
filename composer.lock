@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "efb9dbbafb19d63f496f0bf767eb07b6",
+    "content-hash": "50b8d9c7ce74a4922144cd3e199b62d3",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -1684,124 +1684,6 @@
             "time": "2023-11-30T16:41:19+00:00"
         },
         {
-            "name": "phariscope/doctrine-testing-tools",
-            "version": "v1.3.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phariscope/doctrine-testing-tools.git",
-                "reference": "fe194e3b9287206ed887c0e96e0e987919db96a4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phariscope/doctrine-testing-tools/zipball/fe194e3b9287206ed887c0e96e0e987919db96a4",
-                "reference": "fe194e3b9287206ed887c0e96e0e987919db96a4",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/doctrine-bundle": "^2",
-                "doctrine/orm": "^2|^3",
-                "php": ">=8.1",
-                "symfony/dotenv": "^6|^7.0",
-                "symfony/framework-bundle": "^6|^7.0",
-                "symfony/http-kernel": "^6|^7.0",
-                "symfony/runtime": "^6|^7.0",
-                "symfony/yaml": "^6|^7.0"
-            },
-            "require-dev": {
-                "infection/extension-installer": "0.1.2",
-                "infection/infection": "^0.27",
-                "phpstan/phpdoc-parser": "^1.20",
-                "phpstan/phpstan": "1.10.15",
-                "phpunit/phpunit": "^10",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "DoctrineTestingTools\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alban Bernard",
-                    "email": "alban.leandre.bernard@gmail.com"
-                }
-            ],
-            "description": "A PHP component to test Doctrine Repositories",
-            "keywords": [
-                "doctrine",
-                "test",
-                "unit"
-            ],
-            "support": {
-                "issues": "https://github.com/phariscope/doctrine-testing-tools/issues",
-                "source": "https://github.com/phariscope/doctrine-testing-tools/tree/v1.3.7"
-            },
-            "time": "2024-03-11T10:49:03+00:00"
-        },
-        {
-            "name": "phariscope/doctrineenumtype",
-            "version": "v0.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phariscope/DoctrineEnumType.git",
-                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phariscope/DoctrineEnumType/zipball/565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
-                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "3.*",
-                "phariscope/safephp": "1.*",
-                "php": ">=8.1"
-            },
-            "require-dev": {
-                "infection/extension-installer": "0.1.2",
-                "infection/infection": "^0.27",
-                "phpstan/phpdoc-parser": "^1.20",
-                "phpstan/phpstan": "1.10.15",
-                "phpunit/phpunit": "^10",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Phariscope\\DoctrineEnumType\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frédéric Royet",
-                    "email": "frederic.royet@logipro.com",
-                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
-                    "role": "Project Founder"
-                }
-            ],
-            "description": "A way to create quickly and well tested doctrine type for your php enums",
-            "homepage": "https://github.com/phariscope/DoctrineEnumType",
-            "keywords": [
-                "doctrine",
-                "enum",
-                "type"
-            ],
-            "support": {
-                "issues": "https://github.com/phariscope/DoctrineEnumType/issues",
-                "source": "https://github.com/phariscope/DoctrineEnumType/tree/v0.0.4"
-            },
-            "time": "2024-05-03T07:42:58+00:00"
-        },
-        {
             "name": "phariscope/event",
             "version": "1.1.0",
             "source": {
@@ -1854,69 +1736,6 @@
                 "source": "https://github.com/phariscope/Event/tree/1.1.0"
             },
             "time": "2024-02-29T22:34:37+00:00"
-        },
-        {
-            "name": "phariscope/safephp",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phariscope/SafePHP.git",
-                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phariscope/SafePHP/zipball/83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
-                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0"
-            },
-            "require-dev": {
-                "infection/extension-installer": "0.1.2",
-                "infection/infection": "^0.27",
-                "phpstan/phpdoc-parser": "^1.20",
-                "phpstan/phpstan": "1.10.15",
-                "phpunit/phpunit": "^10",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/hash.php",
-                    "src/val.php",
-                    "src/getenv.php"
-                ],
-                "classmap": [
-                    "src/Exceptions/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frédéric Royet",
-                    "email": "frederic.royet@logipro.com",
-                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
-                    "role": "Project Founder"
-                }
-            ],
-            "description": "A PHP library complementary to SafePHP containing currently unsupported functions.",
-            "homepage": "https://github.com/phariscope/SafePHP",
-            "keywords": [
-                "Safe PHP",
-                "boolval",
-                "floatval",
-                "intval",
-                "strval"
-            ],
-            "support": {
-                "issues": "https://github.com/phariscope/SafePHP/issues",
-                "source": "https://github.com/phariscope/SafePHP/tree/1.0.2"
-            },
-            "time": "2023-11-26T05:31:17+00:00"
         },
         {
             "name": "psr/cache",
@@ -3124,80 +2943,6 @@
                 }
             ],
             "time": "2024-04-18T09:32:20+00:00"
-        },
-        {
-            "name": "symfony/dotenv",
-            "version": "v7.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/dotenv.git",
-                "reference": "83026885fde02508235fc9dd175f227290542c99"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dotenv/zipball/83026885fde02508235fc9dd175f227290542c99",
-                "reference": "83026885fde02508235fc9dd175f227290542c99",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "conflict": {
-                "symfony/console": "<6.4",
-                "symfony/process": "<6.4"
-            },
-            "require-dev": {
-                "symfony/console": "^6.4|^7.0",
-                "symfony/process": "^6.4|^7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Dotenv\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Registers environment variables from a .env file",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "dotenv",
-                "env",
-                "environment"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/dotenv/tree/v7.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-05-02T08:41:59+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -4972,77 +4717,6 @@
                 }
             ],
             "time": "2024-05-22T10:14:54+00:00"
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "v7.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "c5f718c94e3c37dd77b77484e6cf0b524b2d405e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/c5f718c94e3c37dd77b77484e6cf0b524b2d405e",
-                "reference": "c5f718c94e3c37dd77b77484e6cf0b524b2d405e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
-                "symfony/console": "<6.4"
-            },
-            "require-dev": {
-                "symfony/console": "^6.4|^7.0"
-            },
-            "bin": [
-                "Resources/bin/yaml-lint"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Loads and dumps YAML files",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-04-28T18:29:00+00:00"
         }
     ],
     "packages-dev": [
@@ -6533,6 +6207,187 @@
                 "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
             "time": "2022-02-21T01:04:05+00:00"
+        },
+        {
+            "name": "phariscope/doctrine-testing-tools",
+            "version": "v1.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phariscope/doctrine-testing-tools.git",
+                "reference": "fe194e3b9287206ed887c0e96e0e987919db96a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phariscope/doctrine-testing-tools/zipball/fe194e3b9287206ed887c0e96e0e987919db96a4",
+                "reference": "fe194e3b9287206ed887c0e96e0e987919db96a4",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^2",
+                "doctrine/orm": "^2|^3",
+                "php": ">=8.1",
+                "symfony/dotenv": "^6|^7.0",
+                "symfony/framework-bundle": "^6|^7.0",
+                "symfony/http-kernel": "^6|^7.0",
+                "symfony/runtime": "^6|^7.0",
+                "symfony/yaml": "^6|^7.0"
+            },
+            "require-dev": {
+                "infection/extension-installer": "0.1.2",
+                "infection/infection": "^0.27",
+                "phpstan/phpdoc-parser": "^1.20",
+                "phpstan/phpstan": "1.10.15",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DoctrineTestingTools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alban Bernard",
+                    "email": "alban.leandre.bernard@gmail.com"
+                }
+            ],
+            "description": "A PHP component to test Doctrine Repositories",
+            "keywords": [
+                "doctrine",
+                "test",
+                "unit"
+            ],
+            "support": {
+                "issues": "https://github.com/phariscope/doctrine-testing-tools/issues",
+                "source": "https://github.com/phariscope/doctrine-testing-tools/tree/v1.3.7"
+            },
+            "time": "2024-03-11T10:49:03+00:00"
+        },
+        {
+            "name": "phariscope/doctrineenumtype",
+            "version": "v0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phariscope/DoctrineEnumType.git",
+                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phariscope/DoctrineEnumType/zipball/565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
+                "reference": "565a177412f7a7e4ebdf3c1f0b55cd0c95f2981b",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "3.*",
+                "phariscope/safephp": "1.*",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "infection/extension-installer": "0.1.2",
+                "infection/infection": "^0.27",
+                "phpstan/phpdoc-parser": "^1.20",
+                "phpstan/phpstan": "1.10.15",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phariscope\\DoctrineEnumType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frédéric Royet",
+                    "email": "frederic.royet@logipro.com",
+                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "A way to create quickly and well tested doctrine type for your php enums",
+            "homepage": "https://github.com/phariscope/DoctrineEnumType",
+            "keywords": [
+                "doctrine",
+                "enum",
+                "type"
+            ],
+            "support": {
+                "issues": "https://github.com/phariscope/DoctrineEnumType/issues",
+                "source": "https://github.com/phariscope/DoctrineEnumType/tree/v0.0.4"
+            },
+            "time": "2024-05-03T07:42:58+00:00"
+        },
+        {
+            "name": "phariscope/safephp",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phariscope/SafePHP.git",
+                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phariscope/SafePHP/zipball/83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
+                "reference": "83bb0abc6a6de5a66c54e602dc13f13beb1fbd10",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "infection/extension-installer": "0.1.2",
+                "infection/infection": "^0.27",
+                "phpstan/phpdoc-parser": "^1.20",
+                "phpstan/phpstan": "1.10.15",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/hash.php",
+                    "src/val.php",
+                    "src/getenv.php"
+                ],
+                "classmap": [
+                    "src/Exceptions/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frédéric Royet",
+                    "email": "frederic.royet@logipro.com",
+                    "homepage": "https://www.linkedin.com/in/frederic-royet-42568566/",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "A PHP library complementary to SafePHP containing currently unsupported functions.",
+            "homepage": "https://github.com/phariscope/SafePHP",
+            "keywords": [
+                "Safe PHP",
+                "boolval",
+                "floatval",
+                "intval",
+                "strval"
+            ],
+            "support": {
+                "issues": "https://github.com/phariscope/SafePHP/issues",
+                "source": "https://github.com/phariscope/SafePHP/tree/1.0.2"
+            },
+            "time": "2023-11-26T05:31:17+00:00"
         },
         {
             "name": "php-vfs/php-vfs",
@@ -8317,6 +8172,80 @@
             "time": "2024-04-18T09:32:20+00:00"
         },
         {
+            "name": "symfony/dotenv",
+            "version": "v7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dotenv.git",
+                "reference": "83026885fde02508235fc9dd175f227290542c99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/83026885fde02508235fc9dd175f227290542c99",
+                "reference": "83026885fde02508235fc9dd175f227290542c99",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "conflict": {
+                "symfony/console": "<6.4",
+                "symfony/process": "<6.4"
+            },
+            "require-dev": {
+                "symfony/console": "^6.4|^7.0",
+                "symfony/process": "^6.4|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Dotenv\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Registers environment variables from a .env file",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/dotenv/tree/v7.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-05-02T08:41:59+00:00"
+        },
+        {
             "name": "symfony/phpunit-bridge",
             "version": "v7.1.0",
             "source": {
@@ -8681,6 +8610,77 @@
                 }
             ],
             "time": "2024-04-18T09:32:20+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "c5f718c94e3c37dd77b77484e6cf0b524b2d405e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/c5f718c94e3c37dd77b77484e6cf0b524b2d405e",
+                "reference": "c5f718c94e3c37dd77b77484e6cf0b524b2d405e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/polyfill-ctype": "^1.8"
+            },
+            "conflict": {
+                "symfony/console": "<6.4"
+            },
+            "require-dev": {
+                "symfony/console": "^6.4|^7.0"
+            },
+            "bin": [
+                "Resources/bin/yaml-lint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Loads and dumps YAML files",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/yaml/tree/v7.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-04-28T18:29:00+00:00"
         },
         {
             "name": "thecodingmachine/safe",
