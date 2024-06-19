@@ -21,7 +21,7 @@ class PostFactory
             (new HashTagArrayFactory())->buildHashTagArrayFromSentence($request->hashtag, ", "),
             new Page($request->pageId),
             Status::READY,
-            SocialNetworks::tryFrom($request->socialNetworks),
+            SocialNetworks::fromString($request->socialNetworks),
             new PostId($postIdName),
         );
     }
