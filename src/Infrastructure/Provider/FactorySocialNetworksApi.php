@@ -4,6 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
+use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
@@ -11,18 +12,15 @@ use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 
 class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
 {
-    public function buildApi(string $socialNetworks): SocialNetworksApiInterface
+    public function buildApi(SocialNetworks $socialNetworks): SocialNetworksApiInterface
     {
-        $socialNetworks = strtolower($socialNetworks);
         switch ($socialNetworks) {
-            case 'simpleblog':
+            case SocialNetworks::SimpleBlog:
                 return new SimpleBlog(getcwd() . "/var/simpleBlogControllerRequest.txt");
-            case 'facebook':
+            case SocialNetworks::Facebook:
                 return new Facebook();
-            case 'linkedin':
+            case SocialNetworks::LinkedIn:
                 return new LinkedIn();
-            default:
-                throw new InvalidSocialNetworks("Unsupported social network: $socialNetworks", 400);
         }
     }
 }

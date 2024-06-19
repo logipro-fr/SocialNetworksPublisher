@@ -3,9 +3,9 @@
 namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
-use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
+use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
 
 abstract class AbstractFactorySocialNetworksApi
 {
-    abstract public function buildApi(string $socialNetworks): SocialNetworksApiInterface;
+    abstract public function buildApi(SocialNetworks $socialNetworks): SocialNetworksApiInterface;
 }
