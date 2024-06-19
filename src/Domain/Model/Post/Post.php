@@ -14,6 +14,7 @@ class Post
         private HashTagArray $hashTags,
         private Page $page,
         private Status $status,
+        private SocialNetworks $socialNetworks,
         private PostId $postId = new PostId(),
         private DateTimeImmutable $createdAt = new DateTimeImmutable()
     ) {
@@ -38,6 +39,11 @@ class Post
     public function getStatus(): Status
     {
         return $this->status;
+    }
+
+    public function getSocialNetworks(): SocialNetworks
+    {
+        return $this->socialNetworks;
     }
 
     public function getPostId(): PostId

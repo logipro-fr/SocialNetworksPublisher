@@ -15,6 +15,7 @@ use SocialNetworksPublisher\Domain\Model\Post\Event\PostCreated;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArray;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArrayFactory;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
 use SocialNetworksPublisher\Domain\Model\Post\Status;
 
 class PostTest extends TestCase
@@ -25,10 +26,10 @@ class PostTest extends TestCase
     private Page $page;
     protected function setUp(): void
     {
-        $this->author = new Author('facebook', '123za45g');
+        $this->author = new Author('123za45g');
         $this->content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $this->page = new Page("facebook", "98ad48644");
-        $this->post = new Post($this->author, $this->content, new HashTagArray(), $this->page, Status::READY);
+        $this->page = new Page("98ad48644");
+        $this->post = new Post($this->author, $this->content, new HashTagArray(), $this->page, Status::READY, SocialNetworks::Facebook);
     }
     public function testValidPost(): void
     {
@@ -38,12 +39,13 @@ class PostTest extends TestCase
         $this->assertEquals($this->page, $this->post->getPage());
         $this->assertEquals(new HashTagArray(), $this->post->getHashTags());
         $this->assertEquals(Status::READY, $this->post->getStatus());
+        $this->assertEquals(SocialNetworks::Facebook, $this->post->getSocialNetworks());
     }
 
     public function testValidPostWithHashTag(): void
     {
         $hashTags = (new HashTagArrayFactory())->buildHashTagArrayFromSentence("#test1, #test2", ", ");
-        $this->post = new Post($this->author, $this->content, $hashTags, $this->page, Status::READY);
+        $this->post = new Post($this->author, $this->content, $hashTags, $this->page, Status::READY, SocialNetworks::Facebook);
 
         $this->assertInstanceOf(Post::class, $this->post);
         $this->assertEquals($this->author, $this->post->getAuthor());
@@ -51,17 +53,18 @@ class PostTest extends TestCase
         $this->assertEquals($this->page, $this->post->getPage());
         $this->assertEquals($hashTags, $this->post->getHashTags());
         $this->assertEquals(Status::READY, $this->post->getStatus());
+        $this->assertEquals(SocialNetworks::Facebook, $this->post->getSocialNetworks());
     }
 
     public function testPostId(): void
     {
-        $author = new Author('facebook', '123za45g');
+        $author = new Author("123za45g");
         $content = new Content("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        $page = new Page("facebook", "98ad48644");
+        $page = new Page("98ad48644");
 
-        $post = new Post($author, $content, new HashTagArray(), $page, Status::READY);
+        $post = new Post($author, $content, new HashTagArray(), $page, Status::READY, SocialNetworks::LinkedIn);
 
-        $this->assertStringStartsWith('pos_', $post->getPostId());
+        $this->assertStringStartsWith("pos_", $post->getPostId());
     }
 
     public function testInjectedPostId(): void
@@ -72,10 +75,11 @@ class PostTest extends TestCase
             new HashTagArray(new HashTag("#cool")),
             $this->page,
             Status::READY,
+            SocialNetworks::LinkedIn,
             new PostId("pos_test")
         );
 
-        $this->assertEquals('pos_test', $this->post->getPostId());
+        $this->assertEquals("pos_test", $this->post->getPostId());
     }
 
     public function testPostCreatedSentWhenPostHasBeenCreated(): void
@@ -88,7 +92,8 @@ class PostTest extends TestCase
             $this->content,
             new HashTagArray(),
             $this->page,
-            Status::READY
+            Status::READY,
+            SocialNetworks::LinkedIn,
         );
 
         (new EventFacade())->distribute();
@@ -109,6 +114,7 @@ class PostTest extends TestCase
             new HashTagArray(),
             $this->page,
             Status::READY,
+            SocialNetworks::LinkedIn,
             new PostId(),
             $date
         );
