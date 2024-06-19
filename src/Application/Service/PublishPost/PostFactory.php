@@ -8,6 +8,7 @@ use SocialNetworksPublisher\Domain\Model\Post\HashTagArrayFactory;
 use SocialNetworksPublisher\Domain\Model\Post\Page;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
 use SocialNetworksPublisher\Domain\Model\Post\Status;
 
 class PostFactory
@@ -15,11 +16,12 @@ class PostFactory
     public function buildPostFromRequest(PublishPostRequest $request, string $postIdName = ""): Post
     {
         return new Post(
-            new Author($request->socialNetworks, $request->authorId),
+            new Author($request->authorId),
             new Content($request->content),
             (new HashTagArrayFactory())->buildHashTagArrayFromSentence($request->hashtag, ", "),
-            new Page($request->socialNetworks, $request->pageId),
+            new Page($request->pageId),
             Status::READY,
+            SocialNetworks::tryFrom($request->socialNetworks),
             new PostId($postIdName),
         );
     }
