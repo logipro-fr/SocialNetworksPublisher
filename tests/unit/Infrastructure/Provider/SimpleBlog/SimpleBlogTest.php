@@ -20,7 +20,7 @@ class SimpleBlogTest extends TestCase
     {
         $blog = new SimpleBlog(getcwd() . "/var/simple_blog.txt");
         $requestHashTag = new PublishPostRequest(
-            "facebook",
+            "SimpleBlog",
             "1a84fvb",
             "5adf78bfdsg",
             "Ceci est un test",
@@ -39,7 +39,7 @@ class SimpleBlogTest extends TestCase
     {
         $blog = new SimpleBlog(getcwd() . "/var/simple_blog_multiple.txt");
         $requestHashTag = new PublishPostRequest(
-            "facebook",
+            "SimpleBlog",
             "1a84fvb",
             "5adf78bfdsg",
             "Ceci est un test multiple",

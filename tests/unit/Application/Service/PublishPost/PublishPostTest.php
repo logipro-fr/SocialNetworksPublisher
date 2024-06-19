@@ -3,15 +3,14 @@
 namespace SocialNetworksPublisher\Tests\Application\Service\PublishPost;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
+use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\Status;
-use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi;
 
@@ -20,6 +19,7 @@ class PublishPostTest extends TestCase
     private PublishPostRequest $requestHashTag;
     private PublishPostRequest $requestWithoutHashTag;
     private PublishPostRequest $otherRequest;
+    private PublishPostRequest $badRequest;
     private PostRepositoryInMemory $repository;
 
     private const TEXT_CONTENT =
@@ -29,7 +29,7 @@ class PublishPostTest extends TestCase
     public function setUp(): void
     {
         $this->requestHashTag = new PublishPostRequest(
-            "facebook",
+            "Facebook",
             "1a84fvb",
             "5adf78bfdsg",
             self::TEXT_CONTENT,
@@ -37,7 +37,7 @@ class PublishPostTest extends TestCase
         );
 
         $this->requestWithoutHashTag = new PublishPostRequest(
-            "simpleblog",
+            "SimpleBlog",
             "1a84fvb",
             "5adf78bfdsg",
             self::TEXT_CONTENT,
@@ -45,11 +45,19 @@ class PublishPostTest extends TestCase
         );
 
         $this->otherRequest = new PublishPostRequest(
-            "facebook",
+            "Facebook",
             "1a84fvb",
             "5adf78bfdsg",
             self::TEXT_CONTENT,
             ""
+        );
+
+        $this->badRequest = new PublishPostRequest(
+            "fa",
+            "1a84fvb",
+            "5adf78bfdsg",
+            self::TEXT_CONTENT,
+            "#PEdro",
         );
         $this->repository = new PostRepositoryInMemory();
     }
@@ -62,7 +70,7 @@ class PublishPostTest extends TestCase
         $postFromRepo = $this->repository->findById(new PostId($response->postId));
 
         $this->assertInstanceOf(PublishPostResponse::class, $response);
-        $this->assertEquals("facebook", $response->socialNetworks);
+        $this->assertEquals("Facebook", $response->socialNetworks);
         $this->assertStringStartsWith("pos_", $response->postId);
         $this->assertEquals(Status::PUBLISHED, $postFromRepo->getStatus());
     }
@@ -75,7 +83,7 @@ class PublishPostTest extends TestCase
         $response = $service->getResponse();
 
         $this->assertInstanceOf(PublishPostResponse::class, $response);
-        $this->assertEquals("simpleblog", $response->socialNetworks);
+        $this->assertEquals("SimpleBlog", $response->socialNetworks);
         $this->assertStringStartsWith("pos_", $response->postId);
     }
 
@@ -88,8 +96,8 @@ class PublishPostTest extends TestCase
         $service->execute($this->otherRequest);
         $responseOther = $service->getResponse();
 
-        $this->assertEquals("simpleblog", $response->socialNetworks);
-        $this->assertEquals("facebook", $responseOther->socialNetworks);
+        $this->assertEquals("SimpleBlog", $response->socialNetworks);
+        $this->assertEquals("Facebook", $responseOther->socialNetworks);
         $this->assertFalse((new PostId($responseOther->postId))->equals(new PostId($response->postId)));
     }
 
@@ -110,5 +118,12 @@ class PublishPostTest extends TestCase
 
         $this->assertInstanceOf(Post::class, $post);
         $this->assertEquals("test", $post->getPostId());
+    }
+
+    public function testBadPostForPostFactory(): void {
+        $this->expectException(BadSocialNetworksParameterException::class);
+        
+        $postFactory = new PostFactory();
+        $postFactory->buildPostFromRequest($this->badRequest, "test");
     }
 }

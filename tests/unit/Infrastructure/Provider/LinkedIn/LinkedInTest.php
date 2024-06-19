@@ -19,7 +19,7 @@ class LinkedInTest extends TestCase
     protected function setUp(): void
     {
         $this->request = new PublishPostRequest(
-            "linkedIn",
+            "LinkedIn",
             "1a84fvb",
             "5adf78bfdsg",
             self::TEXT_CONTENT,

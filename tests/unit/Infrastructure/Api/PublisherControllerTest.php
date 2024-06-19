@@ -14,7 +14,6 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-use function Safe\getcwd;
 use function Safe\json_encode;
 
 class PublisherControllerTest extends WebTestCase
@@ -44,7 +43,7 @@ class PublisherControllerTest extends WebTestCase
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
-                "socialNetworks" => "simpleBlog",
+                "socialNetworks" => "SimpleBlog",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",
@@ -66,7 +65,7 @@ class PublisherControllerTest extends WebTestCase
         $this->assertEquals(201, $responseCode);
         $this->assertStringContainsString('"ErrorCode":', $responseContent);
         $this->assertStringContainsString('"postId":"pos_', $responseContent);
-        $this->assertStringContainsString('"socialNetworks":"simpleBlog', $responseContent);
+        $this->assertStringContainsString('"socialNetworks":"SimpleBlog', $responseContent);
         $this->assertStringContainsString('"message":"', $responseContent);
         $this->assertStringStartsWith("pos_", $post->getPostId());
         $this->assertEquals($postId, $post->getPostId());
@@ -96,7 +95,7 @@ class PublisherControllerTest extends WebTestCase
         $this->assertStringContainsString('"success":false', $responseContent);
         $this->assertStringContainsString('"ErrorCode":"BadSocialNetworksParameterException"', $responseContent);
         $this->assertStringContainsString(
-            '"message":"The social network parameters cannot be empty"',
+            '"message":"Invalid social network"',
             $responseContent
         );
     }
@@ -130,7 +129,7 @@ class PublisherControllerTest extends WebTestCase
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode([
-                "socialNetworks" => "simpleBlog",
+                "socialNetworks" => "SimpleBlog",
                 "authorId" => "1584514",
                 "pageId" => "4a75fe6",
                 "content" => "Ceci est un simple post",

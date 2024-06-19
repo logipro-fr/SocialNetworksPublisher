@@ -12,6 +12,7 @@ use SocialNetworksPublisher\Domain\Model\Post\Page;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
+use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
 use SocialNetworksPublisher\Domain\Model\Post\Status;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 
@@ -30,9 +31,17 @@ abstract class PostRepositoryTestBase extends TestCase
             (new HashTagArrayFactory())->buildHashTagArrayFromSentence("1,2,3", ','),
             $page,
             Status::READY,
+            SocialNetworks::Facebook,
             new PostId("prime")
         );
-        $post2 = new Post($author, $content, new HashTagArray(), $page, Status::READY, new PostId("prime2"));
+        $post2 = new Post($author,
+         $content,
+          new HashTagArray(),
+           $page,
+            Status::READY,  
+            SocialNetworks::Facebook,
+        new PostId("prime2")
+    );
 
         $this->postRepository->add($post);
         $found = $this->postRepository->findById(new PostId("prime"));

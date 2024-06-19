@@ -22,7 +22,7 @@ class PublishPost
     {
         $post = $this->createPost($request);
         $apiResponse = $this->socialNetworksFactory
-            ->buildApi($request->socialNetworks)
+            ->buildApi($post->getSocialNetworks())
             ->postApiRequest($post);
 
 

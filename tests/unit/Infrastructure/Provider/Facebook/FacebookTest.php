@@ -18,7 +18,7 @@ class FacebookTest extends TestCase
     protected function setUp(): void
     {
         $this->request = new PublishPostRequest(
-            "facebook",
+            "Facebook",
             "1a84fvb",
             "5adf78bfdsg",
             self::TEXT_CONTENT,
