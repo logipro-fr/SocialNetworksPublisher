@@ -5,6 +5,10 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Api;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
+use Phariscope\Event\Tools\SpyListener;
+use Safe\DateTimeImmutable;
+use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
+use SocialNetworksPublisher\Domain\Model\Post\Event\PostCreated;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
@@ -36,6 +40,9 @@ class PublisherControllerTest extends WebTestCase
 
     public function testControllerRouting(): void
     {
+        $spy = new SpyListener();
+        (new EventFacade())->subscribe($spy);
+
         $this->client->request(
             "POST",
             "/api/v1/post/publish",
@@ -69,6 +76,10 @@ class PublisherControllerTest extends WebTestCase
         $this->assertStringContainsString('"message":"', $responseContent);
         $this->assertStringStartsWith("pos_", $post->getPostId());
         $this->assertEquals($postId, $post->getPostId());
+        /** @var PostCreated */
+        $event = $spy->domainEvent;
+        $this->assertInstanceOf(PostCreated::class, $spy->domainEvent);
+        $this->assertEquals($postId, $event->postId);
     }
 
     public function testControllerErrorResponse(): void
@@ -102,6 +113,7 @@ class PublisherControllerTest extends WebTestCase
 
     public function testExecute(): void
     {
+
         $metadata = $this->createMock(ClassMetadata::class);
         $metadata->name = PublisherControllerTest::class;
 
@@ -141,5 +153,6 @@ class PublisherControllerTest extends WebTestCase
         /** @var string */
         $responseContent = $response->getContent();
         $this->assertJson($responseContent);
+
     }
 }
