@@ -1,0 +1,39 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  api.factory:
+    class: SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi
+    public: true
+    autowire: true
+
+  SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController:
+    autowire: true
+    arguments:
+      $socialNetworksApiFactory: '@api.factory'
+      $repo: '@post.repository'
+
+  post.repository:
+    public: true
+    autowire: true
+    class: SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine
+
+  SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface: "@post.repository"
+  SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi: "@api.factory"
+  
+
+  SocialNetworksPublisher\Infrastructure\Api\V1\:
+    resource: "../src/Infrastructure/Api/V1/"
+    tags: ["controller.service_arguments"]
+
+
+
