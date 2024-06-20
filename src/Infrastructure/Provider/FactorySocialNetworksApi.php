@@ -10,6 +10,7 @@ use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetw
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
+use SocialNetworksPublisher\Infrastructure\Provider\Twitter\Twitter;
 
 class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
 {
@@ -22,6 +23,8 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
                 return new Facebook();
             case SocialNetworks::LinkedIn:
                 return new LinkedIn();
+            case SocialNetworks::Twitter:
+                return new Twitter();
             default:
                 throw new BadSocialNetworksParameterException("", BadSocialNetworksParameterException::ERROR_CODE);
         }
