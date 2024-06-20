@@ -22,4 +22,5 @@ Feature: Publish content on a socialNetworks
     |   "LinkedIn"      |
     |    "Facebook"     |
     |   "simpleBlog"    |
+    |   "twitter"       |
 
