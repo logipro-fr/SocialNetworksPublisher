@@ -3,8 +3,8 @@ info:
   title: SocialNetworksPublisher API
   version: 1.0.0
 servers:
-  - url: http://172.17.0.1:10980/api/v1
-    description: Local server
+  - url: http://172.17.0.1:10980/api/v1 
+  - description: Local server
 paths:
   /post/publish:
     post:
@@ -20,7 +20,7 @@ paths:
                 socialNetworks:
                   type: string
                   description: The social network to post to
-                  example: simpleBlog
+                  example: SimpleBlog
                 authorId:
                   type: string
                   description: The ID of the author on the social network
