@@ -8,14 +8,11 @@ class CurrentWorkDirPath
 {
     public static function getPath(): string
     {
-        if (isset($_ENV["PWD"])) {
-            return $_ENV["PWD"];
+        $dir = __DIR__;
+        if (!empty($dir)) {
+            return dirname(__DIR__, 3);
         }
 
-        $pwdFromEnv = getenv('PWD');
-        if ($pwdFromEnv !== false) {
-            return $pwdFromEnv;
-        }
 
         throw new NoPWDException("Environment variable PWD not found");
     }
