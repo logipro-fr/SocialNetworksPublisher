@@ -17,12 +17,12 @@ class SimpleBlog implements SocialNetworksApiInterface
 {
     /** @var resource file pointer resource*/
     private $file;
-    private String $path;
+    private string $path;
     private const POST_PATTERN = "%s %s\n\n";
     public function __construct(private string $fileName)
     {
         $this->path = CurrentWorkDirPath::getPath() . "/var/";
-    
+
         $this->verifyFilePath($this->path . $this->fileName);
         $this->file = fopen($this->path . $this->fileName, 'c+b');
     }

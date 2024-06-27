@@ -19,7 +19,6 @@ class SimpleBlogTest extends TestCase
     private const TEXTCONTENT = "Ceci est un test multiple #Pedro \n\nCeci est un test multiple #Pedro \n\n";
     protected function setUp(): void
     {
-
     }
     public function testOnePostOnSimpleBlog(): void
     {
