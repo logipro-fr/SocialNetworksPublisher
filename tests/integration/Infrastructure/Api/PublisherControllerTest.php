@@ -54,7 +54,7 @@ class PublisherControllerTest extends WebTestCase
         $responseContent = $this->client->getResponse()->getContent();
         $responseCode = $this->client->getResponse()->getStatusCode();
 
-        $this->assertResponseIsUnprocessable();
+        //$this->assertResponseIsUnprocessable();
         $this->assertEquals(422, $responseCode);
         $this->assertStringContainsString('"success":false', $responseContent);
         $this->assertStringContainsString('"ErrorCode":"BadSocialNetworksParameterException"', $responseContent);
@@ -86,7 +86,11 @@ class PublisherControllerTest extends WebTestCase
         $array = json_decode($responseContent, true);
         /** @var string */
         $postId = $array['data']['postId'];
-        $post = $this->repository->findById(new PostId($postId));
+        
+        $repo = new PostRepositoryDoctrine($this->getEntityManager());
+
+        $post = $repo ->findById(new PostId($postId));
+
 
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('"success":true', $responseContent);
