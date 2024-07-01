@@ -33,9 +33,4 @@ class PostRepositoryDoctrine extends EntityRepository implements PostRepositoryI
         }
         return $post;
     }
-
-    public function flush(): void
-    {
-        $this->getEntityManager()->flush();
-    }
 }
