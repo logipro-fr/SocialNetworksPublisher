@@ -1,16 +1,11 @@
 <?php
 
-namespace SocialNetworksPublisher\Tests\Infrastructure\Provider\Twitter;
+namespace SocialNetworksPublisher\Tests\Integration\Infrastructure\Provider;
 
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\Twitter;
-use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
-
-use function Safe\file_get_contents;
 
 class TwitterTest extends TestCase
 {
@@ -29,18 +24,10 @@ class TwitterTest extends TestCase
     public function testTwitterRequest(): void
     {
         $post = (new PostFactory())->buildPostFromRequest($this->request);
-        var_dump(CurrentWorkDirPath::getPath() . '/tests/unit/ressources/TwitterResponseTweet');
-
-        $twitterResponse = [
-            new MockResponse(file_get_contents(CurrentWorkDirPath::getPath() . '/tests/unit/ressources/TwitterResponseTweet.json'), ['http_code' => 200]),
-        ];
-        $client = new MockHttpClient($twitterResponse, 'https://api.twitter.com/2/tweets');
-
-        $twitter = new Twitter($client);
+        $twitter = new Twitter();
 
         $response = $twitter->postApiRequest($post);
         $this->assertTrue($response->success);
     }
-
 
 }
