@@ -5,6 +5,8 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Provider\Twitter;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterBearerToken;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterClient;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
@@ -104,7 +106,45 @@ class TwitterClientTest extends TestCase
         $this->assertTrue($response3->success);
     }
 
-    public function badRequestException(): void {
+    public function testBadRequestException(): void
+    {
         $this->expectException(BadRequestException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessage("Invalid request");
+        $twitterResponse1 = [
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterBadRequestResponse.json'),
+                ['http_code' => 400]
+            ),
+        ];
+        $client1 = new MockHttpClient($twitterResponse1, 'https://api.twitter.com/2/oauth2/token');
+        $bearerToken = new TwitterBearerToken();
+        $twitter = new TwitterClient($client1, $bearerToken);
+    }
+
+    public function testUnauthorizedException(): void
+    {
+        $this->expectException(UnauthorizedException::class);
+        $this->expectExceptionMessage("Unauthorized");
+
+        $post = (new PostFactory())->buildPostFromRequest($this->request);
+
+        $twitterResponse1 = [
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseRefreshFirst.json'),
+                ['http_code' => 200]
+            ),
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterBadRequestResponse.json'),
+                ['http_code' => 401]
+            ),
+        ];
+        $client1 = new MockHttpClient($twitterResponse1, 'https://api.twitter.com/2/oauth2/token');
+        $bearerToken = new TwitterBearerToken();
+        $twitter = new TwitterClient($client1, $bearerToken);
+        $response = $twitter->postApiRequest($post);
     }
 }

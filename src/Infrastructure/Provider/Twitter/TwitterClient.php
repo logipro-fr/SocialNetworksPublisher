@@ -5,6 +5,8 @@ namespace SocialNetworksPublisher\Infrastructure\Provider\Twitter;
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -44,6 +46,8 @@ class TwitterClient implements SocialNetworksApiInterface
         $response = $this->client->request('POST', $url, $options);
         if ($response->getStatusCode() === 200) {
             return new ProviderResponse(true);
+        } elseif ($response->getStatusCode() === 401) {
+            throw new UnauthorizedException("Unauthorized", UnauthorizedException::ERROR_CODE);
         } else {
             return new ProviderResponse(false);
         }
@@ -66,6 +70,13 @@ class TwitterClient implements SocialNetworksApiInterface
             'body' => $data,
         ];
         $response = $this->client->request('POST', $url, $options);
+
+        if ($response->getStatusCode() === 400) {
+            throw new BadRequestException(
+                "Invalid request",
+                BadRequestException::ERROR_CODE
+            );
+        }
         /** @var array<string,mixed> */
         $responseData = json_decode($response->getContent(), true);
         /** @var string */
