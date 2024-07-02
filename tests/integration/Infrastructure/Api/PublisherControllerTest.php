@@ -88,6 +88,29 @@ class PublisherControllerTest extends WebTestCase
         $postId = $array['data']['postId'];
         $post = $this->repository->findById(new PostId($postId));
 
+        $this->client->request(
+            "POST",
+            "/api/v1/post/publish",
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode([
+                "socialNetworks" => "Twitter",
+                "authorId" => "1584514",
+                "pageId" => "4a75fe6",
+                "content" => "Ceci est un simple post mais ces le deuxieme qui est posté",
+                "hashtag" => "#test, #FizzBuzz",
+            ])
+        );
+        /** @var string */
+        $responseContent2 = $this->client->getResponse()->getContent();
+        $responseCode2 = $this->client->getResponse()->getStatusCode();
+        /** @var array<mixed,array<mixed>> */
+        $array2 = json_decode($responseContent2, true);
+        /** @var string */
+        $postId2 = $array2['data']['postId'];
+        $post2 = $this->repository->findById(new PostId($postId2));
+
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('"success":true', $responseContent);
         $this->assertEquals(201, $responseCode);
@@ -96,5 +119,14 @@ class PublisherControllerTest extends WebTestCase
         $this->assertStringContainsString('"socialNetworks":"Twitter', $responseContent);
         $this->assertStringContainsString('"message":"', $responseContent);
         $this->assertEquals("Ceci est un simple post", $post->getContent());
+
+        $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('"success":true', $responseContent2);
+        $this->assertEquals(201, $responseCode2);
+        $this->assertStringContainsString('"ErrorCode":', $responseContent2);
+        $this->assertStringContainsString('"postId":"pos_', $responseContent2);
+        $this->assertStringContainsString('"socialNetworks":"Twitter', $responseContent2);
+        $this->assertStringContainsString('"message":"', $responseContent2);
+        $this->assertEquals("Ceci est un simple post mais ces le deuxieme qui est posté", $post2->getContent());
     }
 }
