@@ -10,10 +10,16 @@ use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetw
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
-use SocialNetworksPublisher\Infrastructure\Provider\Twitter\Twitter;
+use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterBearerToken;
+use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterClient;
+use Symfony\Component\HttpClient\CurlHttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
 {
+    public function __construct(private HttpClientInterface $client = new CurlHttpClient())
+    {
+    }
     public function buildApi(SocialNetworks $socialNetworks): SocialNetworksApiInterface
     {
         switch ($socialNetworks) {
@@ -24,7 +30,7 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
             case SocialNetworks::LinkedIn:
                 return new LinkedIn();
             case SocialNetworks::Twitter:
-                return new Twitter();
+                return new TwitterClient($this->client, new TwitterBearerToken());
             default:
                 throw new BadSocialNetworksParameterException("", BadSocialNetworksParameterException::ERROR_CODE);
         }

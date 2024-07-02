@@ -11,7 +11,12 @@ use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
-use SocialNetworksPublisher\Infrastructure\Provider\Twitter\Twitter;
+use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterClient;
+use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
+
+use function Safe\file_get_contents;
 
 class FactorySocialNetworksApiTest extends TestCase
 {
@@ -38,8 +43,18 @@ class FactorySocialNetworksApiTest extends TestCase
 
     public function testAbstractFactoryTwitter(): void
     {
+        $twitterResponse = [
+            new MockResponse(
+                file_get_contents(
+                    CurrentWorkDirPath::getPath() .
+                    '/tests/unit/ressources/TwitterResponseRefreshFirst.json'
+                ),
+                ['http_code' => 200]
+            ),
+        ];
+        $client = new MockHttpClient($twitterResponse, 'https://api.twitter.com/2/oauth2/token');
         $socialNetworks = SocialNetworks::Twitter;
-        $sut = (new FactorySocialNetworksApi())->buildApi($socialNetworks);
-        $this->assertInstanceOf(Twitter::class, $sut);
+        $sut = (new FactorySocialNetworksApi($client))->buildApi($socialNetworks);
+        $this->assertInstanceOf(TwitterClient::class, $sut);
     }
 }
