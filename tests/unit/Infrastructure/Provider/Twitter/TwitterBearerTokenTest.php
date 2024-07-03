@@ -47,7 +47,7 @@ class TwitterBearerTokenTest extends TestCase
         $token->setRefreshToken('testRefreshToken');
 
         $this->assertEquals('testRefreshToken', file_get_contents(CurrentWorkDirPath::getPath() . self::REFRESH_PATH));
-        $this->assertEquals(CurrentWorkDirPath::getPath() . self::REFRESH_PATH, CurrentWorkDirPath::getPath() . $token->getRefreshPath());
+        $this->assertEquals(CurrentWorkDirPath::getPath() . self::REFRESH_PATH, $token->getRefreshPath());
     }
 
     public function testNeedsRefresh(): void
