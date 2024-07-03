@@ -3,7 +3,10 @@
 namespace SocialNetworksPublisher\Infrastructure\Provider\Twitter;
 
 use DateTime;
+use Safe\DateTime as SafeDateTime;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Safe\file_get_contents;
 use function Safe\file_put_contents;
@@ -19,13 +22,20 @@ class TwitterBearerToken
     private string $expirationPath;
 
     public function __construct(
+        private HttpClientInterface $client,
         string $bearerPath = self::BEARER_PATH,
         string $refreshPath = self::REFRESH_PATH,
-        string $expirationPath = self::EXPIRATION_PATH
+        string $expirationPath = self::EXPIRATION_PATH,
     ) {
         $this->bearerPath = CurrentWorkDirPath::getPath() . $bearerPath;
         $this->refreshPath = CurrentWorkDirPath::getPath() . $refreshPath;
         $this->expirationPath = CurrentWorkDirPath::getPath() . $expirationPath;
+
+        if (!file_exists($this->refreshPath)) {
+            file_put_contents($this->refreshPath, $_ENV['TWITTER_REFRESH_TOKEN']);
+            $this->refreshRequest();
+        }
+        $this->needsRefresh();
     }
 
     public function getBearerToken(): string
@@ -38,34 +48,51 @@ class TwitterBearerToken
         return file_get_contents($this->refreshPath);
     }
 
-    public function getRefreshPath(): string
-    {
-        return $this->refreshPath;
-    }
-
     public function getExpirationDate(): DateTime
     {
-        return new DateTime(file_get_contents($this->expirationPath));
+        /** @var DateTime */
+        $date = date_create_from_format(DateTime::ATOM, file_get_contents($this->expirationPath));
+        return $date;
     }
 
-    public function setBearerToken(string $token, DateTime $expirationDate): void
-    {
-        file_put_contents($this->bearerPath, $token);
-        file_put_contents($this->expirationPath, $expirationDate->format(DateTime::ATOM));
-    }
-
-    public function setRefreshToken(string $token): void
-    {
-        file_put_contents($this->refreshPath, $token);
-    }
-
-    public function needsRefresh(): bool
+    public function needsRefresh(): void
     {
         $expirationDate = $this->getExpirationDate();
         $currentDate = new DateTime();
         if ($currentDate >= $expirationDate->modify('+2 hours')) {
-            return true;
+            $this->refreshRequest();
         }
-        return false;
+    }
+
+    private function refreshRequest(): void
+    {
+        $url = "https://api.twitter.com/2/oauth2/token";
+        $data = json_encode([
+            'refresh_token' => $this->getRefreshToken(),
+            'grant_type' => "refresh_token",
+            'client_id' => $_ENV['TWITTER_CLIENT_ID'],
+        ]);
+        $options = [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'body' => $data,
+        ];
+        $response = $this->client->request('POST', $url, $options);
+        if ($response->getStatusCode() === 400) {
+            throw new BadRequestException(
+                "Invalid request",
+                BadRequestException::ERROR_CODE
+            );
+        }
+        /** @var array<string,mixed> */
+        $responseData = json_decode($response->getContent(), true);
+        /** @var string */
+        $accessToken = $responseData['access_token'];
+        /** @var string */
+        $refreshToken = $responseData['refresh_token'];
+        file_put_contents($this->bearerPath, $accessToken);
+        file_put_contents($this->refreshPath, $refreshToken);
+        file_put_contents($this->expirationPath, (new SafeDateTime('+ 2 hours'))->format(DateTime::ATOM));
     }
 }

@@ -2,21 +2,32 @@
 
 namespace SocialNetworksPublisher\Tests\Infrastructure\Provider\Twitter;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterBearerToken;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 use function Safe\file_get_contents;
+use function Safe\file_put_contents;
 
 class TwitterBearerTokenTest extends TestCase
 {
     private const BEARER_PATH = "/var/test_TwitterBearerToken.txt";
     private const REFRESH_PATH = "/var/test_TwitterRefreshToken.txt";
     private const EXPIRATION_PATH = "/var/test_TwitterTokenExpiration.txt";
+    private MockHttpClient $client;
 
     protected function setUp(): void
     {
         $this->cleanup();
+        $this->client = $this->createMockHttpClient(
+            "TwitterResponseRefreshFirst.json",
+            200,
+            "https://api.twitter.com/2/oauth2/token"
+        );
     }
 
     protected function tearDown(): void
@@ -31,36 +42,124 @@ class TwitterBearerTokenTest extends TestCase
         @unlink(CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH);
     }
 
-    public function testGetAndSetBearerToken(): void
+    public function testGetBearerToken(): void
     {
-        $token = new TwitterBearerToken(self::BEARER_PATH, self::REFRESH_PATH, self::EXPIRATION_PATH);
-        $expirationDate = new \DateTime('+1 hour');
-        $token->setBearerToken('testBearerToken', $expirationDate);
+        $sut = new TwitterBearerToken(
+            $this->client,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
 
-        $this->assertEquals('testBearerToken', file_get_contents(CurrentWorkDirPath::getPath() . self::BEARER_PATH));
-        $this->assertEquals($expirationDate->format(\DateTime::ATOM), file_get_contents(CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH));
+        $this->assertEquals('access_token', $sut->getBearerToken());
     }
 
-    public function testGetAndSetRefreshToken(): void
+    public function testGetRefreshToken(): void
     {
-        $token = new TwitterBearerToken(self::BEARER_PATH, self::REFRESH_PATH, self::EXPIRATION_PATH);
-        $token->setRefreshToken('testRefreshToken');
+        $sut = new TwitterBearerToken(
+            $this->client,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
 
-        $this->assertEquals('testRefreshToken', file_get_contents(CurrentWorkDirPath::getPath() . self::REFRESH_PATH));
-        $this->assertEquals(CurrentWorkDirPath::getPath() . self::REFRESH_PATH, $token->getRefreshPath());
+        $this->assertEquals('refresh_token', $sut->getRefreshToken());
+    }
+
+    public function testGetExpirationDate(): void
+    {
+        $sut = new TwitterBearerToken(
+            $this->client,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
+        $expirationDate = (new DateTime());
+        $expectedDate = DateTime::createFromFormat('Y-m-d\TH:i:sP', $expirationDate->format('Y-m-d\TH:i:sP'));
+        file_put_contents(
+            CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH,
+            $expirationDate->format(DateTime::ATOM)
+        );
+
+        $this->assertEquals($expectedDate, $sut->getExpirationDate());
     }
 
     public function testNeedsRefresh(): void
     {
-        $token = new TwitterBearerToken(self::BEARER_PATH, self::REFRESH_PATH, self::EXPIRATION_PATH);
+        file_put_contents(CurrentWorkDirPath::getPath() . self::REFRESH_PATH, 'test');
         $expirationDate = new \DateTime('-2 hour');
-        $token->setBearerToken('testBearerToken', $expirationDate);
+        file_put_contents(
+            CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH,
+            $expirationDate->format(DateTime::ATOM)
+        );
+        $sut = new TwitterBearerToken(
+            $this->client,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
 
-        $this->assertTrue($token->needsRefresh());
+        $this->assertEquals('refresh_token', $sut->getRefreshToken());
 
         $expirationDate = new \DateTime('-1 hour');
-        $token->setBearerToken('testBearerToken', $expirationDate);
+        file_put_contents(CurrentWorkDirPath::getPath() . self::REFRESH_PATH, 'Dont change');
+        file_put_contents(
+            CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH,
+            $expirationDate->format(DateTime::ATOM)
+        );
+        $client = new MockHttpClient(new MockResponse(), "https://api.twitter.com/2/oauth2/token");
+        $sut = new TwitterBearerToken($client, self::BEARER_PATH, self::REFRESH_PATH, self::EXPIRATION_PATH);
 
-        $this->assertFalse($token->needsRefresh());
+        $this->assertEquals('Dont change', $sut->getRefreshToken());
+    }
+
+    public function testConstructWithGetEnvWhenNoFileSetup(): void
+    {
+        $sut = new TwitterBearerToken(
+            $this->client,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
+        $expectedDate = DateTime::createFromFormat(
+            'Y-m-d\TH:i:sP',
+            (new DateTime("+2 hours"))->format(DateTime::ATOM)
+        );
+        $this->assertFileExists(CurrentWorkDirPath::getPath() . self::REFRESH_PATH);
+        $this->assertFileExists(CurrentWorkDirPath::getPath() . self::BEARER_PATH);
+        $this->assertFileExists(CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH);
+        $this->assertEquals("refresh_token", $sut->getRefreshToken());
+        $this->assertEquals("access_token", $sut->getBearerToken());
+        $this->assertEquals($expectedDate, $sut->getExpirationDate());
+    }
+
+    public function testInvalidRequestException(): void
+    {
+        $this->expectException(BadRequestException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessage("Invalid request");
+
+        $client = $this->createMockHttpClient(
+            'TwitterBadRequestResponse.json',
+            400,
+            'https://api.twitter.com/2/oauth2/token'
+        );
+        new TwitterBearerToken(
+            $client,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
+    }
+
+    private function createMockHttpClient(string $filename, int $code, string $url): MockHttpClient
+    {
+        $responses = [
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() . "/tests/unit/ressources/" . $filename),
+                ['http_code' => $code]
+            ),
+        ];
+        return new MockHttpClient($responses, $url);
     }
 }

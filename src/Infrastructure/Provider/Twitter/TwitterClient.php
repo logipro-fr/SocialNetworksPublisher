@@ -18,18 +18,11 @@ class TwitterClient implements SocialNetworksApiInterface
         private HttpClientInterface $client,
         private TwitterBearerToken $bearerToken
     ) {
-        if (!file_exists($this->bearerToken->getRefreshPath())) {
-            $this->bearerToken->setRefreshToken($_ENV['TWITTER_REFRESH_TOKEN']);
-            $this->refreshToken();
-        }
     }
 
     public function postApiRequest(Post $post): ProviderResponse
     {
-        if ($this->bearerToken->needsRefresh()) {
-            $this->refreshToken();
-        }
-
+        $this->bearerToken->needsRefresh();
         $url = 'https://api.twitter.com/2/tweets';
         $data = [
             'text' => $post->getContent()->__toString() . " " . $post->getHashTags()->__toString(),
@@ -50,40 +43,5 @@ class TwitterClient implements SocialNetworksApiInterface
         } else {
             return new ProviderResponse(false);
         }
-    }
-    /**
-     * @return array<string,mixed>
-     */
-    private function refreshToken(): array
-    {
-        $url = "https://api.twitter.com/2/oauth2/token";
-        $data = json_encode([
-            'refresh_token' => $this->bearerToken->getRefreshToken(),
-            'grant_type' => "refresh_token",
-            'client_id' => $_ENV['TWITTER_CLIENT_ID'],
-        ]);
-        $options = [
-            'headers' => [
-                'Content-Type' => 'application/json',
-            ],
-            'body' => $data,
-        ];
-        $response = $this->client->request('POST', $url, $options);
-
-        if ($response->getStatusCode() === 400) {
-            throw new BadRequestException(
-                "Invalid request",
-                BadRequestException::ERROR_CODE
-            );
-        }
-        /** @var array<string,mixed> */
-        $responseData = json_decode($response->getContent(), true);
-        /** @var string */
-        $accessToken = $responseData['access_token'];
-        /** @var string */
-        $refreshToken = $responseData['refresh_token'];
-        $this->bearerToken->setBearerToken($accessToken, new \DateTime());
-        $this->bearerToken->setRefreshToken($refreshToken);
-        return $responseData;
     }
 }

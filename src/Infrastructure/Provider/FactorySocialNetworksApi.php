@@ -30,7 +30,7 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
             case SocialNetworks::LinkedIn:
                 return new LinkedIn();
             case SocialNetworks::Twitter:
-                return new TwitterClient($this->client, new TwitterBearerToken());
+                return new TwitterClient($this->client, new TwitterBearerToken($this->client));
             default:
                 throw new BadSocialNetworksParameterException("", BadSocialNetworksParameterException::ERROR_CODE);
         }
