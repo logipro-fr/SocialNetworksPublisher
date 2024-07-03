@@ -18,8 +18,7 @@ class TwitterClient implements SocialNetworksApiInterface
         private HttpClientInterface $client,
         private TwitterBearerToken $bearerToken
     ) {
-        $refreshPath = CurrentWorkDirPath::getPath() . $bearerToken::REFRESH_PATH;
-        if (!file_exists($refreshPath)) {
+        if (!file_exists($this->bearerToken->getRefreshPath())) {
             $this->bearerToken->setRefreshToken($_ENV['TWITTER_REFRESH_TOKEN']);
             $this->refreshToken();
         }
