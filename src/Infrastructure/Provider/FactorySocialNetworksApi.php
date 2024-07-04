@@ -12,6 +12,7 @@ use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterBearerToken;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterClient;
+use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -24,7 +25,7 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
     {
         switch ($socialNetworks) {
             case SocialNetworks::SimpleBlog:
-                return new SimpleBlog(getcwd() . "/var/simpleBlogControllerRequest.txt");
+                return new SimpleBlog(CurrentWorkDirPath::getPath() . "/var/simpleBlogControllerRequest.txt");
             case SocialNetworks::Facebook:
                 return new Facebook();
             case SocialNetworks::LinkedIn:
