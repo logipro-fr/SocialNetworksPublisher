@@ -20,7 +20,7 @@ Feature: Publish content on a socialNetworks
   Examples:
     |   socialNetwork   |
     |   "LinkedIn"      |
-    |   "Facebook"     |
+    |   "Facebook"      |
     |   "SimpleBlog"    |
     |   "Twitter"       |
 
