@@ -25,7 +25,7 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
     {
         switch ($socialNetworks) {
             case SocialNetworks::SimpleBlog:
-                return new SimpleBlog(CurrentWorkDirPath::getPath() . "/var/simpleBlogControllerRequest.txt");
+                return new SimpleBlog("simpleBlogControllerRequest.txt");
             case SocialNetworks::Facebook:
                 return new Facebook();
             case SocialNetworks::LinkedIn:

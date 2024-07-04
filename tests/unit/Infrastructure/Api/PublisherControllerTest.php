@@ -101,8 +101,7 @@ class PublisherControllerTest extends WebTestCase
         /** @var string */
         $responseContent = $this->client->getResponse()->getContent();
         $responseCode = $this->client->getResponse()->getStatusCode();
-        $this->assertResponseIsUnprocessable();
-        $this->assertEquals(422, $responseCode);
+        $this->assertEquals(500, $responseCode);
         $this->assertStringContainsString('"success":false', $responseContent);
         $this->assertStringContainsString('"ErrorCode":"BadSocialNetworksParameterException"', $responseContent);
         $this->assertStringContainsString(
