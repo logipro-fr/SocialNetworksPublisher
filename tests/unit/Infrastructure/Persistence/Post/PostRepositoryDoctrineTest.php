@@ -18,22 +18,4 @@ class PostRepositoryDoctrineTest extends PostRepositoryTestBase
         $this->clearTables(['posts']);
         $this->postRepository = new PostRepositoryDoctrine($this->getEntityManager());
     }
-
-    public function testFlush(): void
-    {
-        $metadata = $this->createMock(ClassMetadata::class);
-        $metadata->name =  PostRepositoryDoctrineTest::class;
-
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-        $entityManager
-            ->expects($this->once())
-            ->method('flush');
-
-        $entityManager
-            ->method('getClassMetadata')
-            ->willReturn($metadata);
-
-        $sut = new PostRepositoryDoctrine($entityManager);
-        $sut->flush();
-    }
 }

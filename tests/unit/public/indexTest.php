@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialNEtworksPublisher\Tests\public ;
+namespace SocialNetworksPublisher\Tests\public;
 
 use Closure;
 use PHPUnit\Framework\TestCase;

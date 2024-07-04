@@ -3,7 +3,6 @@
 namespace SocialNetworksPublisher\Tests\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworksPublisher\Infrastructure\Exceptions\NoPWDException;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 
 class CurrentWorkDirPathTest extends TestCase

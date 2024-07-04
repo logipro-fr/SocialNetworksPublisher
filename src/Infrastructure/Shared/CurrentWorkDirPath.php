@@ -2,8 +2,6 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Shared;
 
-use SocialNetworksPublisher\Infrastructure\Exceptions\NoPWDException;
-
 class CurrentWorkDirPath
 {
     public static function getPath(): string
