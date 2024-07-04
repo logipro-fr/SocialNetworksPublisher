@@ -2,3 +2,4 @@
 /vendor/
 /log/
 secret.env
+src/public/log/exceptions.log
