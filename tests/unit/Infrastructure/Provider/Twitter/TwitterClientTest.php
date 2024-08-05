@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\DuplicatePostException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterBearerToken;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterClient;
@@ -48,48 +49,12 @@ class TwitterClientTest extends TestCase
         @unlink(CurrentWorkDirPath::getPath() . TwitterBearerToken::EXPIRATION_PATH);
     }
 
-    public function testTwitterRequest(): void
+    public function testTwitterRequestMecanismWithRefresh(): void
     {
         $post = (new PostFactory())->buildPostFromRequest($this->request);
-        $tokenBearer = [
-            new MockResponse(
-                file_get_contents(CurrentWorkDirPath::getPath() .
-                 '/tests/unit/ressources/TwitterResponseRefreshFirst.json'),
-                ['http_code' => 200]
-            ),
-            new MockResponse(
-                file_get_contents(CurrentWorkDirPath::getPath() .
-                 '/tests/unit/ressources/TwitterResponseRefresh.json'),
-                ['http_code' => 200]
-            ),
-        ];
-        $twitterResponse2 = [
-            new MockResponse(
-                file_get_contents(CurrentWorkDirPath::getPath() .
-                 '/tests/unit/ressources/TwitterResponseTweet.json'),
-                ['http_code' => 200]
-            ),
-            new MockResponse(
-                file_get_contents(CurrentWorkDirPath::getPath() .
-                 '/tests/unit/ressources/TwitterResponseTweet.json'),
-                ['http_code' => 200]
-            ),
-            new MockResponse(
-                file_get_contents(CurrentWorkDirPath::getPath() .
-                 '/tests/unit/ressources/TwitterBadRequestResponse.json'),
-                ['http_code' => 401]
-            ),
-        ];
-        $tokenBearerClient = new MockHttpClient($tokenBearer, 'https://api.twitter.com/2/oauth2/token');
-        $TwitterClient = new MockHttpClient($twitterResponse2, 'https://api.twitter.com/2/tweets');
-        $token = new TwitterBearerToken(
-            $tokenBearerClient,
-            self::BEARER_PATH,
-            self::REFRESH_PATH,
-            self::EXPIRATION_PATH
-        );
-
-        $sut = new TwitterClient($TwitterClient, $token);
+        $token = $this->prepareTwitterMockBearerToken();
+        $twitterMockClient = $this->prepareTwitterMockClient();
+        $sut = new TwitterClient($twitterMockClient, $token);
         $refreshToken1 = $token->getRefreshToken();
         $accessToken1 = $token->getBearerToken();
 
@@ -113,5 +78,79 @@ class TwitterClientTest extends TestCase
         $this->expectExceptionMessage("Unauthorized");
 
         $sut->postApiRequest($post);
+    }
+
+    public function testDuplicateContentException(): void
+    {
+        $post = (new PostFactory())->buildPostFromRequest($this->request);
+        $twitterResponse = [
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseTweet.json'),
+                ['http_code' => 200]
+            ),
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseDuplicateTweet.json'),
+                ['http_code' => 403]
+            ),
+        ];
+        $twitterMockClient = new MockHttpClient($twitterResponse, 'https://api.twitter.com/2/tweets');
+
+        $token = $this->prepareTwitterMockBearerToken();
+        $sut = new TwitterClient($twitterMockClient, $token);
+
+        $this->expectException(DuplicatePostException::class);
+
+        //First Post
+        $sut->postApiRequest($post);
+        //Second same post who throwing the exception
+        $sut->postApiRequest($post);
+    }
+
+    private function prepareTwitterMockClient(): MockHttpClient
+    {
+        $twitterResponse = [
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseTweet.json'),
+                ['http_code' => 200]
+            ),
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseTweet.json'),
+                ['http_code' => 200]
+            ),
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterBadRequestResponse.json'),
+                ['http_code' => 401]
+            ),
+        ];
+        return new MockHttpClient($twitterResponse, 'https://api.twitter.com/2/tweets');
+    }
+
+    private function prepareTwitterMockBearerToken(): TwitterBearerToken
+    {
+        $tokenBearer = [
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseRefreshFirst.json'),
+                ['http_code' => 200]
+            ),
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseRefresh.json'),
+                ['http_code' => 200]
+            ),
+        ];
+
+        $tokenBearerClient = new MockHttpClient($tokenBearer, 'https://api.twitter.com/2/oauth2/token');
+        return new TwitterBearerToken(
+            $tokenBearerClient,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
     }
 }

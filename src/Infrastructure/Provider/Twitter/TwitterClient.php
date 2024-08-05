@@ -5,9 +5,8 @@ namespace SocialNetworksPublisher\Infrastructure\Provider\Twitter;
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
-use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\DuplicatePostException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;
-use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Safe\json_encode;
@@ -40,6 +39,11 @@ class TwitterClient implements SocialNetworksApiInterface
             return new ProviderResponse(true);
         } elseif ($response->getStatusCode() === 401) {
             throw new UnauthorizedException("Unauthorized", UnauthorizedException::ERROR_CODE);
+        } elseif ($response->getStatusCode() === 403) {
+            throw new DuplicatePostException(
+                "You are not allowed to create a Tweet with duplicate content",
+                DuplicatePostException::ERROR_CODE,
+            );
         } else {
             return new ProviderResponse(false);
         }

@@ -5,15 +5,11 @@ namespace SocialNetworksPublisher\Tests\Integration\Infrastructure\Api;
 use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
-use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine;
-use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
-use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
-use function Safe\getcwd;
 use function Safe\json_encode;
 
 class PublisherControllerTest extends WebTestCase
@@ -55,7 +51,7 @@ class PublisherControllerTest extends WebTestCase
         $responseCode = $this->client->getResponse()->getStatusCode();
 
         //$this->assertResponseIsUnprocessable();
-        $this->assertEquals(422, $responseCode);
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $responseCode);
         $this->assertStringContainsString('"success":false', $responseContent);
         $this->assertStringContainsString('"ErrorCode":"BadSocialNetworksParameterException"', $responseContent);
         $this->assertStringContainsString(
@@ -86,7 +82,7 @@ class PublisherControllerTest extends WebTestCase
         $array = json_decode($responseContent, true);
         /** @var string */
         $postId = $array['data']['postId'];
-        
+
         $repo = new PostRepositoryDoctrine($this->getEntityManager());
 
         $post = $repo ->findById(new PostId($postId));

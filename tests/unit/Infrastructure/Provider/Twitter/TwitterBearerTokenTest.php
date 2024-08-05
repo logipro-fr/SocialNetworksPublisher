@@ -44,36 +44,21 @@ class TwitterBearerTokenTest extends TestCase
 
     public function testGetBearerToken(): void
     {
-        $sut = new TwitterBearerToken(
-            $this->client,
-            self::BEARER_PATH,
-            self::REFRESH_PATH,
-            self::EXPIRATION_PATH
-        );
+        $sut = $this->createBearerToken($this->client);
 
         $this->assertEquals('access_token', $sut->getBearerToken());
     }
 
     public function testGetRefreshToken(): void
     {
-        $sut = new TwitterBearerToken(
-            $this->client,
-            self::BEARER_PATH,
-            self::REFRESH_PATH,
-            self::EXPIRATION_PATH
-        );
+        $sut = $this->createBearerToken($this->client);
 
         $this->assertEquals('refresh_token', $sut->getRefreshToken());
     }
 
     public function testGetExpirationDate(): void
     {
-        $sut = new TwitterBearerToken(
-            $this->client,
-            self::BEARER_PATH,
-            self::REFRESH_PATH,
-            self::EXPIRATION_PATH
-        );
+        $sut = $this->createBearerToken($this->client);
         $expirationDate = (new DateTime());
         $expectedDate = DateTime::createFromFormat('Y-m-d\TH:i:sP', $expirationDate->format('Y-m-d\TH:i:sP'));
         file_put_contents(
@@ -92,12 +77,7 @@ class TwitterBearerTokenTest extends TestCase
             CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH,
             $expirationDate->format(DateTime::ATOM)
         );
-        $sut = new TwitterBearerToken(
-            $this->client,
-            self::BEARER_PATH,
-            self::REFRESH_PATH,
-            self::EXPIRATION_PATH
-        );
+        $sut = $this->createBearerToken($this->client);
 
         $this->assertEquals('refresh_token', $sut->getRefreshToken());
 
@@ -115,12 +95,7 @@ class TwitterBearerTokenTest extends TestCase
 
     public function testConstructWithGetEnvWhenNoFileSetup(): void
     {
-        $sut = new TwitterBearerToken(
-            $this->client,
-            self::BEARER_PATH,
-            self::REFRESH_PATH,
-            self::EXPIRATION_PATH
-        );
+        $sut = $this->createBearerToken($this->client);
         $expectedDate = DateTime::createFromFormat(
             'Y-m-d\TH:i:sP',
             (new DateTime("+2 hours"))->format(DateTime::ATOM)
@@ -144,12 +119,7 @@ class TwitterBearerTokenTest extends TestCase
             400,
             'https://api.twitter.com/2/oauth2/token'
         );
-        new TwitterBearerToken(
-            $client,
-            self::BEARER_PATH,
-            self::REFRESH_PATH,
-            self::EXPIRATION_PATH
-        );
+        $this->createBearerToken($client);
     }
 
     private function createMockHttpClient(string $filename, int $code, string $url): MockHttpClient
@@ -161,5 +131,15 @@ class TwitterBearerTokenTest extends TestCase
             ),
         ];
         return new MockHttpClient($responses, $url);
+    }
+
+    private function createBearerToken(MockHttpClient $client): TwitterBearerToken
+    {
+        return new TwitterBearerToken(
+            $client,
+            self::BEARER_PATH,
+            self::REFRESH_PATH,
+            self::EXPIRATION_PATH
+        );
     }
 }

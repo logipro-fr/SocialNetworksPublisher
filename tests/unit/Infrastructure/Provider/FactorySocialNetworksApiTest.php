@@ -3,10 +3,8 @@
 namespace SocialNetworksPublisher\Tests\Infrastructure\Provider;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
-use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;

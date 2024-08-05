@@ -75,7 +75,7 @@ class PublisherController
                 'data' => '',
                 'message' => $e->getMessage(),
             ],
-            JsonResponse::HTTP_INTERNAL_SERVER_ERROR,
+            $e->getCode(),
         );
     }
 

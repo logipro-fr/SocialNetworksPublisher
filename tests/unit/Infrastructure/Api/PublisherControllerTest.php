@@ -9,6 +9,7 @@ use Phariscope\Event\Tools\SpyListener;
 use Safe\DateTimeImmutable;
 use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
 use SocialNetworksPublisher\Domain\Model\Post\Event\PostCreated;
+use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
@@ -101,7 +102,7 @@ class PublisherControllerTest extends WebTestCase
         /** @var string */
         $responseContent = $this->client->getResponse()->getContent();
         $responseCode = $this->client->getResponse()->getStatusCode();
-        $this->assertEquals(500, $responseCode);
+        $this->assertEquals(BadSocialNetworksParameterException::ERROR_CODE, $responseCode);
         $this->assertStringContainsString('"success":false', $responseContent);
         $this->assertStringContainsString('"ErrorCode":"BadSocialNetworksParameterException"', $responseContent);
         $this->assertStringContainsString(

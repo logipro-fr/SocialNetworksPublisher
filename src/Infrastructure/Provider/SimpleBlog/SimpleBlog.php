@@ -8,7 +8,6 @@ use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 use SocialNetworksPublisher\Infrastructure\Provider\ProviderResponseInterface;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 
-
 use function Safe\fopen;
 use function Safe\fwrite;
 
