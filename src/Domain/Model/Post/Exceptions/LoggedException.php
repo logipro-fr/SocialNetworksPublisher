@@ -7,8 +7,6 @@ use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 
 use function Safe\error_log;
 use function Safe\fclose;
-use function Safe\file_put_contents;
-use function Safe\link;
 use function Safe\mkdir;
 
 class LoggedException extends \Exception

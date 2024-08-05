@@ -9,5 +9,5 @@ class BadHashtagFormatException extends LoggedException
     public const MESSAGE =
         "Error: Missing or invalid hashtag format.";
 
-    public const ERROR_CODE = 422;
+    public const ERROR_CODE = 500;
 }
