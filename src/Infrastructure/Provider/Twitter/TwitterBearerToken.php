@@ -3,6 +3,7 @@
 namespace SocialNetworksPublisher\Infrastructure\Provider\Twitter;
 
 use DateTime;
+use Exception;
 use Safe\DateTime as SafeDateTime;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
@@ -35,6 +36,7 @@ class TwitterBearerToken
             file_put_contents($this->refreshPath, $_ENV['TWITTER_REFRESH_TOKEN']);
             $this->refreshRequest();
         }
+
         $this->needsRefresh();
     }
 
@@ -56,7 +58,10 @@ class TwitterBearerToken
     }
 
     public function needsRefresh(): void
-    {
+    { 
+        if (!file_exists($this->expirationPath)){
+            $this->refreshRequest();
+        }
         $expirationDate = $this->getExpirationDate();
         $currentDate = new DateTime();
         if ($currentDate >= $expirationDate->modify('+2 hours')) {
@@ -79,9 +84,9 @@ class TwitterBearerToken
             'body' => $data,
         ];
         $response = $this->client->request('POST', $url, $options);
-        if ($response->getStatusCode() === 400) {
+        if ($response->getStatusCode() !== 200) {
             throw new BadRequestException(
-                "Invalid request",
+                "Invalid request " . $response->getStatusCode(),
                 BadRequestException::ERROR_CODE
             );
         }
