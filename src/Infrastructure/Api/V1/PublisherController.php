@@ -75,7 +75,7 @@ class PublisherController
                 'data' => '',
                 'message' => $e->getMessage(),
             ],
-            $e->getCode(),
+            500,
         );
     }
 

@@ -29,7 +29,10 @@ class PostRepositoryDoctrine extends EntityRepository implements PostRepositoryI
     {
         $post = $this->getEntityManager()->find(Post::class, $searchId);
         if ($post === null) {
-            throw new PostNotFoundException(sprintf("Error can't find the postId %s", $searchId), PostNotFoundException::ERROR_CODE);
+            throw new PostNotFoundException(
+                sprintf("Error can't find the postId %s", $searchId), 
+                PostNotFoundException::ERROR_CODE
+            );
         }
         return $post;
     }
