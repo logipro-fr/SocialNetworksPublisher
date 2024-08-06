@@ -46,8 +46,7 @@
         "php-vfs/php-vfs": "*@stable",
         "symfony/test-pack": "^1.0",
         "friends-of-behat/symfony-extension": "^2.1",
-        "friends-of-behat/mink-browserkit-driver": "^1.6",
-        "behatch/contexts": "^1.3"
+        "friends-of-behat/mink-browserkit-driver": "^1.6"
     },
     "autoload": {
         "psr-4" : {
