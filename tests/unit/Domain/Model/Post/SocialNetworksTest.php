@@ -13,6 +13,15 @@ class SocialNetworksTest extends TestCase
         $this->assertEquals("Facebook", SocialNetworks::Facebook->value);
         $this->assertEquals("LinkedIn", SocialNetworks::LinkedIn->value);
         $this->assertEquals("SimpleBlog", SocialNetworks::SimpleBlog->value);
+        $this->assertEquals("Twitter", SocialNetworks::Twitter->value);
+    }
+
+    public function testFromString(): void
+    {
+        $this->assertEquals(SocialNetworks::Facebook, SocialNetworks::fromString('Facebook'));
+        $this->assertEquals(SocialNetworks::LinkedIn, SocialNetworks::fromString('LinkedIn'));
+        $this->assertEquals(SocialNetworks::SimpleBlog, SocialNetworks::fromString('SimpleBlog'));
+        $this->assertEquals(SocialNetworks::Twitter, SocialNetworks::fromString('Twitter'));
     }
 
     public function testBadSocialNetworksException(): void

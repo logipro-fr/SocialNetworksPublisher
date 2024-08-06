@@ -27,6 +27,8 @@ services:
       - "$PWD/..:/var/socialnetworkspublisher"
       - "$PWD/..:$PWD/.."
     working_dir: $PWD/..
+    env_file:
+      - ../secret.env
     depends_on:
       - socialnetworkspublisher-mariadb
     networks:

@@ -3,8 +3,9 @@
 namespace SocialNetworksPublisher\Infrastructure\Provider\Exceptions;
 
 use SocialNetworksPublisher\Domain\Model\Post\Exceptions\LoggedException;
+use Symfony\Component\HttpFoundation\Response;
 
-class InvalidSocialNetworks extends LoggedException
+class BadRequestException extends LoggedException
 {
-    public const ERROR_CODE = 500;
+    public const ERROR_CODE = Response::HTTP_BAD_REQUEST;
 }

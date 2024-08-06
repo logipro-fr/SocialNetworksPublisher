@@ -7,8 +7,6 @@ use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 
 use function Safe\error_log;
 use function Safe\fclose;
-use function Safe\file_put_contents;
-use function Safe\link;
 use function Safe\mkdir;
 
 class LoggedException extends \Exception
@@ -20,7 +18,7 @@ class LoggedException extends \Exception
     {
         parent::__construct($message, $code);
 
-        $logFilePath = getcwd() . self::LOG_FILE_PATH;
+        $logFilePath = CurrentWorkDirPath::getPath() . self::LOG_FILE_PATH;
         $this->ensureLogDirectoryExists(dirname($logFilePath));
         $this->ensureLogFileExists($logFilePath);
         error_log($this->getMessageInFormat($message, $code), 3, $logFilePath);

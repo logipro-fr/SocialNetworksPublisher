@@ -6,5 +6,5 @@ use Exception;
 
 class BadSocialNetworksParameterException extends LoggedException
 {
-    public const ERROR_CODE = 422;
+    public const ERROR_CODE = 500;
 }
