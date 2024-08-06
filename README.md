@@ -5,7 +5,7 @@ Allow to Post on social networks.
 # Install
 
 ```console
-git clone git@github.com:logipro-fr/SocialNetworksPublisher.git:
+git clone git@github.com:logipro-fr/SocialNetworksPublisher.git
 ```
 
 # To Contribute to SocialNetworkPublisher
