@@ -36,7 +36,7 @@ class TwitterClient implements SocialNetworksApiInterface
             'body' => $data_json,
         ];
         $response = $this->client->request('POST', $url, $options);
-        if ($response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 200 ||$response->getStatusCode() === 201) {
             return new ProviderResponse(true);
         } elseif ($response->getStatusCode() === 401) {
             throw new UnauthorizedException("Unauthorized", UnauthorizedException::ERROR_CODE);
@@ -46,7 +46,7 @@ class TwitterClient implements SocialNetworksApiInterface
                 DuplicatePostException::ERROR_CODE,
             );
         } else {
-            throw new BadRequestException("An error occured during the twitter proccess", 500);
+            throw new BadRequestException("An error occured during the twitter proccess" . $response->getStatusCode(), 500);
         }
     }
 }
