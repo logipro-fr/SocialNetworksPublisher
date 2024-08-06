@@ -108,6 +108,26 @@ class TwitterClientTest extends TestCase
         $sut->postApiRequest($post);
     }
 
+    public function testBadRequestException(): void {
+        $post = (new PostFactory())->buildPostFromRequest($this->request);
+        $twitterResponse = [
+            new MockResponse(
+                file_get_contents(CurrentWorkDirPath::getPath() .
+                 '/tests/unit/ressources/TwitterResponseTweet.json'),
+                ['http_code' => 426]
+            )
+        ];
+
+        $twitterMockClient = new MockHttpClient($twitterResponse, 'https://api.twitter.com/2/tweets');
+
+        $token = $this->prepareTwitterMockBearerToken();
+        $sut = new TwitterClient($twitterMockClient, $token);
+
+        $this->expectException(BadRequestException::class);
+
+        $sut->postApiRequest($post);
+    }
+
     private function prepareTwitterMockClient(): MockHttpClient
     {
         $twitterResponse = [

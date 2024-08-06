@@ -5,6 +5,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider\Twitter;
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\DuplicatePostException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -45,7 +46,7 @@ class TwitterClient implements SocialNetworksApiInterface
                 DuplicatePostException::ERROR_CODE,
             );
         } else {
-            return new ProviderResponse(false);
+            throw new BadRequestException("An error occured during the twitter proccess", 500);
         }
     }
 }
