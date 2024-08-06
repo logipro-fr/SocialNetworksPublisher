@@ -5,7 +5,7 @@ Allow to Post on social networks.
 # Install
 
 ```console
-git clone git@github.com:
+git clone git@github.com:logipro-fr/SocialNetworksPublisher.git:
 ```
 
 # To Contribute to SocialNetworkPublisher
@@ -55,7 +55,13 @@ Response:
     "refresh_token": "UFJLNVpEckRBYmZCcUM5d0pmQTgxbV9Uc0pCRFdJV0RxVlE3c1FwS1ExdzF6OjE3MjI5MjkxNjE3MjI6MTowOnJ0OjE"
 }
 ```
-You now have a refresh token.
+
+Before testing, you need to set up a `secret.env` file at the root of the project containing two fields:
+
+- `TWITTER_REFRESH_TOKEN=YOUR_REFRESH_TOKEN`
+- `TWITTER_CLIENT_ID=YOUR_TWITTER_CLIENT_ID`
+
+These fields will allow the refresh token loop imposed by Twitter. You can find your new tokens in the var directory. Be careful: if you delete the files in your var directory, you must save your last refresh token and put it in the `secret.env` file before the next restart to avoid losing it.
 
 ## Unit test
 
@@ -66,13 +72,6 @@ bin/phpunit
 Using Test-Driven Development (TDD) principles (thanks to Kent Beck and others), following good practices (thanks to Uncle Bob and others).
 
 ## Manual tests
-
-Before testing, you need to set up a `secret.env` file at the root of the project containing two fields:
-
-- `TWITTER_REFRESH_TOKEN=YOUR_REFRESH_TOKEN`
-- `TWITTER_CLIENT_ID=YOUR_TWITTER_CLIENT_ID`
-
-These fields will allow the refresh token loop imposed by Twitter. You can find your new tokens in the var directory. Be careful: if you delete the files in your var directory, you must save your last refresh token and put it in the `secret.env` file before the next restart to avoid losing it.
 
 ```console
 ./start
