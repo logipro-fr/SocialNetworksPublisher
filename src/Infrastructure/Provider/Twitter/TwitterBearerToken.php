@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use Safe\DateTime as SafeDateTime;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\TokenExpirationTimeFileException;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -60,7 +61,7 @@ class TwitterBearerToken
     public function needsRefresh(): void
     { 
         if (!file_exists($this->expirationPath)){
-            $this->refreshRequest();
+            throw new TokenExpirationTimeFileException("The expiration time file doesn't exist", 500);
         }
         $expirationDate = $this->getExpirationDate();
         $currentDate = new DateTime();

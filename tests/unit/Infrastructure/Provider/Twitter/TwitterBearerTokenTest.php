@@ -5,6 +5,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Provider\Twitter;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
+use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\TokenExpirationTimeFileException;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterBearerToken;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -91,6 +92,13 @@ class TwitterBearerTokenTest extends TestCase
         $sut = new TwitterBearerToken($client, self::BEARER_PATH, self::REFRESH_PATH, self::EXPIRATION_PATH);
 
         $this->assertEquals('Dont change', $sut->getRefreshToken());
+    }
+
+    public function testExpirationFileException(): void {
+        $this->expectException(TokenExpirationTimeFileException::class);
+        $sut = new TwitterBearerToken($this->client, self::BEARER_PATH, self::REFRESH_PATH, self::EXPIRATION_PATH);
+        unlink(CurrentWorkDirPath::getPath(). self::EXPIRATION_PATH);
+        $sut->needsRefresh();
     }
 
     public function testConstructWithGetEnvWhenNoFileSetup(): void
