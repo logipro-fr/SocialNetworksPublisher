@@ -16,7 +16,7 @@ git clone git@github.com:
 - Git
 - Twitter API access
 
-You need a Twitter Client ID, which can be obtained when creating an application on the Twitter Developer Portal. In this application, you also need to set up the User authentication settings field. In the App permissions field, select Read and Write.
+To use SocialNetworksPublisher, you need a Twitter Client ID, which can be obtained when creating an application on the Twitter Developer Portal. In this application, you also need to set up the User authentication settings field. In the App permissions field, select Read and Write.
 
 Next, you need a refresh token, which will be used later to set up the microservice. This token can be obtained in several steps. First, create an authorization URL. The authorization URL must include the different scopes that the application requires, such as tweet.read, users.read, tweet.write, and follows.write. Each scope added to the URL should be separated by %20. For example, if your application needs to read and write tweets, the URL should include tweet.read%20tweet.write%20users.read.
 
