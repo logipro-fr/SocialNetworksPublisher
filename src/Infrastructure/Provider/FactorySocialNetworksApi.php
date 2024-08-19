@@ -12,7 +12,6 @@ use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterBearerToken;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterClient;
-use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

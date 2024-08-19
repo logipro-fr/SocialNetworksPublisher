@@ -94,10 +94,11 @@ class TwitterBearerTokenTest extends TestCase
         $this->assertEquals('Dont change', $sut->getRefreshToken());
     }
 
-    public function testExpirationFileException(): void {
+    public function testExpirationFileException(): void
+    {
         $this->expectException(TokenExpirationTimeFileException::class);
         $sut = new TwitterBearerToken($this->client, self::BEARER_PATH, self::REFRESH_PATH, self::EXPIRATION_PATH);
-        unlink(CurrentWorkDirPath::getPath(). self::EXPIRATION_PATH);
+        unlink(CurrentWorkDirPath::getPath() . self::EXPIRATION_PATH);
         $sut->needsRefresh();
     }
 

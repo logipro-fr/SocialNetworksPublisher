@@ -108,7 +108,8 @@ class TwitterClientTest extends TestCase
         $sut->postApiRequest($post);
     }
 
-    public function testBadRequestException(): void {
+    public function testBadRequestException(): void
+    {
         $post = (new PostFactory())->buildPostFromRequest($this->request);
         $twitterResponse = [
             new MockResponse(
