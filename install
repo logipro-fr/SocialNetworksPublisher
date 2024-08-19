@@ -1,5 +1,15 @@
 #!/bin/bash
 
+source install-lib/database-functions.sh
+source install-lib/load-env.sh
+
+function init_docker_userid_groupid() {
+    USERID=$(id -u)
+    export USERID
+    GROUPID=$(id -g)
+    export GROUPID
+}
+
 # Create the var directory if it does not exist
 function create_var_directory() {
     DIR_VAR=var
@@ -8,14 +18,43 @@ function create_var_directory() {
     fi
 }
 
+# Create the var directory if it does not exist
+function create_data_directory() {
+    DIR_VAR=$1
+    if [ ! -d "$DIR_VAR" ]; then
+        mkdir --parent $DIR_VAR
+    fi
+}
+
 function build_docker_images() {
     (
-        cd docker 
+        USERID=$(id -u)
+        export USERID
+        GROUPID=$(id -g)
+        export GROUPID
         docker compose build
     )
 }
 
-
+echo "-------------Step 1: Load env and Create some directories----------------------------------------"
+load_env
 create_var_directory
+create_data_directory "$DATA_PATH"/socialnetworkspublisher
+echo "-------------Step 1: Done!"
+
+echo "-------------Step 2: Build docker images---------------------------------------------------------"
+init_docker_userid_groupid
 build_docker_images
-bin/composer install
+echo "-------------Step 2: Done!"
+
+echo "-------------Step 3: Assure that no docker container is running anymore--------------------------"
+./stop
+echo "-------------Step 3: Done!"
+
+echo "-------------Step 4: Composer tool will install php components in vendor directory---------------"
+./bin/composer install
+echo "-------------Step 4: Done!"
+
+echo "-------------Step 5: Create database if no database exists---------------------------------------"
+create_database_in_container "docker/mariadb/db.env" "socialnetworkspublisher-mariadb-1" "socialnetworkspublisher-php-1"
+echo "-------------Step 5: Done!"
