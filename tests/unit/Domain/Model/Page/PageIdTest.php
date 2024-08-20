@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Domain\Model\Page;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworksPublisher\Domain\Model\PageId\PageId;
+use SocialNetworksPublisher\Domain\Model\Page\PageId;
 
 class PageIdTest extends TestCase
 {
