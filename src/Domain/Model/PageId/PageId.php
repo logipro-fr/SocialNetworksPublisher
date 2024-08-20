@@ -1,13 +1,14 @@
 <?php
 
-namespace SocialNetworksPublisher\Domain\Model\Post;
+namespace SocialNetworksPublisher\Domain\Model\PageId;
 
 class PageId
 {
+    public const PREFIX = "pag_";
     public function __construct(private string $id = "")
     {
         if (empty($this->id)) {
-            $this->id = uniqid("pag_");
+            $this->id = uniqid(self::PREFIX);
         }
     }
 
@@ -19,6 +20,11 @@ class PageId
         return false;
     }
     public function __toString(): string
+    {
+        return $this->id;
+    }
+
+    public function getId(): string
     {
         return $this->id;
     }
