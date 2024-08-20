@@ -37,6 +37,8 @@ services:
     build:
       context: .
       dockerfile: docker/mariadb/Dockerfile
+      tags: 
+        - latest
     restart: always
     volumes:
       - ${DATA_PATH}/${COMPOSE_PROJECT_NAME}/mariadb:/var/lib/mysql
@@ -82,6 +84,3 @@ networks:
       config:
         - subnet: fdff:1:29::/112
           gateway: fdff:1:29::1
-
-volumes:
-  socialnetworkspublisher-db:
