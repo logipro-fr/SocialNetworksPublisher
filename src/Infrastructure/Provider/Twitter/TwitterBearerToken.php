@@ -59,8 +59,8 @@ class TwitterBearerToken
     }
 
     public function needsRefresh(): void
-    { 
-        if (!file_exists($this->expirationPath)){
+    {
+        if (!file_exists($this->expirationPath)) {
             throw new TokenExpirationTimeFileException("The expiration time file doesn't exist", 500);
         }
         $expirationDate = $this->getExpirationDate();
