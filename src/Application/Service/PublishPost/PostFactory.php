@@ -8,8 +8,8 @@ use SocialNetworksPublisher\Domain\Model\Post\HashTagArrayFactory;
 use SocialNetworksPublisher\Domain\Model\Post\Page;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
-use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
 use SocialNetworksPublisher\Domain\Model\Post\Status;
+use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class PostFactory
 {

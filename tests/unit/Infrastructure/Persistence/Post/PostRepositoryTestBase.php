@@ -12,7 +12,7 @@ use SocialNetworksPublisher\Domain\Model\Post\Page;
 use SocialNetworksPublisher\Domain\Model\Post\Post;
 use SocialNetworksPublisher\Domain\Model\Post\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
-use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
+use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 use SocialNetworksPublisher\Domain\Model\Post\Status;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 

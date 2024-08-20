@@ -2,7 +2,6 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Persistence\Post;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use SocialNetworksPublisher\Domain\Model\Post\Exceptions\PostNotFoundException;
