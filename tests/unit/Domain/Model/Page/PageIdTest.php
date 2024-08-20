@@ -11,14 +11,14 @@ class PageIdTest extends TestCase
     {
         $sut = new PageId();
         $this->assertInstanceOf(PageId::class, $sut);
-        $this->assertIsString($sut->getId());
+        $this->assertIsString($sut->__toString());
     }
 
     public function testCreateCustomPageId(): void
     {
         $sut = new PageId("my_custom_id");
         $this->assertInstanceOf(PageId::class, $sut);
-        $this->assertEquals("my_custom_id", $sut->getId());
+        $this->assertEquals("my_custom_id", $sut);
     }
 
     public function testEquality(): void
