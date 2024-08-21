@@ -7,4 +7,6 @@ interface PageRepositoryInterface {
 
     public function findById(PageId $pageId): Page;
 
+    public function addPost(PageId $pageId, Post $post): void;
+
 }

@@ -7,6 +7,7 @@ use SocialNetworksPublisher\Domain\Model\Page\Exceptions\PageNotFoundException;
 use SocialNetworksPublisher\Domain\Model\Page\Page;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 
 class PageRepositoryInMemory implements PageRepositoryInterface{
 
@@ -27,5 +28,11 @@ class PageRepositoryInMemory implements PageRepositoryInterface{
         }
 
         return $this->pages[$id];
+    }
+
+    public function addPost(PageId $pageId, Post $post): void
+    {
+        $page = $this->findById($pageId);
+        $page->addPost($post);
     }
 }

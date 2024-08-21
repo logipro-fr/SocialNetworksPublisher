@@ -8,6 +8,7 @@ use SocialNetworksPublisher\Domain\Model\Page\Exceptions\PageNotFoundException;
 use SocialNetworksPublisher\Domain\Model\Page\Page;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 
 /**
  * @extends EntityRepository<Page>
@@ -20,7 +21,6 @@ class PageRepositoryDoctrine extends EntityRepository implements PageRepositoryI
     }
     public function add(Page $page): void
     {
-        
         $this->getEntityManager()->persist($page);
     }
 
@@ -31,5 +31,12 @@ class PageRepositoryDoctrine extends EntityRepository implements PageRepositoryI
             throw new PageNotFoundException($pageId);
         }
         return $page;
+    }
+
+    public function addPost(PageId $pageId, Post $post): void
+    {
+        $page = $this->findById($pageId);
+        $page->addPost($post);
+        $this->getEntityManager()->persist($page);
     }
 }

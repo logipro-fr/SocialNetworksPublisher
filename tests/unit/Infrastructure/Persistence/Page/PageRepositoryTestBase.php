@@ -9,6 +9,8 @@ use SocialNetworksPublisher\Domain\Model\Page\Page;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageName;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
+use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 abstract class PageRepositoryTestBase extends TestCase {
@@ -32,6 +34,30 @@ abstract class PageRepositoryTestBase extends TestCase {
         $this->expectExceptionMessage(sprintf(PageNotFoundException::MESSAGE, "test"));
 
         $this->pages->findById(new PageId("test"));
+    }
+
+    public function testAddPostInRepository(): void {
+        $pageId = new PageId();
+        $page = new Page(
+            $pageId,
+            new PageName("page_name"),
+            SocialNetworks::Twitter
+        );
+
+        $this->pages->add($page);
+        $this->pages->addPost(
+            $pageId, 
+            new Post(
+                "content",
+                PostStatus::READY
+            )
+        );
+        $foundPage = $this->pages->findById($pageId);
+        /** @var Post */
+        $foundPost = $foundPage->getPosts()[0];
+        $this->assertCount(1, $foundPage->getPosts());
+        $this->assertEquals("content", $foundPost->getContent());
+        $this->assertEquals(PostStatus::READY, $foundPost->getStatus());
     }
 
     // public function testAlreadyExistsException(): void {
