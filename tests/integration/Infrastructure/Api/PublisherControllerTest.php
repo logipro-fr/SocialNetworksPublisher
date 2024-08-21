@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Tests\Integration\Infrastructure\Api;
 
 use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
-use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Page\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;

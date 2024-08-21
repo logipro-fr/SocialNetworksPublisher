@@ -4,7 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider\Twitter;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\DuplicatePostException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;

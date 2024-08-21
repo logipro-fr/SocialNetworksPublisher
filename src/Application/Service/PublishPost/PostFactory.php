@@ -6,9 +6,9 @@ use SocialNetworksPublisher\Domain\Model\Post\Author;
 use SocialNetworksPublisher\Domain\Model\Post\Content;
 use SocialNetworksPublisher\Domain\Model\Post\HashTagArrayFactory;
 use SocialNetworksPublisher\Domain\Model\Post\Page;
-use SocialNetworksPublisher\Domain\Model\Post\Post;
-use SocialNetworksPublisher\Domain\Model\Post\PostId;
-use SocialNetworksPublisher\Domain\Model\Post\Status;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
+use SocialNetworksPublisher\Domain\Model\Page\PostId;
+use PostStatus;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class PostFactory
@@ -20,7 +20,7 @@ class PostFactory
             new Content($request->content),
             (new HashTagArrayFactory())->buildHashTagArrayFromSentence($request->hashtag, ", "),
             new Page($request->pageId),
-            Status::READY,
+            PostStatus::READY,
             SocialNetworks::fromString($request->socialNetworks),
             new PostId($postIdName),
         );

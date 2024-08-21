@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Infrastructure\Provider\LinkedIn;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 
 class LinkedIn implements SocialNetworksApiInterface

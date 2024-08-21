@@ -10,7 +10,7 @@ use Safe\DateTimeImmutable;
 use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
 use SocialNetworksPublisher\Domain\Model\Post\Event\PostCreated;
 use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
-use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Page\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
 use SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine;

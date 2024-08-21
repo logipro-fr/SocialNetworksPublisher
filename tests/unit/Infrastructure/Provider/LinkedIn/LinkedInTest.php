@@ -5,7 +5,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Provider\LinkedIn;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
-use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;

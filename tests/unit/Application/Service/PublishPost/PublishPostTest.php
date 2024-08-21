@@ -8,9 +8,9 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PublishPost;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostResponse;
 use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
-use SocialNetworksPublisher\Domain\Model\Post\Post;
-use SocialNetworksPublisher\Domain\Model\Post\PostId;
-use SocialNetworksPublisher\Domain\Model\Post\Status;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
+use SocialNetworksPublisher\Domain\Model\Page\PostId;
+use PostStatus;
 use SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryInMemory;
 use SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi;
 
@@ -72,7 +72,7 @@ class PublishPostTest extends TestCase
         $this->assertInstanceOf(PublishPostResponse::class, $response);
         $this->assertEquals("Facebook", $response->socialNetworks);
         $this->assertStringStartsWith("pos_", $response->postId);
-        $this->assertEquals(Status::PUBLISHED, $postFromRepo->getStatus());
+        $this->assertEquals(PostStatus::PUBLISHED, $postFromRepo->getStatus());
     }
 
     public function testExecuteWithoutHashTag(): void

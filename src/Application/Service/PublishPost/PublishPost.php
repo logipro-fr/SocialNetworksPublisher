@@ -3,10 +3,10 @@
 namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Post;
-use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
+use SocialNetworksPublisher\Domain\Model\Page\PostId;
 use SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Status;
+use PostStatus;
 
 class PublishPost
 {
@@ -26,7 +26,7 @@ class PublishPost
 
 
         $this->repository->add($post);
-        $post->setStatus(Status::PUBLISHED);
+        $post->setStatus(PostStatus::PUBLISHED);
 
         $this->response = new PublishPostResponse(
             $post->getPostId(),

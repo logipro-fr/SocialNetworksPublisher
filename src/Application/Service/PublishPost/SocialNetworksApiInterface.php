@@ -2,7 +2,7 @@
 
 namespace SocialNetworksPublisher\Application\Service\PublishPost;
 
-use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 
 interface SocialNetworksApiInterface
