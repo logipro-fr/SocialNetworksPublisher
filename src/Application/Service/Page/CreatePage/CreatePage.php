@@ -16,7 +16,7 @@ class CreatePage
     {
     }
 
-    public function execute(CreatePageRequest $request) : void
+    public function execute(CreatePageRequest $request): void
     {
         $this->pages->add(new Page(
             $pageId = new PageId(),

@@ -14,7 +14,7 @@ class AddPost
         private PageRepositoryInterface $pages
     ) {
     }
-    public function execute(AddPostRequest $request) : void
+    public function execute(AddPostRequest $request): void
     {
         $post = new Post(
             $request->postContent,

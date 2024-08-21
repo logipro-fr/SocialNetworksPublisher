@@ -1,9 +1,10 @@
 <?php
 
-namespace SocialNetworksPublisher\Domain\Model\Page;
+namespace SocialNetworksPublisher\Test\Domain\Model\Page;
 
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Domain\Model\Page\Post;
+use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 
 class PostTest extends TestCase
 {

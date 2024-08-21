@@ -3,9 +3,6 @@
 namespace SocialNetworksPublisher\Domain\Model\Page;
 
 use DateTimeImmutable;
-use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
-use SocialNetworksPublisher\Domain\Model\Post\Event\PostCreated;
-
 class Post
 {
     public function __construct(
@@ -14,7 +11,6 @@ class Post
         private PostId $postId = new PostId(),
         private DateTimeImmutable $createdAt = new DateTimeImmutable()
     ) {
-        (new EventFacade())->dispatch(new PostCreated($this->postId));
     }
 
     public function getContent(): string

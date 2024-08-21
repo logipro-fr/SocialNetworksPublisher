@@ -2,7 +2,7 @@
 
 namespace SocialNetworksPublisher\Infrastructure\Provider\Exceptions;
 
-use SocialNetworksPublisher\Domain\Model\Post\Exceptions\LoggedException;
+use SocialNetworksPublisher\Domain\Model\Shared\Exceptions\LoggedException;
 
 class TokenExpirationTimeFileException extends LoggedException
 {

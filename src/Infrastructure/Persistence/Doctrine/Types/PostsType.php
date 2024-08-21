@@ -3,6 +3,7 @@
 namespace SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use Safe\DateTimeImmutable;
@@ -15,7 +16,7 @@ use function Safe\json_encode;
 
 class PostsType extends Type
 {
-    const TYPE_NAME = 'posts';
+    public const TYPE_NAME = 'posts';
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform)
     {
@@ -27,7 +28,7 @@ class PostsType extends Type
      * @param AbstractPlatform $platform
      * @return ArrayCollection<Post>
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): ArrayCollection
+    public function convertToPHPValue($value, AbstractPlatform $platform): Collection
     {
 
         /** @var array<\stdClass> $objs */

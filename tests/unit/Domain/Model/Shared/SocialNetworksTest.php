@@ -3,7 +3,7 @@
 namespace SocialNetworksPublisher\Tests\Domain\Model\Post;
 
 use PHPUnit\Framework\TestCase;
-use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
+use SocialNetworksPublisher\Domain\Model\Page\Exceptions\PageSocialNetworksDoesntExist;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class SocialNetworksTest extends TestCase
@@ -24,11 +24,11 @@ class SocialNetworksTest extends TestCase
         $this->assertEquals(SocialNetworks::Twitter, SocialNetworks::fromString('Twitter'));
     }
 
-    public function testBadSocialNetworksException(): void
+    public function testPageSocialNetworksDoesntExist(): void
     {
-        $this->expectException(BadSocialNetworksParameterException::class);
-        $this->expectExceptionCode(BadSocialNetworksParameterException::ERROR_CODE);
-        $this->expectExceptionMessage("Invalid social network");
+        $this->expectException(PageSocialNetworksDoesntExist::class);
+        $this->expectExceptionCode(PageSocialNetworksDoesntExist::ERROR_CODE);
+        $this->expectExceptionMessage(sprintf("Page social network '%s' not found", "test"));
         SocialNetworks::fromString("test");
     }
 }

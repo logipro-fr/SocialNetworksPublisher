@@ -13,7 +13,6 @@ class PublishPost
     private PublishPostResponse $response;
     public function __construct(
         private AbstractFactorySocialNetworksApi $socialNetworksFactory,
-
         private string $postIdName = ""
     ) {
     }

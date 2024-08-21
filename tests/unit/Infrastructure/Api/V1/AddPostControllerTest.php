@@ -24,15 +24,16 @@ class AddPostControllerTest extends TestCase
     private PageRepositoryInterface $pages;
     private AddPostController $controller;
     private MockObject $emMock;
+
     public function setUp(): void
     {
         $this->pages = new PageRepositoryInMemory();
-
 
          /** @var MockObject $entityManager */
          $entityManager = $this->createMock(EntityManagerInterface::class);
          $this->emMock = $entityManager;
 
+        /** @var EntityManagerInterface $entityManager */
          $this->controller = new AddPostController(
              $this->pages,
              $entityManager,
@@ -41,7 +42,7 @@ class AddPostControllerTest extends TestCase
 
     public function testAddPost(): void
     {
-
+        $this->emMock->expects($this->once())->method("flush");
 
         $originalPage = new Page(
             $id = new PageId(),

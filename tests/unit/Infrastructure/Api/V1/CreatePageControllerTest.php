@@ -5,9 +5,9 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Api\V1;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SocialNetworksPublisher\Domain\Model\Page\Exceptions\PageSocialNetworksDoesntExist;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Api\V1\CreatePageController;
 use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryInMemory;
@@ -22,23 +22,20 @@ class CreatePageControllerTest extends TestCase
     private PageRepositoryInterface $pages;
     private CreatePageController $controller;
     private MockObject $emMock;
-
     public function setUp(): void
     {
         $this->pages = new PageRepositoryInMemory();
-
-
          /** @var MockObject $entityManager */
          $entityManager = $this->createMock(EntityManagerInterface::class);
          $this->emMock = $entityManager;
-
+        /** @var EntityManagerInterface $entityManager */
          $this->controller = new CreatePageController(
              $this->pages,
              $entityManager,
          );
     }
 
-    public function testAddPost(): void
+    public function testCreatePage(): void
     {
         $this->emMock->expects($this->once())->method("flush");
         $request = Request::create(
@@ -82,7 +79,7 @@ class CreatePageControllerTest extends TestCase
 
         $this->assertResponseFailure(
             $response,
-            (new \ReflectionClass(BadSocialNetworksParameterException::class))->getShortName()
+            (new \ReflectionClass(PageSocialNetworksDoesntExist::class))->getShortName()
         );
     }
 }

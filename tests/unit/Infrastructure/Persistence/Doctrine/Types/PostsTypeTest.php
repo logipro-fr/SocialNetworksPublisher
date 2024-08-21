@@ -48,14 +48,14 @@ class PostsTypeTest extends TestCase
         ]);
     }
 
-    public function testConvertToDatabaseValue()
+    public function testConvertToDatabaseValue(): void
     {
 
         $actual = $this->postsType->convertToDatabaseValue($this->phpValue, $this->platform);
         $this->assertEquals($this->dbValue, $actual);
     }
 
-    public function testConvertToPHPValue()
+    public function testConvertToPHPValue(): void
     {
         /** @var ArrayCollection<int, Post> */
         $actual = $this->postsType->convertToPHPValue($this->dbValue, $this->platform);
@@ -65,7 +65,7 @@ class PostsTypeTest extends TestCase
         $this->assertTrue($this->date->diff($actual[0]->getCreatedAt(), true)->s < 2);
     }
 
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('posts', $this->postsType->getName());
     }
