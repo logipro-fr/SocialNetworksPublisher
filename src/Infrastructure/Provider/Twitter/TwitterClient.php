@@ -25,7 +25,7 @@ class TwitterClient implements SocialNetworksApiInterface
         $this->bearerToken->needsRefresh();
         $url = 'https://api.twitter.com/2/tweets';
         $data = [
-            'text' => $post->getContent()->__toString() . " " . $post->getHashTags()->__toString(),
+            'text' => $post->getContent(),
         ];
         $data_json = json_encode($data);
         $options = [

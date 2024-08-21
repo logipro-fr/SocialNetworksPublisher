@@ -8,6 +8,7 @@ use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
 use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
+use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 
 class FacebookTest extends TestCase
 {
@@ -28,14 +29,20 @@ class FacebookTest extends TestCase
     public function testApiPostRequestWithCustomPostId(): void
     {
         $sut = new Facebook();
-        $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request, "test"));
+        $response = $sut->postApiRequest($post = new Post(
+            self::TEXT_CONTENT,
+            PostStatus::READY
+        ));
         $this->assertInstanceOf(ProviderResponse::class, $response);
         $this->assertFalse($response->success);
     }
     public function testApiPostRequest(): void
     {
         $sut = new Facebook();
-        $response = $sut->postApiRequest((new PostFactory())->buildPostFromRequest($this->request));
+        $response = $sut->postApiRequest($post = new Post(
+            self::TEXT_CONTENT,
+            PostStatus::READY
+        ));
         $this->assertInstanceOf(ProviderResponse::class, $response);
         $this->assertFalse($response->success);
     }

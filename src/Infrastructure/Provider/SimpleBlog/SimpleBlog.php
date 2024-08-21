@@ -16,7 +16,7 @@ class SimpleBlog implements SocialNetworksApiInterface
     /** @var resource file pointer resource*/
     private $file;
     private string $path;
-    private const POST_PATTERN = "%s %s\n\n";
+    private const POST_PATTERN = "%s \n\n";
     public function __construct(private string $fileName)
     {
         $this->path = CurrentWorkDirPath::getPath() . "/var/";
@@ -28,8 +28,7 @@ class SimpleBlog implements SocialNetworksApiInterface
     {
         fwrite($this->file, sprintf(
             self::POST_PATTERN,
-            $post->getContent()->__toString(),
-            $post->getHashTags()->__toString()
+            $post->getContent()
         ));
         return new ProviderResponse(
             true
