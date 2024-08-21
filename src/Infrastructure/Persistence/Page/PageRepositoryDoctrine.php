@@ -13,7 +13,8 @@ use SocialNetworksPublisher\Domain\Model\Page\Post;
 /**
  * @extends EntityRepository<Page>
  */
-class PageRepositoryDoctrine extends EntityRepository implements PageRepositoryInterface {
+class PageRepositoryDoctrine extends EntityRepository implements PageRepositoryInterface
+{
     public function __construct(EntityManagerInterface $em)
     {
         $class = $em->getClassMetadata(Page::class);

@@ -15,15 +15,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 use function Safe\json_encode;
 
-class CreatePageControllerTest extends TestCase {
+class CreatePageControllerTest extends TestCase
+{
     use AssertResponseTrait;
 
     private PageRepositoryInterface $pages;
     private CreatePageController $controller;
     private MockObject $emMock;
 
-    public function setUp(): void{
-        $this->pages = new PageRepositoryInMemory;
+    public function setUp(): void
+    {
+        $this->pages = new PageRepositoryInMemory();
 
 
          /** @var MockObject $entityManager */
@@ -31,13 +33,13 @@ class CreatePageControllerTest extends TestCase {
          $this->emMock = $entityManager;
 
          $this->controller = new CreatePageController(
-            $this->pages,
-            $entityManager,
-        );
- 
+             $this->pages,
+             $entityManager,
+         );
     }
 
-    public function testAddPost(): void {
+    public function testAddPost(): void
+    {
         $this->emMock->expects($this->once())->method("flush");
         $request = Request::create(
             "/api/v1/pages",
@@ -64,7 +66,8 @@ class CreatePageControllerTest extends TestCase {
         $this->assertEquals(SocialNetworks::Twitter, $createdAccount->getSocialNetwork());
     }
 
-    public function testExceptionRaised(): void {
+    public function testExceptionRaised(): void
+    {
 
         $request = Request::create(
             "/api/v1/pages",

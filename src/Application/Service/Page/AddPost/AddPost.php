@@ -7,15 +7,15 @@ use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 
-class AddPost {
+class AddPost
+{
     private AddPostResponse $response;
     public function __construct(
         private PageRepositoryInterface $pages
-    )
-    {
-
+    ) {
     }
-    public function execute(AddPostRequest $request) {
+    public function execute(AddPostRequest $request) : void
+    {
         $post = new Post(
             $request->postContent,
             PostStatus::READY
@@ -31,7 +31,8 @@ class AddPost {
         );
     }
 
-    public function getResponse(): AddPostResponse {
+    public function getResponse(): AddPostResponse
+    {
         return $this->response;
     }
 }

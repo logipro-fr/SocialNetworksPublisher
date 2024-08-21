@@ -8,7 +8,6 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctrine;
-
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -53,7 +52,6 @@ class CreatePageControllerTest extends WebTestCase
         $page = $this->pages->findById(new PageId($response->data->pageId));
         $this->assertEquals("page_name", $page->getName());
         $this->assertEquals(SocialNetworks::Twitter, $page->getSocialNetwork());
-
     }
 
     private function generateContent(): string

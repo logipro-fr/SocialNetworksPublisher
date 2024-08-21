@@ -25,7 +25,6 @@ class Page
         $this->posts = new ArrayCollection();
 
         (new EventFacade())->dispatch(new PageCreated($this->pageId));
-
     }
 
     public function getPageId(): PageId
@@ -50,7 +49,8 @@ class Page
         return $this->posts;
     }
 
-    public function getCreatedAt(): DateTimeImmutable {
+    public function getCreatedAt(): DateTimeImmutable
+    {
         return $this->createdAt;
     }
 

@@ -9,8 +9,10 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryInMemory;
 
-class PageCreateTest extends TestCase {
-    public function testCreatePage(): void {
+class PageCreateTest extends TestCase
+{
+    public function testCreatePage(): void
+    {
         $pages = new PageRepositoryInMemory();
         $service = new CreatePage($pages);
         $service->execute(new CreatePageRequest(

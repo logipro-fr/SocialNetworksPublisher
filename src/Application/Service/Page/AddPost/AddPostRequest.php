@@ -2,12 +2,11 @@
 
 namespace SocialNetworksPublisher\Application\Service\Page\AddPost;
 
-class AddPostRequest {
+class AddPostRequest
+{
     public function __construct(
-         readonly string $pageId,
-         readonly string $postContent
-    )
-    {
-        
+        readonly string $pageId,
+        readonly string $postContent
+    ) {
     }
 }

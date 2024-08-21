@@ -79,6 +79,4 @@ class PageTest extends TestCase
         $accCreatedTime = $sut->getCreatedAt();
         $this->assertTrue($accCreatedTime->diff($eventEmittedTime, true)->s < 2);
     }
-
-
 }

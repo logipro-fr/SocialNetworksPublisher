@@ -11,4 +11,3 @@ class PageCreated extends Event
         parent::__construct();
     }
 }
-

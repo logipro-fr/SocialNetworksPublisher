@@ -13,8 +13,9 @@ use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 use function Safe\json_decode;
 use function Safe\json_encode;
 
-class PostsType extends Type {
-    const TYPE_NAME = 'posts'; 
+class PostsType extends Type
+{
+    const TYPE_NAME = 'posts';
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform)
     {
@@ -26,7 +27,7 @@ class PostsType extends Type {
      * @param AbstractPlatform $platform
      * @return ArrayCollection<Post>
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ArrayCollection
     {
 
         /** @var array<\stdClass> $objs */
@@ -45,12 +46,10 @@ class PostsType extends Type {
                 )
             );
         }
-
         return $posts;
-       
     }
 
-    /** 
+    /**
      * @param ArrayCollection<int, Post> $value
      * @param AbstractPlatform $platform
      * @return string

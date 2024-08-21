@@ -13,9 +13,11 @@ use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
-abstract class PageRepositoryTestBase extends TestCase {
+abstract class PageRepositoryTestBase extends TestCase
+{
     protected PageRepositoryInterface $pages;
-    public function testAddAndFind(): void {
+    public function testAddAndFind(): void
+    {
         $pageId = new PageId();
         $sut = new Page(
             $pageId,
@@ -28,7 +30,8 @@ abstract class PageRepositoryTestBase extends TestCase {
         $this->assertTrue($sut->getPageId()->equals($foundPage->getPageId()));
     }
 
-    public function testNotFoundException(): void {
+    public function testNotFoundException(): void
+    {
         $this->expectException(PageNotFoundException::class);
         $this->expectExceptionCode(PageNotFoundException::ERROR_CODE);
         $this->expectExceptionMessage(sprintf(PageNotFoundException::MESSAGE, "test"));
@@ -36,7 +39,8 @@ abstract class PageRepositoryTestBase extends TestCase {
         $this->pages->findById(new PageId("test"));
     }
 
-    public function testAddPostInRepository(): void {
+    public function testAddPostInRepository(): void
+    {
         $pageId = new PageId();
         $page = new Page(
             $pageId,
@@ -46,7 +50,7 @@ abstract class PageRepositoryTestBase extends TestCase {
 
         $this->pages->add($page);
         $this->pages->addPost(
-            $pageId, 
+            $pageId,
             new Post(
                 "content",
                 PostStatus::READY

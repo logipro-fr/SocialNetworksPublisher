@@ -12,13 +12,15 @@ use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AddPostControllerTest extends WebTestCase {
+class AddPostControllerTest extends WebTestCase
+{
     use DoctrineRepositoryTesterTrait;
 
     private KernelBrowser $client;
     private PageRepositoryInterface $pages;
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         $this->initDoctrineTester();
         $this->clearTables(["pages"]);
 
@@ -33,7 +35,8 @@ class AddPostControllerTest extends WebTestCase {
         $em->flush();
     }
 
-    public function testAddPage() :void {
+    public function testAddPage(): void
+    {
         $pageIdName = $this->prepareTest();
         $this->client->request(
             "POST",
@@ -59,7 +62,8 @@ class AddPostControllerTest extends WebTestCase {
         ]);
     }
 
-    private function prepareTest(): string {
+    private function prepareTest(): string
+    {
         $page = new Page(
             $id = new PageId(),
             new PageName("page_name"),

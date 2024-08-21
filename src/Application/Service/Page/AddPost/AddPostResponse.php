@@ -2,11 +2,10 @@
 
 namespace SocialNetworksPublisher\Application\Service\Page\AddPost;
 
-class AddPostResponse {
+class AddPostResponse
+{
     public function __construct(
-         readonly string $postId,
-    )
-    {
-        
+        readonly string $postId,
+    ) {
     }
 }

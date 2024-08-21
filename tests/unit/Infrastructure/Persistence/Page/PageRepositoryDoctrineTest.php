@@ -1,10 +1,12 @@
 <?php
+
  namespace SocialNetworksPublisher\Tests\Infrastructure\Persistence\Page;
 
 use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
 use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctrine;
 
- class PageRepositoryDoctrineTest extends PageRepositoryTestBase {
+class PageRepositoryDoctrineTest extends PageRepositoryTestBase
+{
     use DoctrineRepositoryTesterTrait;
 
     protected function setUp(): void
@@ -13,4 +15,4 @@ use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctri
         $this->clearTables(['pages']);
         $this->pages = new PageRepositoryDoctrine($this->getEntityManager());
     }
- }
+}

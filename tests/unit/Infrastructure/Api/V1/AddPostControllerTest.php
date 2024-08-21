@@ -17,31 +17,34 @@ use Symfony\Component\HttpFoundation\Request;
 
 use function Safe\json_encode;
 
-class AddPostControllerTest extends TestCase {
+class AddPostControllerTest extends TestCase
+{
     use AssertResponseTrait;
 
     private PageRepositoryInterface $pages;
     private AddPostController $controller;
     private MockObject $emMock;
-    public function setUp(): void{
-        $this->pages = new PageRepositoryInMemory;
-    
+    public function setUp(): void
+    {
+        $this->pages = new PageRepositoryInMemory();
+
 
          /** @var MockObject $entityManager */
          $entityManager = $this->createMock(EntityManagerInterface::class);
          $this->emMock = $entityManager;
 
          $this->controller = new AddPostController(
-            $this->pages,
-            $entityManager,
-        );
+             $this->pages,
+             $entityManager,
+         );
     }
 
-    public function testAddPost(): void {
+    public function testAddPost(): void
+    {
 
 
         $originalPage = new Page(
-            $id= new PageId(),
+            $id = new PageId(),
             new PageName(""),
             SocialNetworks::Twitter,
         );
@@ -63,10 +66,11 @@ class AddPostControllerTest extends TestCase {
         $modifiedPage = $this->pages
         ->findById(new PageId($id));
         $this->assertCount(1, $modifiedPage->getPosts());
-        $this->assertEquals("test_content", $modifiedPage->getPosts()[0]->getContent() );
+        $this->assertEquals("test_content", $modifiedPage->getPosts()[0]->getContent());
     }
 
-    public function testExceptionRaised(): void {
+    public function testExceptionRaised(): void
+    {
 
         $request = Request::create(
             "/api/v1/pages/post",

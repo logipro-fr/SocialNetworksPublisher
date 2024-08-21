@@ -10,16 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AddPostController extends AbstractController{
+class AddPostController extends AbstractController
+{
     public function __construct(
         private PageRepositoryInterface $pages,
         private EntityManagerInterface $em,
-    )
-    {
-        
+    ) {
     }
     #[Route("api/v1/pages/post", name:"pages_post", methods:["POST"])]
-    public function execute(Request $request): Response {
+    public function execute(Request $request): Response
+    {
         try {
             $addPostRequest = $this->convertToAddPostRequest($request);
             $service = new AddPost($this->pages);
@@ -31,7 +31,8 @@ class AddPostController extends AbstractController{
         }
     }
 
-    public function convertToAddPostRequest(Request $request): AddPostRequest {
+    public function convertToAddPostRequest(Request $request): AddPostRequest
+    {
         /** @var string $content */
         $content = $request->getContent();
         /** @var \stdClass $requestObject */

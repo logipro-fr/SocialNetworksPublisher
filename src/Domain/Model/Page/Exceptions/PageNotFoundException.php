@@ -2,9 +2,10 @@
 
 namespace SocialNetworksPublisher\Domain\Model\Page\Exceptions;
 
-use SocialNetworksPublisher\Domain\Model\Post\Exceptions\LoggedException;
+use SocialNetworksPublisher\Domain\Model\Shared\Exceptions\LoggedException;
 
-class PageNotFoundException extends LoggedException {
+class PageNotFoundException extends LoggedException
+{
     public const MESSAGE = "Page '%s' not found";
     public const ERROR_CODE = 404;
 

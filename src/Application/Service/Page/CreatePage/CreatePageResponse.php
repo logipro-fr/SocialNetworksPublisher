@@ -2,9 +2,9 @@
 
 namespace SocialNetworksPublisher\Application\Service\Page\CreatePage;
 
-class CreatePageResponse{
+class CreatePageResponse
+{
     public function __construct(readonly string $pageId)
     {
-        
     }
 }

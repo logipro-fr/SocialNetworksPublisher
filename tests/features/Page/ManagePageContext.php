@@ -24,7 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ManagePageContext implements Context
 {
-
     private PageRepositoryInterface $pages;
     private CreatePageController $createPageController;
     private string $socialNetwork;
@@ -46,7 +45,6 @@ class ManagePageContext implements Context
             $this->pages,
             $entityManager
         );
-
     }
 
     /**

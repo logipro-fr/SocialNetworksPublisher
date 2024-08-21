@@ -62,8 +62,7 @@ class PostsTypeTest extends TestCase
         $this->assertEquals("content 1", $actual[0]->getContent());
         $this->assertEquals(PostStatus::READY, $actual[0]->getStatus());
         $this->assertEquals("post_1", $actual[0]->getPostId());
-        $this->assertTrue($this->date->diff($actual[0]->getCreatedAt(), true)->s < 2); 
-
+        $this->assertTrue($this->date->diff($actual[0]->getCreatedAt(), true)->s < 2);
     }
 
     public function testGetName()

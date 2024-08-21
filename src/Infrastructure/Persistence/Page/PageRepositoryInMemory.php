@@ -9,8 +9,8 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Page\Post;
 
-class PageRepositoryInMemory implements PageRepositoryInterface{
-
+class PageRepositoryInMemory implements PageRepositoryInterface
+{
     /** @var array<string, Page> */
     private array $pages = [];
     public function add(Page $page): void
