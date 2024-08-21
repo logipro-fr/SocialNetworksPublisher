@@ -4,9 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
-use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;

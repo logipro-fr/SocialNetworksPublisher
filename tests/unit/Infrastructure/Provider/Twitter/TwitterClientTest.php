@@ -26,14 +26,10 @@ class TwitterClientTest extends TestCase
     private const REFRESH_PATH = "/var/test_TwitterRefreshToken.txt";
     private const EXPIRATION_PATH = "/var/test_TwitterTokenExpiration.txt";
     private const TEXT_CONTENT = "Hello world !";
-    private PublishPostRequest $request;
 
     protected function setUp(): void
     {
         $this->cleanup();
-        $this->request = new PublishPostRequest(
-            self::TEXT_CONTENT,
-        );
     }
 
     protected function tearDown(): void

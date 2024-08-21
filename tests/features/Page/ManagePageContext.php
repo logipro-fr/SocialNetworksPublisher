@@ -19,9 +19,6 @@ use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryInMemo
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Defines application features from the specific context.
- */
 class ManagePageContext implements Context
 {
     private PageRepositoryInterface $pages;
@@ -50,7 +47,7 @@ class ManagePageContext implements Context
     /**
      * @Given I want to create a page on :socialNetwork
      */
-    public function iWantToCreateAPageOn(string $socialNetwork)
+    public function iWantToCreateAPageOn(string $socialNetwork): void
     {
         $this->socialNetwork = $socialNetwork;
     }
@@ -58,7 +55,7 @@ class ManagePageContext implements Context
     /**
      * @Given I choose the page name :pageName
      */
-    public function iChooseThePageName(string $pageName)
+    public function iChooseThePageName(string $pageName): void
     {
         $this->pageName = $pageName;
     }
@@ -66,7 +63,7 @@ class ManagePageContext implements Context
     /**
      * @When I create this Page
      */
-    public function iCreateThisPage()
+    public function iCreateThisPage(): void
     {
         $request = Request::create(
             "/api/v1/pages",
@@ -82,7 +79,7 @@ class ManagePageContext implements Context
     /**
      * @Then The page is created and I have the pageId
      */
-    public function thePageIsCreatedAndIHaveThePageId()
+    public function thePageIsCreatedAndIHaveThePageId(): void
     {
         /** @var string $content */
         $content = $this->createPageResponse->getContent();

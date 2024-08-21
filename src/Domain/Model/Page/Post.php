@@ -3,6 +3,7 @@
 namespace SocialNetworksPublisher\Domain\Model\Page;
 
 use DateTimeImmutable;
+
 class Post
 {
     public function __construct(

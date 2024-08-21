@@ -9,8 +9,11 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageName;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
+use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctrine;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+use function Safe\json_encode;
 
 class AddPostControllerTest extends WebTestCase
 {

@@ -42,7 +42,7 @@ class SimpleBlogTest extends TestCase
         $blog = new SimpleBlog("test_simple_blog_multiple.txt");
 
         $response = $blog->postApiRequest($post = new Post(
-           "Ceci est un test multiple #test",
+            "Ceci est un test multiple #test",
             PostStatus::READY
         ));
         $response2 = $blog->postApiRequest($post = new Post(
