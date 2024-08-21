@@ -7,14 +7,14 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 
 class PageIdTest extends TestCase
 {
-    public function testCreatePageId(): void
+    public function testCreatePostId(): void
     {
         $sut = new PageId();
         $this->assertInstanceOf(PageId::class, $sut);
         $this->assertIsString($sut->__toString());
     }
 
-    public function testCreateCustomPageId(): void
+    public function testCreateCustomPostId(): void
     {
         $sut = new PageId("my_custom_id");
         $this->assertInstanceOf(PageId::class, $sut);

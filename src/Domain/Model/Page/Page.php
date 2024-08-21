@@ -2,16 +2,18 @@
 
 namespace SocialNetworksPublisher\Domain\Model\Page;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Safe\DateTimeImmutable;
 use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
 use SocialNetworksPublisher\Domain\Model\Page\Event\PageCreated;
-use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class Page
 {
-    /** @var array<PostId> */
-    private array $postIds = [];
+    /** @var Collection<int, Post> */
+    private Collection $posts;
 
     private DateTimeImmutable $createdAt;
     public function __construct(
@@ -20,6 +22,7 @@ class Page
         private SocialNetworks $socialNetwork,
     ) {
         $this->createdAt = new DateTimeImmutable();
+        $this->posts = new ArrayCollection();
 
         (new EventFacade())->dispatch(new PageCreated($this->pageId));
 
@@ -40,19 +43,19 @@ class Page
         return $this->socialNetwork;
     }
     /**
-     * @return array<PostId>
+     * @return ArrayCollection<Post>
      */
-    public function getPostIds(): array
+    public function getPosts(): ArrayCollection
     {
-        return $this->postIds;
+        return $this->posts;
     }
 
     public function getCreatedAt(): DateTimeImmutable {
         return $this->createdAt;
     }
 
-    public function addPost(PostId $postId): void
+    public function addPost(Post $post): void
     {
-        $this->postIds[] = $postId;
+        $this->posts->add($post);
     }
 }

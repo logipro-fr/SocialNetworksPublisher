@@ -10,7 +10,8 @@ use SocialNetworksPublisher\Domain\Model\Page\Event\PageCreated;
 use SocialNetworksPublisher\Domain\Model\Page\Page;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageName;
-use SocialNetworksPublisher\Domain\Model\Post\PostId;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
+use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class PageTest extends TestCase
@@ -26,7 +27,7 @@ class PageTest extends TestCase
         $this->assertTrue((new PageId("page_id"))->equals($sut->getPageId()));
         $this->assertEquals("page_name", $sut->getName());
         $this->assertEquals(SocialNetworks::Twitter, $sut->getSocialNetwork());
-        $this->assertEmpty($sut->getPostIds());
+        $this->assertEmpty($sut->getPosts());
     }
 
     public function testAddPost(): void
@@ -37,11 +38,14 @@ class PageTest extends TestCase
             SocialNetworks::Twitter
         );
 
-        $postId = new PostId("postId");
+        $post = new Post(
+            "content",
+            PostStatus::READY
+        );
 
-        $sut->addPost($postId);
+        $sut->addPost($post);
 
-        $this->assertEquals($postId, $sut->getPostIds()[0]);
+        $this->assertEquals($post, $sut->getPosts()[0]);
     }
 
     public function testCreatedAt(): void

@@ -1,8 +1,8 @@
 <?php
 
-namespace SocialNetworksPublisher\Domain\Model\Post;
+namespace SocialNetworksPublisher\Domain\Model\Page;
 
-enum Status: string
+enum PostStatus: string
 {
     case DRAFT = "draft";
     case READY = "ready";
