@@ -61,10 +61,12 @@ class PostsTypeTest extends TestCase
     {
         /** @var ArrayCollection<int, Post> */
         $actual = $this->postsType->convertToPHPValue($this->dbValue, $this->platform);
-        $this->assertEquals("content 1", $actual[0]->getContent());
-        $this->assertEquals(PostStatus::READY, $actual[0]->getStatus());
-        $this->assertEquals("post_1", $actual[0]->getPostId());
-        $this->assertTrue($this->date->diff($actual[0]->getCreatedAt(), true)->s < 2);
+        /** @var Post */
+        $postActual = $actual[0];
+        $this->assertEquals("content 1", $postActual->getContent());
+        $this->assertEquals(PostStatus::READY, $postActual->getStatus());
+        $this->assertEquals("post_1", $postActual->getPostId());
+        $this->assertTrue($this->date->diff($postActual->getCreatedAt(), true)->s < 2);
     }
 
     public function testGetName(): void

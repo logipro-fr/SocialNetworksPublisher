@@ -67,7 +67,7 @@ class AddPostControllerTest extends TestCase
         $modifiedPage = $this->pages
         ->findById(new PageId($id));
         $this->assertCount(1, $modifiedPage->getPosts());
-        $this->assertEquals("test_content", $modifiedPage->getPosts()[0]->getContent());
+        $this->assertEquals("test_content", $modifiedPage->getPosts()[0]?->getContent());
     }
 
     public function testExceptionRaised(): void

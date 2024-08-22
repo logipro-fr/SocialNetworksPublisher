@@ -21,6 +21,8 @@ use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryInMemo
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use function Safe\json_encode;
+
 class ManagePageContext implements Context
 {
     /** PART 1 */
@@ -122,7 +124,7 @@ class ManagePageContext implements Context
     /**
      * @Given I want to create a post with the content :content
      */
-    public function iWantToCreateAPostWithTheContent(string $content)
+    public function iWantToCreateAPostWithTheContent(string $content): void
     {
         $this->content = $content;
     }
@@ -130,7 +132,7 @@ class ManagePageContext implements Context
     /**
      * @When I add this post
      */
-    public function iAddThisPost()
+    public function iAddThisPost(): void
     {
         $request = Request::create(
             "/api/v1/pages/post",
@@ -146,7 +148,7 @@ class ManagePageContext implements Context
     /**
      * @Then the post is added to the page with the post status :status
      */
-    public function thePostIsAddedToThePageWithThePostStatus($status)
+    public function thePostIsAddedToThePageWithThePostStatus(string $status): void
     {
         /** @var string $content */
         $content = $this->addPostResponse->getContent();
@@ -154,6 +156,6 @@ class ManagePageContext implements Context
         $response = json_decode($content);
         $page = $this->pages->findById(new PageId($this->pageId));
         Assert::assertCount(1, $page->getPosts());
-        Assert::assertEquals(PostStatus::tryFrom($status), $page->getPosts()[0]->getStatus());
+        Assert::assertEquals(PostStatus::tryFrom($status), $page->getPosts()[0]?->getStatus());
     }
 }

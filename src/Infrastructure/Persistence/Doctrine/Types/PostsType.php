@@ -41,7 +41,7 @@ class PostsType extends Type
             $posts->add(
                 new Post(
                     $post->content,
-                    PostStatus::tryFrom($post->status),
+                    PostStatus::from($post->status),
                     new PostId($post->id),
                     $createdAt,
                 )
