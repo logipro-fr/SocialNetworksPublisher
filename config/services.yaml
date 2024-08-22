@@ -16,33 +16,18 @@ services:
     public: true
     autowire: true
 
-  SocialNetworksPublisher\Infrastructure\Api\V1\PublisherController:
-    autowire: true
-    arguments:
-      $socialNetworksApiFactory: '@api.factory'
-      $repo: '@post.repository'
-
   SocialNetworksPublisher\Infrastructure\Api\V1\CreatePageController:
     autowire: true
     arguments:
       $pages: '@post.repository'
 
-  post.repository:
-    public: true
-    autowire: true
-    class: SocialNetworksPublisher\Infrastructure\Persistence\Post\PostRepositoryDoctrine
-
-  
   page.repository:
     public: true
     autowire: true
     class: SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctrine
 
-  SocialNetworksPublisher\Domain\Model\Post\PostRepositoryInterface: "@post.repository"
   SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi: "@api.factory"
   SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface: "@page.repository"
-
-  
 
   SocialNetworksPublisher\Infrastructure\Api\V1\:
     resource: "../src/Infrastructure/Api/V1/"
