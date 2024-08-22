@@ -8,6 +8,9 @@ use Safe\DateTimeImmutable;
 use SocialNetworksPublisher\Domain\Model\Key\Key;
 use SocialNetworksPublisher\Domain\Model\Key\KeyId;
 use SocialNetworksPublisher\Domain\Model\Key\TwitterKeyData;
+use SocialNetworksPublisher\Domain\Model\Page\Page;
+use SocialNetworksPublisher\Domain\Model\Page\PageId;
+use SocialNetworksPublisher\Domain\Model\Page\PageName;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class KeyTest extends TestCase
@@ -57,5 +60,21 @@ class KeyTest extends TestCase
         $sut->setExpirationDateTime($currentDateTime->add(new DateInterval('PT2H')));
 
         $this->assertNotEquals($currentDateTime, $sut->getExpirationDate());
+    }
+
+    public function testKeyPagesAdd(): void
+    {
+        $currentDateTime = new DateTimeImmutable();
+        $keyData = new TwitterKeyData("bearer", "refresh");
+        $sut = new Key(
+            SocialNetworks::Twitter,
+            $currentDateTime,
+            $keyData
+        );
+        $pageId = new PageId("pageId");
+
+        $sut->addPageId($pageId);
+
+        $this->assertEquals("pageId", $sut->getPageIds()[0]);
     }
 }
