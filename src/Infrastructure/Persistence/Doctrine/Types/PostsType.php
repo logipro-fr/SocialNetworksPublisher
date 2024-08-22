@@ -18,7 +18,7 @@ class PostsType extends Type
 {
     public const TYPE_NAME = 'posts';
 
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'TEXT';
     }
@@ -26,7 +26,7 @@ class PostsType extends Type
     /**
      * @param string $value
      * @param AbstractPlatform $platform
-     * @return ArrayCollection<Post>
+     * @return Collection<int, Post>
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): Collection
     {

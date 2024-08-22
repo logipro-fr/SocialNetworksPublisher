@@ -15,7 +15,7 @@ class PageNameType extends Type
         return self::TYPE_NAME;
     }
 
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return "text";
     }
@@ -23,16 +23,17 @@ class PageNameType extends Type
     /**
      * @param PageName $value
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
         return $value->__toString();
     }
     /**
      * @param string $value
+     * @return PageName
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): PageName
     {
-        /** @var Content */
+        /** @var PageName */
         return new PageName($value);
     }
 }

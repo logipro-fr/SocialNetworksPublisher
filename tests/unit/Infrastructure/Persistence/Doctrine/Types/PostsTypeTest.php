@@ -3,6 +3,7 @@
 namespace SocialNetworksPublisher\Tests\Infrastructure\Persistence\Doctrine\Types;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use PHPUnit\Framework\TestCase;
@@ -19,6 +20,7 @@ class PostsTypeTest extends TestCase
     private PostsType $postsType;
     private AbstractPlatform $platform;
     private string $dbValue;
+    /** @var ArrayCollection<int, Post> */
     private ArrayCollection $phpValue;
     private DateTimeImmutable $date;
     protected function setUp(): void

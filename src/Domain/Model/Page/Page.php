@@ -42,9 +42,9 @@ class Page
         return $this->socialNetwork;
     }
     /**
-     * @return ArrayCollection<Post>
+     * @return Collection<int, Post>
      */
-    public function getPosts(): ArrayCollection
+    public function getPosts(): Collection
     {
         return $this->posts;
     }
