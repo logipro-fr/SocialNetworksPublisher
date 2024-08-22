@@ -1,10 +1,9 @@
 <?php
 
-namespace SocialNetworksPublisher\Tests\Domain\Model\Page;
+namespace SocialNetworksPublisher\Tests\Domain\Model\Key;
 
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Domain\Model\Key\KeyId;
-use SocialNetworksPublisher\Domain\Model\Page\PageId;
 
 class KeyIdTest extends TestCase
 {
