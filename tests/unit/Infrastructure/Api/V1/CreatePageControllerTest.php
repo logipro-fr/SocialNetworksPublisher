@@ -5,7 +5,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Api\V1;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SocialNetworksPublisher\Domain\Model\Page\Exceptions\PageSocialNetworksDoesntExist;
+use SocialNetworksPublisher\Domain\Model\Shared\Exceptions\SocialNetworksDoesntExist;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
@@ -79,7 +79,7 @@ class CreatePageControllerTest extends TestCase
 
         $this->assertResponseFailure(
             $response,
-            (new \ReflectionClass(PageSocialNetworksDoesntExist::class))->getShortName()
+            (new \ReflectionClass(SocialNetworksDoesntExist::class))->getShortName()
         );
     }
 }
