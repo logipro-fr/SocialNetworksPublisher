@@ -46,7 +46,11 @@ class TwitterClient implements SocialNetworksApiInterface
                 DuplicatePostException::ERROR_CODE,
             );
         } else {
-            throw new BadRequestException("An error occured during the twitter proccess" . $response->getStatusCode(), 500);
+            throw new BadRequestException(
+                "An error occured during the twitter proccess" .
+                 $response->getStatusCode(),
+                500
+            );
         }
     }
 }
