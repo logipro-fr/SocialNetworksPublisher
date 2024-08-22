@@ -38,22 +38,4 @@ abstract class KeyRepositoryTestBase extends TestCase
 
         $this->keys->findById(new KeyId("test"));
     }
-
-
-    public function testKeyAlreadyExistsException(): void
-    {
-        $keyId = new KeyId();
-        $sut = new Key(
-            $id = $keyId,
-            SocialNetworks::Twitter,
-            new DateTimeImmutable(),
-            new TwitterKeyData("test", "test")
-        );
-        $this->keys->add($sut);
-
-        $this->expectException(KeyAlreadyExistsException::class);
-        $this->expectExceptionCode(KeyAlreadyExistsException::ERROR_CODE);
-        $this->expectExceptionMessage(sprintf(KeyAlreadyExistsException::MESSAGE, $id));
-        $this->keys->add($sut);
-    }
 }

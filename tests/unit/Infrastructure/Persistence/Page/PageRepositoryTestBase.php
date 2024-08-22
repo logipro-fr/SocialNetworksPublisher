@@ -38,26 +38,4 @@ abstract class PageRepositoryTestBase extends TestCase
 
         $this->pages->findById(new PageId("test"));
     }
-
-
-    // public function testAlreadyExistsException(): void {
-    //     $pageId = new PageId();
-    //     $page1 = new Page(
-    //         $pageId,
-    //         new PageName("page_name"),
-    //         SocialNetworks::Twitter
-    //     );
-    //     $page2 = new Page(
-    //         $pageId,
-    //         new PageName("page_name"),
-    //         SocialNetworks::Twitter
-    //     );
-
-    //     $this->expectException(PageAlreadyExistsException::class);
-    //     $this->expectExceptionCode(PageAlreadyExistsException::ERROR_CODE);
-    //     $this->expectExceptionMessage(sprintf(PageAlreadyExistsException::MESSAGE, $pageId));
-
-    //     $this->pages->add($page1);
-    //     $this->pages->add($page2);
-    // }
 }
