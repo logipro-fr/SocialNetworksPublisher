@@ -2,12 +2,11 @@ doctrine:
   dbal:
     url: "%env(resolve:DATABASE_URL)%"
     types:
-      post_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostIdType
-      author: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\AuthorType
-      content: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\ContentType
-      status: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\StatusType
-      page: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageType
-      hash_tag_array: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\HashTagArrayType
+      page_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageIdType
+      page_name: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageNameType
+      social_network: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\SocialNetworksType
+      posts: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostsType
+
   orm:
     auto_generate_proxy_classes: true
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

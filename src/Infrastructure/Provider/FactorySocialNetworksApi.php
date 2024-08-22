@@ -4,9 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
-use SocialNetworksPublisher\Domain\Model\Post\SocialNetworks;
-use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\InvalidSocialNetworks;
+use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
@@ -31,6 +29,8 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
                 return new LinkedIn();
             case SocialNetworks::Twitter:
                 return new TwitterClient($this->client, new TwitterBearerToken($this->client));
+            default:
+                return new NullApiProvider();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace SocialNetworksPublisher\Infrastructure\Provider\Twitter;
 
 use SocialNetworksPublisher\Application\Service\PublishPost\ProviderResponse;
 use SocialNetworksPublisher\Application\Service\PublishPost\SocialNetworksApiInterface;
-use SocialNetworksPublisher\Domain\Model\Post\Post;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\DuplicatePostException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;
@@ -25,7 +25,7 @@ class TwitterClient implements SocialNetworksApiInterface
         $this->bearerToken->needsRefresh();
         $url = 'https://api.twitter.com/2/tweets';
         $data = [
-            'text' => $post->getContent()->__toString() . " " . $post->getHashTags()->__toString(),
+            'text' => $post->getContent(),
         ];
         $data_json = json_encode($data);
         $options = [
@@ -46,7 +46,11 @@ class TwitterClient implements SocialNetworksApiInterface
                 DuplicatePostException::ERROR_CODE,
             );
         } else {
-            throw new BadRequestException("An error occured during the twitter proccess" . $response->getStatusCode(), 500);
+            throw new BadRequestException(
+                "An error occured during the twitter proccess" .
+                 $response->getStatusCode(),
+                500
+            );
         }
     }
 }

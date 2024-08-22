@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="SocialNetworksPublisher\Domain\Model\Page\Page" table="pages"
+            repository-class="SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctrine">
+        <id name="pageId" type="page_id" column="page_id">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="name" type="page_name" column="page_name"/>
+        <field name="socialNetwork" type="social_network" column="social_network"/>
+        <field name="posts" type="posts" column="posts"/>
+    </entity>
+</doctrine-mapping>

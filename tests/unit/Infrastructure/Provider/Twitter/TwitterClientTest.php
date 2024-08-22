@@ -6,6 +6,9 @@ use DateTime;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Application\Service\PublishPost\PostFactory;
 use SocialNetworksPublisher\Application\Service\PublishPost\PublishPostRequest;
+use SocialNetworksPublisher\Domain\Model\Page\Post;
+use SocialNetworksPublisher\Domain\Model\Page\PostId;
+use SocialNetworksPublisher\Domain\Model\Page\PostStatus;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\BadRequestException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\DuplicatePostException;
 use SocialNetworksPublisher\Infrastructure\Provider\Exceptions\UnauthorizedException;
@@ -23,18 +26,10 @@ class TwitterClientTest extends TestCase
     private const REFRESH_PATH = "/var/test_TwitterRefreshToken.txt";
     private const EXPIRATION_PATH = "/var/test_TwitterTokenExpiration.txt";
     private const TEXT_CONTENT = "Hello world !";
-    private PublishPostRequest $request;
 
     protected function setUp(): void
     {
         $this->cleanup();
-        $this->request = new PublishPostRequest(
-            "Twitter",
-            "1a84fvb",
-            "5adf78bfdsg",
-            self::TEXT_CONTENT,
-            ""
-        );
     }
 
     protected function tearDown(): void
@@ -51,7 +46,10 @@ class TwitterClientTest extends TestCase
 
     public function testTwitterRequestMecanismWithRefresh(): void
     {
-        $post = (new PostFactory())->buildPostFromRequest($this->request);
+        $post = new Post(
+            self::TEXT_CONTENT,
+            PostStatus::READY
+        );
         $token = $this->prepareTwitterMockBearerToken();
         $twitterMockClient = $this->prepareTwitterMockClient();
         $sut = new TwitterClient($twitterMockClient, $token);
@@ -82,8 +80,10 @@ class TwitterClientTest extends TestCase
 
     public function testDuplicateContentException(): void
     {
-        $post = (new PostFactory())->buildPostFromRequest($this->request);
-        $twitterResponse = [
+        $post = new Post(
+            self::TEXT_CONTENT,
+            PostStatus::READY
+        );        $twitterResponse = [
             new MockResponse(
                 file_get_contents(CurrentWorkDirPath::getPath() .
                  '/tests/unit/ressources/TwitterResponseTweet.json'),
@@ -110,8 +110,10 @@ class TwitterClientTest extends TestCase
 
     public function testBadRequestException(): void
     {
-        $post = (new PostFactory())->buildPostFromRequest($this->request);
-        $twitterResponse = [
+        $post = new Post(
+            self::TEXT_CONTENT,
+            PostStatus::READY
+        );        $twitterResponse = [
             new MockResponse(
                 file_get_contents(CurrentWorkDirPath::getPath() .
                  '/tests/unit/ressources/TwitterResponseTweet.json'),
