@@ -12,11 +12,4 @@ class PageNameTest extends TestCase
         $sut = new PageName("my_page_name");
         $this->assertEquals("my_page_name", $sut);
     }
-
-    // public function testEmptyPageNameException(): void {
-    //     $this->expectException(EmptyPageNameException::class);
-    //     $this->expectExceptionCode();
-    //     $this->expectExceptionMessage("An empty pageName has been fournissed");
-    //     new PageName("");
-    // }
 }
