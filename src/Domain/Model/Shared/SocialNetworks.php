@@ -11,6 +11,7 @@ enum SocialNetworks: string
     case LinkedIn = "LinkedIn";
     case SimpleBlog = "SimpleBlog";
     case Twitter = "Twitter";
+    case Test = "Test";
 
     public static function fromString(string $value): self
     {

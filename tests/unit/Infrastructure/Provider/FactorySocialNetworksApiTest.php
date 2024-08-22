@@ -8,6 +8,7 @@ use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 use SocialNetworksPublisher\Infrastructure\Provider\Facebook\Facebook;
 use SocialNetworksPublisher\Infrastructure\Provider\FactorySocialNetworksApi;
 use SocialNetworksPublisher\Infrastructure\Provider\LinkedIn\LinkedIn;
+use SocialNetworksPublisher\Infrastructure\Provider\NullApiProvider;
 use SocialNetworksPublisher\Infrastructure\Provider\SimpleBlog\SimpleBlog;
 use SocialNetworksPublisher\Infrastructure\Provider\Twitter\TwitterClient;
 use SocialNetworksPublisher\Infrastructure\Shared\CurrentWorkDirPath;
@@ -54,5 +55,12 @@ class FactorySocialNetworksApiTest extends TestCase
         $socialNetworks = SocialNetworks::Twitter;
         $sut = (new FactorySocialNetworksApi($client))->buildApi($socialNetworks);
         $this->assertInstanceOf(TwitterClient::class, $sut);
+    }
+
+    public function testAbstractFactoryNullApi(): void
+    {
+        $socialNetworks = SocialNetworks::Test;
+        $sut = (new FactorySocialNetworksApi())->buildApi($socialNetworks);
+        $this->assertInstanceOf(NullApiProvider::class, $sut);
     }
 }

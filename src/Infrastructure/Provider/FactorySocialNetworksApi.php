@@ -29,6 +29,8 @@ class FactorySocialNetworksApi extends AbstractFactorySocialNetworksApi
                 return new LinkedIn();
             case SocialNetworks::Twitter:
                 return new TwitterClient($this->client, new TwitterBearerToken($this->client));
+            default:
+                return new NullApiProvider();
         }
     }
 }
