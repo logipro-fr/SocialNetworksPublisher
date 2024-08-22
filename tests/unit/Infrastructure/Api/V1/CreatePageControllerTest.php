@@ -57,10 +57,10 @@ class CreatePageControllerTest extends TestCase
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertResponseSuccess($response, (object)["pageId" => $responseObject->data->pageId]);
 
-        $createdAccount = $this->pages
+        $createdPage = $this->pages
         ->findById(new PageId($responseObject->data->pageId));
-        $this->assertEquals("page_name", $createdAccount->getName());
-        $this->assertEquals(SocialNetworks::Twitter, $createdAccount->getSocialNetwork());
+        $this->assertEquals("page_name", $createdPage->getName());
+        $this->assertEquals(SocialNetworks::Twitter, $createdPage->getSocialNetwork());
     }
 
     public function testExceptionRaised(): void

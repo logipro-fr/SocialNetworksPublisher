@@ -41,7 +41,7 @@ class CreateKeyControllerTest extends TestCase
          );
     }
 
-    public function testCreatePage(): void
+    public function testCreateKeyTwitter(): void
     {
         $this->emMock->expects($this->once())->method("flush");
         $request = Request::create(
