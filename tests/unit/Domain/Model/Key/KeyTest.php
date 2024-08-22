@@ -10,8 +10,10 @@ use SocialNetworksPublisher\Domain\Model\Key\KeyId;
 use SocialNetworksPublisher\Domain\Model\Key\TwitterKeyData;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
-class KeyTest extends TestCase {
-    public function testCreateKey(): void {
+class KeyTest extends TestCase
+{
+    public function testCreateKey(): void
+    {
         $sut = new Key(
             SocialNetworks::Twitter,
             (new DateTimeImmutable())->add(new DateInterval('PT2H')),
@@ -24,7 +26,7 @@ class KeyTest extends TestCase {
         $this->assertEquals(SocialNetworks::Twitter, $sut->getSocialNetwork());
     }
 
-    public function testExpirationTimeIsSetCorrectly()
+    public function testExpirationTimeIsSetCorrectly(): void
     {
         $currentDateTime = new DateTimeImmutable();
         $expectedExpirationTime = $currentDateTime->add(new DateInterval('PT2H'));
@@ -42,7 +44,8 @@ class KeyTest extends TestCase {
         );
     }
 
-    public function setExpirationTime(): void {
+    public function setExpirationTime(): void
+    {
         $currentDateTime = new DateTimeImmutable();
         $keyData = new TwitterKeyData("bearer", "refresh");
         $sut = new Key(
@@ -50,10 +53,9 @@ class KeyTest extends TestCase {
             $currentDateTime,
             $keyData
         );
-        
+
         $sut->setExpirationDateTime($currentDateTime->add(new DateInterval('PT2H')));
 
         $this->assertNotEquals($currentDateTime, $sut->getExpirationDate());
-
     }
 }

@@ -21,8 +21,7 @@ class AddPostControllerTest extends WebTestCase
 
     private KernelBrowser $client;
     private PageRepositoryInterface $pages;
-    private EntityManagerInterface $em;
-
+    private string $id;
     public function setUp(): void
     {
         $this->initDoctrineTester();
@@ -35,17 +34,24 @@ class AddPostControllerTest extends WebTestCase
         $this->pages = $autoInjectedRepo;
 
         /** @var EntityManagerInterface $em */
-        $this->em = $this->client->getContainer()->get(EntityManagerInterface::class);
-        $this->em->flush();
+        $em = $this->client->getContainer()->get(EntityManagerInterface::class);
+
+        $page = new Page(
+            $this->id = new PageId(),
+            new PageName("page_name"),
+            SocialNetworks::Twitter
+        );
+        $this->pages->add($page);
+
+        $em->flush();
     }
 
     public function testAddPage(): void
     {
-        $pageIdName = $this->prepareTest();
         $this->client->request(
             "POST",
             "/api/v1/pages/post",
-            content: $this->generateContent($pageIdName)
+            content: $this->generateContent()
         );
 
         /** @var string $content */
@@ -54,28 +60,15 @@ class AddPostControllerTest extends WebTestCase
         $response = json_decode($content);
         $this->assertTrue($response->success);
 
-        $page = $this->pages->findById(new PageId($pageIdName));
+        $page = $this->pages->findById(new PageId($this->id));
         $this->assertCount(1, $page->getPosts());
     }
 
-    private function generateContent(string $pageIdName): string
+    private function generateContent(): string
     {
         return json_encode([
-            "pageId" => $pageIdName,
+            "pageId" => $this->id,
             "content" => "Twitter",
         ]);
-    }
-
-    private function prepareTest(): string
-    {
-        $page = new Page(
-            $id = new PageId(),
-            new PageName("page_name"),
-            SocialNetworks::Twitter
-        );
-        $this->pages->add($page);
-        $this->em->flush();
-        var_dump($id);
-        return $id;
     }
 }

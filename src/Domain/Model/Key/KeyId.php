@@ -2,7 +2,8 @@
 
 namespace SocialNetworksPublisher\Domain\Model\Key;
 
-class KeyId {
+class KeyId
+{
     public const PREFIX = "key_";
     public function __construct(private string $id = "")
     {
@@ -11,8 +12,9 @@ class KeyId {
         }
     }
 
-    public function equals(KeyId $otherKey): bool {
-        if($this->id !== $otherKey->id) {
+    public function equals(KeyId $otherKey): bool
+    {
+        if ($this->id !== $otherKey->id) {
             return false;
         }
         return true;
