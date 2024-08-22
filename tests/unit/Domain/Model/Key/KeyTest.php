@@ -18,10 +18,10 @@ class KeyTest extends TestCase
     public function testCreateKey(): void
     {
         $sut = new Key(
+            new KeyId("key_id"),
             SocialNetworks::Twitter,
             (new DateTimeImmutable())->add(new DateInterval('PT2H')),
             $keyData = new TwitterKeyData("bearer", "refresh"),
-            new KeyId("key_id"),
         );
 
         $this->assertEquals("key_id", $sut->getKeyId());
@@ -36,6 +36,7 @@ class KeyTest extends TestCase
         $keyData = new TwitterKeyData("bearer", "refresh");
 
         $sut = new Key(
+            new KeyId(),
             SocialNetworks::Twitter,
             $expectedExpirationTime,
             $keyData
@@ -52,6 +53,7 @@ class KeyTest extends TestCase
         $currentDateTime = new DateTimeImmutable();
         $keyData = new TwitterKeyData("bearer", "refresh");
         $sut = new Key(
+            new KeyId(),
             SocialNetworks::Twitter,
             $currentDateTime,
             $keyData
@@ -67,6 +69,7 @@ class KeyTest extends TestCase
         $currentDateTime = new DateTimeImmutable();
         $keyData = new TwitterKeyData("bearer", "refresh");
         $sut = new Key(
+            new KeyId(),
             SocialNetworks::Twitter,
             $currentDateTime,
             $keyData

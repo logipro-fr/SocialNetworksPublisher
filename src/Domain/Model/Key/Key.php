@@ -13,10 +13,10 @@ class Key
     /** @var Collection<int ,PageId> */
     private Collection $pageIds;
     public function __construct(
+        private KeyId $keyId,
         private SocialNetworks $socialNetworks,
         private DateTimeImmutable $expirationTime,
         private AbstractKeyData $keyData,
-        private KeyId $keyId = new KeyId(),
     ) {
         $this->pageIds = new ArrayCollection();
     }
