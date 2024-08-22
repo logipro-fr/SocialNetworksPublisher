@@ -34,10 +34,4 @@ class PageRepositoryDoctrine extends EntityRepository implements PageRepositoryI
         return $page;
     }
 
-    public function addPost(PageId $pageId, Post $post): void
-    {
-        $page = $this->findById($pageId);
-        $page->addPost($post);
-        $this->getEntityManager()->persist($page);
-    }
 }

@@ -29,10 +29,4 @@ class PageRepositoryInMemory implements PageRepositoryInterface
 
         return $this->pages[$id];
     }
-
-    public function addPost(PageId $pageId, Post $post): void
-    {
-        $page = $this->findById($pageId);
-        $page->addPost($post);
-    }
 }

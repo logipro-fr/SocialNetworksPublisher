@@ -21,6 +21,7 @@ class AddPostControllerTest extends WebTestCase
 
     private KernelBrowser $client;
     private PageRepositoryInterface $pages;
+    private EntityManagerInterface $em;
 
     public function setUp(): void
     {
@@ -34,8 +35,8 @@ class AddPostControllerTest extends WebTestCase
         $this->pages = $autoInjectedRepo;
 
         /** @var EntityManagerInterface $em */
-        $em = $this->client->getContainer()->get(EntityManagerInterface::class);
-        $em->flush();
+        $this->em = $this->client->getContainer()->get(EntityManagerInterface::class);
+        $this->em->flush();
     }
 
     public function testAddPage(): void
@@ -73,6 +74,8 @@ class AddPostControllerTest extends WebTestCase
             SocialNetworks::Twitter
         );
         $this->pages->add($page);
+        $this->em->flush();
+        var_dump($id);
         return $id;
     }
 }

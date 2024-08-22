@@ -21,11 +21,10 @@ class AddPost
             PostStatus::READY
         );
 
-        $this->pages->addPost(
-            new PageId($request->pageId),
+        $page = $this->pages->findById(new PageId($request->pageId));
+        $page->addPost(
             $post
         );
-
         $this->response = new AddPostResponse(
             $post->getPostId()
         );

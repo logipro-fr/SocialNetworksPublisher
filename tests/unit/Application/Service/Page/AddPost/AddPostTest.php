@@ -35,6 +35,7 @@ class AddPostTest extends TestCase
             $this->page->getPageId(),
             "simple_test_content",
         );
+        
         $service = new AddPost(
             $this->pages
         );
