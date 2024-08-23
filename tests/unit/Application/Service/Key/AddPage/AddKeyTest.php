@@ -15,28 +15,32 @@ use SocialNetworksPublisher\Infrastructure\Persistence\Key\KeyRepositoryInMemory
 
 class AddKeyTest extends TestCase
 {
-    public function testAddKey(): void
+    private KeyRepositoryInMemory $keys;
+    protected function setUp(): void
     {
-        $keys = new KeyRepositoryInMemory();
+        $this->keys = new KeyRepositoryInMemory();
         $key = new Key(
             new KeyId("key_id"),
             SocialNetworks::Twitter,
             new DateTimeImmutable(),
             new TwitterKeyData("a", "b")
         );
-        $keys->add($key);
+        $this->keys->add($key);
+    }
+    public function testAddKey(): void
+    {
         $request = new AddPageRequest(
             "key_id",
             "page_id"
         );
 
-        $service = new AddPage($keys);
+        $service = new AddPage($this->keys);
 
         $service->execute($request);
 
         $response = $service->getResponse();
         /** @var Key */
-        $foundKey = $keys->findById(new KeyId($response->keyId));
+        $foundKey = $this->keys->findById(new KeyId($response->keyId));
         $this->assertEquals("page_id", $foundKey->getValue());
     }
 }
