@@ -21,6 +21,5 @@ class Identity
     public function __toString()
     {
         return $this->value;
-
     }
 }
