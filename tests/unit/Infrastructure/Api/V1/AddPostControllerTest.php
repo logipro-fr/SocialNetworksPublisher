@@ -55,7 +55,7 @@ class AddPostControllerTest extends TestCase
 
         $request = Request::create(
             "/api/v1/pages/post",
-            "POST",
+            "PATCH",
             content: json_encode([
                 "pageId" => $id->__toString(),
                 "content" => "test_content"
@@ -75,7 +75,7 @@ class AddPostControllerTest extends TestCase
 
         $request = Request::create(
             "/api/v1/pages/post",
-            "POST",
+            "PATCH",
             content: json_encode([
                 "pageId" => "test",
                 "content" => "test_content"

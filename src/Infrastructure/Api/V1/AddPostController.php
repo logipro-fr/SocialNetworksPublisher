@@ -17,7 +17,7 @@ class AddPostController extends AbstractController
         private EntityManagerInterface $em,
     ) {
     }
-    #[Route("api/v1/pages/post", name:"pages_post", methods:["POST"])]
+    #[Route("api/v1/pages/post", name:"pages_post", methods:["PATCH"])]
     public function execute(Request $request): Response
     {
         try {
