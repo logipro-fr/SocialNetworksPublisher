@@ -49,7 +49,7 @@ class AddPostControllerTest extends WebTestCase
     public function testAddPage(): void
     {
         $this->client->request(
-            "POST",
+            "PATCH",
             "/api/v1/pages/post",
             content: $this->generateContent()
         );
