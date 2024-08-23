@@ -21,7 +21,7 @@ class AddPostControllerTest extends WebTestCase
 
     private KernelBrowser $client;
     private PageRepositoryInterface $pages;
-    private string $id;
+    private PageId $id;
     public function setUp(): void
     {
         $this->initDoctrineTester();
@@ -67,7 +67,7 @@ class AddPostControllerTest extends WebTestCase
     private function generateContent(): string
     {
         return json_encode([
-            "pageId" => $this->id,
+            "pageId" => $this->id->__toString(),
             "content" => "Twitter",
         ]);
     }

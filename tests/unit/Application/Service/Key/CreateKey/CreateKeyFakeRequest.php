@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialNetworksPublisher\Tests\Application\Service\Key;
+namespace SocialNetworksPublisher\Tests\Application\Service\Key\CreateKey;
 
 use SocialNetworksPublisher\Application\Service\Key\CreateKey\AbstractCreateKeyRequest;
 
