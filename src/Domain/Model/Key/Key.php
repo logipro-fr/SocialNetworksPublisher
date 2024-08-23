@@ -2,23 +2,19 @@
 
 namespace SocialNetworksPublisher\Domain\Model\Key;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Safe\DateTimeImmutable;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class Key
 {
-    /** @var Collection<int ,PageId> */
-    private Collection $pageIds;
+    private Identity $value;
     public function __construct(
         private KeyId $keyId,
         private SocialNetworks $socialNetworks,
         private DateTimeImmutable $expirationTime,
         private AbstractKeyData $keyData,
     ) {
-        $this->pageIds = new ArrayCollection();
     }
 
     public function getKeyId(): KeyId
@@ -40,12 +36,10 @@ class Key
     {
         return $this->keyData;
     }
-    /**
-     * @return Collection<int, PageId>
-     */
-    public function getPageIds(): Collection
+
+    public function getValue(): Identity
     {
-        return $this->pageIds;
+        return $this->value;
     }
 
     public function setExpirationDateTime(DateTimeImmutable $expirationTime): void
@@ -53,8 +47,8 @@ class Key
         $this->expirationTime = $expirationTime;
     }
 
-    public function addPageId(PageId $pageId): void
+    public function setIdentity(PageId $value): void
     {
-        $this->pageIds->add($pageId);
+        $this->value = new Identity($value);
     }
 }
