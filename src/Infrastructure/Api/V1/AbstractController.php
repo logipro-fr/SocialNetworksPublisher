@@ -26,10 +26,12 @@ abstract class AbstractController
     protected function writeUnsuccessfulResponse(\Exception $e, int $code = self::ERROR_CODE_ERROR): Response
     {
         $exceptionClassName = (new \ReflectionClass($e))->getShortName();
+
         return new Response(
             json_encode([
                 "success" => false,
                 "error" => $exceptionClassName,
+                "error_message" => $e->getMessage()
             ]),
             $code,
             ["Content-Type" => "application/json"]

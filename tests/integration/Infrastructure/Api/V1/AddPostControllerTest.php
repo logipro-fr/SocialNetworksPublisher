@@ -26,7 +26,7 @@ class AddPostControllerTest extends WebTestCase
     public function setUp(): void
     {
         $this->initDoctrineTester();
-        $this->clearTables(["pages"]);
+        $this->clearTables(["pages_posts","posts","pages"]);
 
         $this->client = static::createClient(["debug" => false]);
 
@@ -53,7 +53,6 @@ class AddPostControllerTest extends WebTestCase
         /** @var \stdClass $response */
         $response = json_decode($content);
         $this->assertTrue($response->success);
-
         $page = $this->pages->findById(new PageId($pageIdName));
         $this->assertCount(1, $page->getPosts());
     }
@@ -75,7 +74,6 @@ class AddPostControllerTest extends WebTestCase
         );
         $this->pages->add($page);
         $this->em->flush();
-        var_dump($id);
         return $id;
     }
 }

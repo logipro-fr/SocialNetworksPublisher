@@ -22,7 +22,7 @@ class CreatePageControllerTest extends WebTestCase
     public function setUp(): void
     {
         $this->initDoctrineTester();
-        $this->clearTables(["pages"]);
+        $this->clearTables(["pages_posts","posts","pages"]);
 
         $this->client = static::createClient(["debug" => false]);
 
