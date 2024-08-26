@@ -12,7 +12,7 @@ class PageRepositoryDoctrineTest extends PageRepositoryTestBase
     protected function setUp(): void
     {
         $this->initDoctrineTester();
-        $this->clearTables(['pages']);
+        $this->clearTables(["pages_posts","posts","pages"]);
         $this->pages = new PageRepositoryDoctrine($this->getEntityManager());
     }
 }

@@ -33,5 +33,4 @@ class PageRepositoryDoctrine extends EntityRepository implements PageRepositoryI
         }
         return $page;
     }
-
 }
