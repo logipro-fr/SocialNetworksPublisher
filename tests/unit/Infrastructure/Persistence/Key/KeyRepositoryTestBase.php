@@ -6,10 +6,12 @@ use PHPUnit\Framework\TestCase;
 use Safe\DateTimeImmutable;
 use SocialNetworksPublisher\Domain\Model\Key\Exceptions\KeyAlreadyExistsException;
 use SocialNetworksPublisher\Domain\Model\Key\Exceptions\KeyNotFoundException;
+use SocialNetworksPublisher\Domain\Model\Key\Identity;
 use SocialNetworksPublisher\Domain\Model\Key\Key;
 use SocialNetworksPublisher\Domain\Model\Key\KeyId;
 use SocialNetworksPublisher\Domain\Model\Key\KeyRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Key\TwitterKeyData;
+use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 abstract class KeyRepositoryTestBase extends TestCase
