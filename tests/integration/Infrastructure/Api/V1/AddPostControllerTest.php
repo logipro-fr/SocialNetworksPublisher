@@ -21,7 +21,7 @@ class AddPostControllerTest extends WebTestCase
 
     private KernelBrowser $client;
     private PageRepositoryInterface $pages;
-    private EntityManagerInterface $em;
+    private PageId $id;
 
     public function setUp(): void
     {
@@ -35,17 +35,17 @@ class AddPostControllerTest extends WebTestCase
         $this->pages = $autoInjectedRepo;
 
         /** @var EntityManagerInterface $em */
-        $this->em = $this->client->getContainer()->get(EntityManagerInterface::class);
-        $this->em->flush();
+        $em = $this->client->getContainer()->get(EntityManagerInterface::class);
+        $this->id = $this->prepareTest();
+        $em->flush();
     }
 
     public function testAddPage(): void
     {
-        $pageIdName = $this->prepareTest();
         $this->client->request(
             "POST",
             "/api/v1/pages/post",
-            content: $this->generateContent($pageIdName)
+            content: $this->generateContent($this->id)
         );
 
         /** @var string $content */
@@ -53,7 +53,7 @@ class AddPostControllerTest extends WebTestCase
         /** @var \stdClass $response */
         $response = json_decode($content);
         $this->assertTrue($response->success);
-        $page = $this->pages->findById(new PageId($pageIdName));
+        $page = $this->pages->findById($this->id);
         $this->assertCount(1, $page->getPosts());
     }
 
@@ -65,7 +65,7 @@ class AddPostControllerTest extends WebTestCase
         ]);
     }
 
-    private function prepareTest(): string
+    private function prepareTest(): PageId
     {
         $page = new Page(
             $id = new PageId(),
@@ -73,7 +73,6 @@ class AddPostControllerTest extends WebTestCase
             SocialNetworks::Twitter
         );
         $this->pages->add($page);
-        $this->em->flush();
         return $id;
     }
 }
