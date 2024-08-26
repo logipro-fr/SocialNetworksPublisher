@@ -4,10 +4,7 @@ namespace SocialNetworksPublisher\Tests\Integration\Infrastructure\Api\V1;
 
 use Doctrine\ORM\EntityManagerInterface;
 use DoctrineTestingTools\DoctrineRepositoryTesterTrait;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use Safe\DateTimeImmutable;
-use SocialNetworksPublisher\Domain\Model\Key\Exceptions\KeyNotFoundException;
 use SocialNetworksPublisher\Domain\Model\Key\Key;
 use SocialNetworksPublisher\Domain\Model\Key\KeyId;
 use SocialNetworksPublisher\Domain\Model\Key\KeyRepositoryInterface;
@@ -17,12 +14,10 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Page\PageName;
 use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
-use SocialNetworksPublisher\Infrastructure\Api\V1\AddPageController;
 use SocialNetworksPublisher\Infrastructure\Persistence\Key\KeyRepositoryDoctrine;
 use SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctrine;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Request;
 
 use function Safe\json_encode;
 
@@ -34,13 +29,13 @@ class AddPageControllerTest extends WebTestCase
     private PageRepositoryInterface $pages;
     private KeyRepositoryInterface $keys;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
 
 
         $this->initDoctrineTester();
 
-
+        $this->clearTables(["pages", "apiKeys"]);
         $this->client = static::createClient(["debug" => false]);
 
         /** @var PageRepositoryDoctrine $autoInjectedRepo */
@@ -58,7 +53,7 @@ class AddPageControllerTest extends WebTestCase
             new TwitterKeyData("a", "b")
         );
         $page = new Page(
-            new PageId('page_id'),
+            new PageId("page_id"),
             new PageName("test"),
             SocialNetworks::Twitter,
         );
