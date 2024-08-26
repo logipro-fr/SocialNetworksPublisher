@@ -11,6 +11,19 @@
         </id>
         <field name="name" type="page_name" column="page_name"/>
         <field name="socialNetwork" type="social_network" column="social_network"/>
-        <field name="posts" type="posts" column="posts"/>
+        <many-to-many field="posts" target-entity="SocialNetworksPublisher\Domain\Model\Page\Post" cascade="persist">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+            <join-table name="pages_posts">
+                <join-columns>
+                    <join-column name="page_id" referenced-column-name="page_id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="post_id" referenced-column-name="post_id" unique="true"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <field name="createdAt" type="datetime_immutable" column="created_at"/>
     </entity>
 </doctrine-mapping>
