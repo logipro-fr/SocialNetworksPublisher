@@ -5,8 +5,8 @@ doctrine:
       page_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageIdType
       page_name: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageNameType
       social_network: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\SocialNetworksType
-      posts: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostsType
       post_status: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostStatusType
+      post_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostIdType
 
 
   orm:
