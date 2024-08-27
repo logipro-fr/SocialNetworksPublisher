@@ -38,7 +38,7 @@ class KeyDataType extends Type
                 "refreshToken" => $value->getRefreshToken()
             ]);
         } else {
-            throw new SocialNetworksDoesntExist("");
+            throw new SocialNetworksDoesntExist($value::class);
         }
     }
     /**
