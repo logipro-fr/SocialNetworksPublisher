@@ -3,27 +3,27 @@
 namespace SocialNetworksPublisher\Infrastructure\Api\V1;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SocialNetworksPublisher\Application\Service\Page\AddPost\AddPost;
-use SocialNetworksPublisher\Application\Service\Page\AddPost\AddPostRequest;
-use SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface;
+use SocialNetworksPublisher\Application\Service\Key\CreateKey\CreateKey;
+use SocialNetworksPublisher\Application\Service\Key\CreateKey\CreateKeyTwitterRequest;
+use SocialNetworksPublisher\Domain\Model\Key\KeyRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AddPostController extends AbstractController
+class CreateKeyController extends AbstractController
 {
     public function __construct(
-        private PageRepositoryInterface $pages,
+        private KeyRepositoryInterface $keys,
         private EntityManagerInterface $em,
     ) {
     }
-    #[Route("api/v1/pages/post", name:"pages_post", methods:["PATCH"])]
+    #[Route("api/v1/keys/twitter", name:"keys_twitter", methods:["POST"])]
     public function execute(Request $request): Response
     {
         try {
-            $addPostRequest = $this->convertToAddPostRequest($request);
-            $service = new AddPost($this->pages);
-            $service->execute($addPostRequest);
+            $createKeyRequest = $this->convertToTwitterCreateKeyRequest($request);
+            $service = new CreateKey($this->keys);
+            $service->execute($createKeyRequest);
             $eventFlush = new EventFlush($this->em);
             $eventFlush->flushAndDistribute();
             return $this->writeSuccessfulResponse($service->getResponse(), Response::HTTP_CREATED);
@@ -32,15 +32,16 @@ class AddPostController extends AbstractController
         }
     }
 
-    public function convertToAddPostRequest(Request $request): AddPostRequest
+    public function convertToTwitterCreateKeyRequest(Request $request): CreateKeyTwitterRequest
     {
         /** @var string $content */
         $content = $request->getContent();
         /** @var \stdClass $requestObject */
         $requestObject = json_decode($content);
-        return new AddPostRequest(
+        return new CreateKeyTwitterRequest(
+            $requestObject->bearerToken,
+            $requestObject->refreshToken,
             $requestObject->pageId,
-            $requestObject->content,
         );
     }
 }

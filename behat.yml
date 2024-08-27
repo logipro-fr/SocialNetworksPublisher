@@ -8,5 +8,8 @@ default:
     default:
       paths:
         - '%paths.base%/features/manage_social_networks_page.feature'
+        - '%paths.base%/features/manage_api_key.feature'
+
       contexts:
         - features\Page\ManagePageContext
+        - features\Key\ManageKeyContext

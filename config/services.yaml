@@ -21,13 +21,25 @@ services:
     arguments:
       $pages: '@post.repository'
 
+  SocialNetworksPublisher\Infrastructure\Api\V1\CreateKeyController:
+    autowire: true
+    arguments:
+      $keys: '@post.repository'
+
   page.repository:
     public: true
     autowire: true
     class: SocialNetworksPublisher\Infrastructure\Persistence\Page\PageRepositoryDoctrine
 
+  key.repository:
+    public: true
+    autowire: true
+    class: SocialNetworksPublisher\Infrastructure\Persistence\Key\KeyRepositoryDoctrine
+
   SocialNetworksPublisher\Application\Service\PublishPost\AbstractFactorySocialNetworksApi: "@api.factory"
   SocialNetworksPublisher\Domain\Model\Page\PageRepositoryInterface: "@page.repository"
+  SocialNetworksPublisher\Domain\Model\Key\KeyRepositoryInterface: "@key.repository"
+
 
   SocialNetworksPublisher\Infrastructure\Api\V1\:
     resource: "../src/Infrastructure/Api/V1/"

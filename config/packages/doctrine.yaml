@@ -3,9 +3,11 @@ doctrine:
     url: "%env(resolve:DATABASE_URL)%"
     types:
       page_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageIdType
+      api_key_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\KeyIdType
       page_name: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageNameType
       social_network: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\SocialNetworksType
       posts: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostsType
+      key_data: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\KeyDataType
 
   orm:
     auto_generate_proxy_classes: true
