@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialNEtworksPublisher\Tests\Domain\Model\Page;
+namespace SocialNetworksPublisher\Tests\Domain\Model\Page;
 
 use Phariscope\Event\EventDispatcher;
 use Phariscope\Event\Tools\SpyListener;

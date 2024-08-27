@@ -1,6 +1,6 @@
 <?php
 
-namespace SocialNetworksPublisher\Test\Domain\Model\Page;
+namespace SocialNetworksPublisher\Tests\Domain\Model\Page;
 
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Domain\Model\Page\Post;
