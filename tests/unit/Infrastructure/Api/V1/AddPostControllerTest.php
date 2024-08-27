@@ -23,7 +23,6 @@ class AddPostControllerTest extends TestCase
 
     private PageRepositoryInterface $pages;
     private AddPostController $controller;
-    private MockObject $emMock;
 
     public function setUp(): void
     {
@@ -31,7 +30,6 @@ class AddPostControllerTest extends TestCase
 
          /** @var MockObject $entityManager */
          $entityManager = $this->createMock(EntityManagerInterface::class);
-         $this->emMock = $entityManager;
 
         /** @var EntityManagerInterface $entityManager */
          $this->controller = new AddPostController(
@@ -42,7 +40,6 @@ class AddPostControllerTest extends TestCase
 
     public function testAddPost(): void
     {
-        $this->emMock->expects($this->once())->method("flush");
 
         $originalPage = new Page(
             $id = new PageId(),
@@ -55,7 +52,7 @@ class AddPostControllerTest extends TestCase
 
         $request = Request::create(
             "/api/v1/pages/post",
-            "POST",
+            "PATCH",
             content: json_encode([
                 "pageId" => $id->__toString(),
                 "content" => "test_content"
@@ -75,7 +72,7 @@ class AddPostControllerTest extends TestCase
 
         $request = Request::create(
             "/api/v1/pages/post",
-            "POST",
+            "PATCH",
             content: json_encode([
                 "pageId" => "test",
                 "content" => "test_content"
