@@ -24,7 +24,8 @@ abstract class KeyRepositoryTestBase extends TestCase
             $keyId,
             SocialNetworks::Twitter,
             new DateTimeImmutable(),
-            new TwitterKeyData("test", "test")
+            new TwitterKeyData("test", "test"),
+            new Identity("page_id")
         );
 
         $this->keys->add($sut);
