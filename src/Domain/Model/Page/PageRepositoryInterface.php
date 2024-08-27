@@ -7,5 +7,6 @@ interface PageRepositoryInterface
     public function add(Page $page): void;
 
     public function findById(PageId $pageId): Page;
-
+    /** @return array<Page> */
+    public function findAll(): array;
 }

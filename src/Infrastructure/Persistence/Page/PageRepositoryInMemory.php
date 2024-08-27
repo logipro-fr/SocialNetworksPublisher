@@ -29,4 +29,9 @@ class PageRepositoryInMemory implements PageRepositoryInterface
 
         return $this->pages[$id];
     }
+    /** @return array<Page> */
+    public function findAll(): array
+    {
+        return $this->pages;
+    }
 }

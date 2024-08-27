@@ -34,4 +34,8 @@ class PageRepositoryDoctrine extends EntityRepository implements PageRepositoryI
         return $page;
     }
 
+    public function findAll(): array
+    {
+        return parent::findAll();
+    }
 }

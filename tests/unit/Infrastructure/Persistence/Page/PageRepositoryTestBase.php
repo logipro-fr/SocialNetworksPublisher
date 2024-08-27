@@ -30,6 +30,20 @@ abstract class PageRepositoryTestBase extends TestCase
         $this->assertTrue($sut->getPageId()->equals($foundPage->getPageId()));
     }
 
+    public function findAll(): void
+    {
+        $pageId = new PageId("page_2");
+        $page2 = new Page(
+            $pageId,
+            new PageName("page_name"),
+            SocialNetworks::Twitter
+        );
+
+        $this->pages->add($page2);
+        $foundPages = $this->pages->findAll();
+        $this->assertCount(2, $foundPages);
+    }
+
     public function testNotFoundException(): void
     {
         $this->expectException(PageNotFoundException::class);
