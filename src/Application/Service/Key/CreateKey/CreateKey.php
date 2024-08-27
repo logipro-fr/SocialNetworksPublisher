@@ -26,7 +26,7 @@ class CreateKey
         $key = $this->keyFactory($request);
         $this->keys->add($key);
         $this->response = new CreateKeyResponse(
-            $key->getKeyId()
+            $key->getKeyId()->__toString()
         );
     }
 
@@ -63,7 +63,7 @@ class CreateKey
         $keyData = $this->createKeyData($request);
         $socialNetwork = $this->determineSocialNetwork($request);
         $key = new Key(
-            $id = new KeyId(),
+            new KeyId(),
             $socialNetwork,
             new DateTimeImmutable(),
             $keyData,

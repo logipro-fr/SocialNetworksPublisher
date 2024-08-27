@@ -26,11 +26,6 @@ services:
     arguments:
       $keys: '@post.repository'
 
-  SocialNetworksPublisher\Infrastructure\Api\V1\AddPageController:
-    autowire: true
-    arguments:
-      $keys: '@post.repository'
-
   page.repository:
     public: true
     autowire: true
