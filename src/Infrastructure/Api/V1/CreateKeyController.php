@@ -24,7 +24,8 @@ class CreateKeyController extends AbstractController
             $createKeyRequest = $this->convertToTwitterCreateKeyRequest($request);
             $service = new CreateKey($this->keys);
             $service->execute($createKeyRequest);
-            $this->em->flush();
+            $eventFlush = new EventFlush($this->em);
+            $eventFlush->flushAndDistribute();
             return $this->writeSuccessfulResponse($service->getResponse(), Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->writeUnsuccessfulResponse($e);
@@ -40,6 +41,7 @@ class CreateKeyController extends AbstractController
         return new CreateKeyTwitterRequest(
             $requestObject->bearerToken,
             $requestObject->refreshToken,
+            $requestObject->pageId,
         );
     }
 }

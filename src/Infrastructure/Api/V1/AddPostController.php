@@ -24,7 +24,8 @@ class AddPostController extends AbstractController
             $addPostRequest = $this->convertToAddPostRequest($request);
             $service = new AddPost($this->pages);
             $service->execute($addPostRequest);
-            $this->em->flush();
+            $eventFlush = new EventFlush($this->em);
+            $eventFlush->flushAndDistribute();
             return $this->writeSuccessfulResponse($service->getResponse(), Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->writeUnsuccessfulResponse($e);

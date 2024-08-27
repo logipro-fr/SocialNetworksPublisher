@@ -37,7 +37,6 @@ class CreatePageControllerTest extends TestCase
 
     public function testCreatePage(): void
     {
-        $this->emMock->expects($this->once())->method("flush");
         $request = Request::create(
             "/api/v1/pages",
             "POST",

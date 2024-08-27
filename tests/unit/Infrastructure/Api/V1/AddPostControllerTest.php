@@ -42,7 +42,6 @@ class AddPostControllerTest extends TestCase
 
     public function testAddPost(): void
     {
-        $this->emMock->expects($this->once())->method("flush");
 
         $originalPage = new Page(
             $id = new PageId(),

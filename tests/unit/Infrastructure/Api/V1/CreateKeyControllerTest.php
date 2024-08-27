@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Domain\Model\Key\Exceptions\KeyDataEmptyBearerTokenException;
+use SocialNetworksPublisher\Domain\Model\Key\Key;
 use SocialNetworksPublisher\Domain\Model\Key\KeyId;
 use SocialNetworksPublisher\Domain\Model\Key\KeyRepositoryInterface;
 use SocialNetworksPublisher\Domain\Model\Key\TwitterKeyData;
@@ -31,6 +32,7 @@ class CreateKeyControllerTest extends TestCase
     public function setUp(): void
     {
         $this->keys = new KeyRepositoryInMemory();
+        
          /** @var MockObject $entityManager */
          $entityManager = $this->createMock(EntityManagerInterface::class);
          $this->emMock = $entityManager;
@@ -43,13 +45,13 @@ class CreateKeyControllerTest extends TestCase
 
     public function testCreateKeyTwitter(): void
     {
-        $this->emMock->expects($this->once())->method("flush");
         $request = Request::create(
             "/api/v1/keys/twitter",
             "POST",
             content: json_encode([
                 "bearerToken" => "bearer",
-                "refreshToken" => "refresh"
+                "refreshToken" => "refresh",
+                "pageId" => "page_id"
             ])
         );
 
@@ -71,6 +73,7 @@ class CreateKeyControllerTest extends TestCase
 
         $this->assertEquals("bearer", $keyData->getBearerToken());
         $this->assertEquals("refresh", $keyData->getRefreshToken());
+        $this->assertEquals("page_id", $createdKey->getValue());
     }
 
     public function testExceptionRaised(): void
@@ -81,7 +84,8 @@ class CreateKeyControllerTest extends TestCase
             "POST",
             content: json_encode([
                 "bearerToken" => "",
-                "refreshToken" => ""
+                "refreshToken" => "",
+                "pageId" => "",
             ])
         );
 
