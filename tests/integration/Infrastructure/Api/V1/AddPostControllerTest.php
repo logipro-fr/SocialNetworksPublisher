@@ -43,7 +43,7 @@ class AddPostControllerTest extends WebTestCase
     public function testAddPage(): void
     {
         $this->client->request(
-            "POST",
+            "PATCH",
             "/api/v1/pages/post",
             content: $this->generateContent($this->id)
         );
@@ -57,14 +57,13 @@ class AddPostControllerTest extends WebTestCase
         $this->assertCount(1, $page->getPosts());
     }
 
-    private function generateContent(string $pageIdName): string
+    private function generateContent(): string
     {
         return json_encode([
-            "pageId" => $pageIdName,
+            "pageId" => $this->id->__toString(),
             "content" => "Twitter",
         ]);
     }
-
     private function prepareTest(): PageId
     {
         $page = new Page(

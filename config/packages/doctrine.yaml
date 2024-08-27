@@ -3,12 +3,12 @@ doctrine:
     url: "%env(resolve:DATABASE_URL)%"
     types:
       page_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageIdType
+      api_key_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\KeyIdType
       page_name: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PageNameType
       social_network: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\SocialNetworksType
       post_status: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostStatusType
       post_id: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\PostIdType
-
-
+      key_data: SocialNetworksPublisher\Infrastructure\Persistence\Doctrine\Types\KeyDataType
   orm:
     auto_generate_proxy_classes: true
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

@@ -2,7 +2,7 @@
 
 namespace SocialNetworksPublisher\Domain\Model\Shared;
 
-use SocialNetworksPublisher\Domain\Model\Page\Exceptions\PageSocialNetworksDoesntExist;
+use SocialNetworksPublisher\Domain\Model\Shared\Exceptions\SocialNetworksDoesntExist;
 use SocialNetworksPublisher\Domain\Model\Post\Exceptions\BadSocialNetworksParameterException;
 
 enum SocialNetworks: string
@@ -20,7 +20,7 @@ enum SocialNetworks: string
             self::LinkedIn->value => self::LinkedIn,
             self::SimpleBlog->value => self::SimpleBlog,
             self::Twitter->value => self::Twitter,
-            default => throw new PageSocialNetworksDoesntExist(
+            default => throw new SocialNetworksDoesntExist(
                 $value,
             ),
         };

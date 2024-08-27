@@ -24,7 +24,8 @@ class CreatePageController extends AbstractController
             $createPageRequest = $this->convertToPageRequest($request);
             $service = new CreatePage($this->pages);
             $service->execute($createPageRequest);
-            $this->em->flush();
+            $eventFlush = new EventFlush($this->em);
+            $eventFlush->flushAndDistribute();
             return $this->writeSuccessfulResponse($service->getResponse(), Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return $this->writeUnsuccessfulResponse($e);
