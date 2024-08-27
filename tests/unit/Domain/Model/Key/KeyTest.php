@@ -42,7 +42,6 @@ class KeyTest extends TestCase
             $expectedExpirationTime,
             $keyData,
             new Identity("page_id")
-
         );
 
         $this->assertEquals(
@@ -61,7 +60,6 @@ class KeyTest extends TestCase
             $currentDateTime,
             $keyData,
             new Identity("page_id")
-
         );
 
         $sut->setExpirationDateTime($currentDateTime->add(new DateInterval('PT2H')));
@@ -79,7 +77,6 @@ class KeyTest extends TestCase
             $currentDateTime,
             $keyData,
             new Identity("page_id")
-
         );
         $pageId = new PageId("pageId");
 

@@ -2,7 +2,6 @@
 
 namespace SocialNetworksPublisher\Tests\Infrastructure\Api\V1;
 
-
 use Doctrine\ORM\EntityManager;
 use Phariscope\Event\Tools\SpyListener;
 use PHPUnit\Framework\TestCase;

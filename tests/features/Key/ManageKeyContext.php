@@ -3,10 +3,7 @@
 namespace features\Key;
 
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use Doctrine\ORM\EntityManagerInterface;
-use Infection\Mutator\ReturnValue\This;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\MockObject\Generator\Generator;
 use PHPUnit\Framework\MockObject\MockObject;

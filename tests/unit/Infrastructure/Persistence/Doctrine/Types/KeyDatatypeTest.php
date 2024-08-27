@@ -54,7 +54,8 @@ class KeyDataTypeTest extends TestCase
         $this->assertEquals($expectedOuptut, $type->convertToPHPValue($input, new SqlitePlatform()));
     }
 
-    public function testConvertToDatabaseValueError(): void {
+    public function testConvertToDatabaseValueError(): void
+    {
         $this->expectException(SocialNetworksDoesntExist::class);
         $this->expectExceptionCode(SocialNetworksDoesntExist::ERROR_CODE);
         $this->expectExceptionMessage(sprintf(SocialNetworksDoesntExist::MESSAGE, FakeKeyData::class));

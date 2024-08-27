@@ -63,6 +63,6 @@ class CreateKeyTest extends TestCase
 
         $keys = new KeyRepositoryInMemory();
         $service = new CreateKey($keys);
-        $service->execute(new CreateKeyFakeRequest("bearer","pageId"));
+        $service->execute(new CreateKeyFakeRequest("bearer", "pageId"));
     }
 }

@@ -21,13 +21,11 @@ class CreatePageControllerTest extends TestCase
 
     private PageRepositoryInterface $pages;
     private CreatePageController $controller;
-    private MockObject $emMock;
     public function setUp(): void
     {
         $this->pages = new PageRepositoryInMemory();
          /** @var MockObject $entityManager */
          $entityManager = $this->createMock(EntityManagerInterface::class);
-         $this->emMock = $entityManager;
         /** @var EntityManagerInterface $entityManager */
          $this->controller = new CreatePageController(
              $this->pages,

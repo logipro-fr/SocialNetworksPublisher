@@ -23,7 +23,6 @@ class AddPostControllerTest extends TestCase
 
     private PageRepositoryInterface $pages;
     private AddPostController $controller;
-    private MockObject $emMock;
 
     public function setUp(): void
     {
@@ -31,7 +30,6 @@ class AddPostControllerTest extends TestCase
 
          /** @var MockObject $entityManager */
          $entityManager = $this->createMock(EntityManagerInterface::class);
-         $this->emMock = $entityManager;
 
         /** @var EntityManagerInterface $entityManager */
          $this->controller = new AddPostController(

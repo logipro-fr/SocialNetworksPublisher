@@ -6,7 +6,6 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 
 class Identity
 {
-
     public function __construct(private string $value)
     {
         $this->value = $value;

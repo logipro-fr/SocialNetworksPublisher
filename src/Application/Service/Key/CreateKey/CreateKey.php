@@ -59,7 +59,8 @@ class CreateKey
         };
     }
 
-    private function keyFactory(AbstractCreateKeyRequest $request): Key {
+    private function keyFactory(AbstractCreateKeyRequest $request): Key
+    {
         $keyData = $this->createKeyData($request);
         $socialNetwork = $this->determineSocialNetwork($request);
         $key = new Key(
