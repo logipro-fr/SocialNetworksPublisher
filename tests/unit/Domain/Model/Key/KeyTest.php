@@ -5,6 +5,7 @@ namespace SocialNetworksPublisher\Tests\Domain\Model\Key;
 use DateInterval;
 use PHPUnit\Framework\TestCase;
 use Safe\DateTimeImmutable;
+use SocialNetworksPublisher\Domain\Model\Key\Identity;
 use SocialNetworksPublisher\Domain\Model\Key\Key;
 use SocialNetworksPublisher\Domain\Model\Key\KeyId;
 use SocialNetworksPublisher\Domain\Model\Key\TwitterKeyData;
@@ -20,11 +21,13 @@ class KeyTest extends TestCase
             SocialNetworks::Twitter,
             (new DateTimeImmutable())->add(new DateInterval('PT2H')),
             $keyData = new TwitterKeyData("bearer", "refresh"),
+            new Identity("page_id")
         );
 
         $this->assertEquals("key_id", $sut->getKeyId());
         $this->assertEquals($keyData, $sut->getKeyData());
         $this->assertEquals(SocialNetworks::Twitter, $sut->getSocialNetwork());
+        $this->assertEquals("page_id", $sut->getValue());
     }
 
     public function testExpirationTimeIsSetCorrectly(): void
@@ -37,7 +40,9 @@ class KeyTest extends TestCase
             new KeyId(),
             SocialNetworks::Twitter,
             $expectedExpirationTime,
-            $keyData
+            $keyData,
+            new Identity("page_id")
+
         );
 
         $this->assertEquals(
@@ -54,7 +59,9 @@ class KeyTest extends TestCase
             new KeyId(),
             SocialNetworks::Twitter,
             $currentDateTime,
-            $keyData
+            $keyData,
+            new Identity("page_id")
+
         );
 
         $sut->setExpirationDateTime($currentDateTime->add(new DateInterval('PT2H')));
@@ -70,7 +77,9 @@ class KeyTest extends TestCase
             new KeyId(),
             SocialNetworks::Twitter,
             $currentDateTime,
-            $keyData
+            $keyData,
+            new Identity("page_id")
+
         );
         $pageId = new PageId("pageId");
 
