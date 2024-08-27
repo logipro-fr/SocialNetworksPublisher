@@ -6,8 +6,9 @@ class CreateKeyTwitterRequest extends AbstractCreateKeyRequest
 {
     public function __construct(
         string $bearerToken,
-        readonly string $refreshToken
+        readonly string $refreshToken,
+        string $pageId
     ) {
-        parent::__construct($bearerToken);
+        parent::__construct($bearerToken, $pageId);
     }
 }

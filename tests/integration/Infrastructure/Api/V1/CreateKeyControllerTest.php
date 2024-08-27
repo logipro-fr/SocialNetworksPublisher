@@ -55,6 +55,7 @@ class CreateKeyControllerTest extends WebTestCase
         $this->assertInstanceOf(TwitterKeyData::class, $keyData);
         $this->assertEquals("bearer_token", $keyData->getBearerToken());
         $this->assertEquals("refresh_token", $keyData->getRefreshToken());
+        $this->assertEquals("page_id", $key->getValue());
     }
 
     private function generateContent(): string
@@ -62,6 +63,7 @@ class CreateKeyControllerTest extends WebTestCase
         return json_encode([
             "bearerToken" => "bearer_token",
             "refreshToken" => "refresh_token",
+            "pageId" => "page_id"
         ]);
     }
 }

@@ -23,7 +23,8 @@ class CreateKeyTest extends TestCase
         $service->execute(
             $request = new CreateKeyTwitterRequest(
                 "bearer_token",
-                "refresh_token"
+                "refresh_token",
+                "pageId"
             )
         );
         $response = $service->getResponse();
@@ -32,6 +33,7 @@ class CreateKeyTest extends TestCase
 
         $this->assertInstanceOf(TwitterKeyData::class, $foundKey->getKeyData());
         $this->assertEquals(SocialNetworks::Twitter, $foundKey->getSocialNetwork());
+        $this->assertEquals("pageId", $foundKey->getValue());
     }
 
     public function testCreateKeyLinkedIn(): void
@@ -41,7 +43,8 @@ class CreateKeyTest extends TestCase
         $service->execute(
             $request = new CreateKeyLinkedInRequest(
                 "bearer_token",
-                "urn"
+                "urn",
+                "pageId"
             )
         );
         $response = $service->getResponse();
@@ -60,6 +63,6 @@ class CreateKeyTest extends TestCase
 
         $keys = new KeyRepositoryInMemory();
         $service = new CreateKey($keys);
-        $service->execute(new CreateKeyFakeRequest("bearer"));
+        $service->execute(new CreateKeyFakeRequest("bearer","pageId"));
     }
 }

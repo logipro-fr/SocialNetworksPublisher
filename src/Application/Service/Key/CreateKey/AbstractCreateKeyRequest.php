@@ -6,6 +6,7 @@ abstract class AbstractCreateKeyRequest
 {
     public function __construct(
         readonly string $bearerToken,
+        readonly string $pageId,
     ) {
     }
 }

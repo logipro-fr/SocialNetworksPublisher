@@ -5,6 +5,7 @@ namespace SocialNetworksPublisher\Application\Service\Key\CreateKey;
 use Safe\DateTimeImmutable;
 use SocialNetworksPublisher\Application\Service\Key\CreateKey\Exceptions\InvalidCreateKeyRequest;
 use SocialNetworksPublisher\Domain\Model\Key\AbstractKeyData;
+use SocialNetworksPublisher\Domain\Model\Key\Identity;
 use SocialNetworksPublisher\Domain\Model\Key\Key;
 use SocialNetworksPublisher\Domain\Model\Key\KeyId;
 use SocialNetworksPublisher\Domain\Model\Key\KeyRepositoryInterface;
@@ -22,19 +23,10 @@ class CreateKey
 
     public function execute(AbstractCreateKeyRequest $request): void
     {
-        $keyData = $this->createKeyData($request);
-        $socialNetwork = $this->determineSocialNetwork($request);
-        $key = new Key(
-            $id = new KeyId(),
-            $socialNetwork,
-            new DateTimeImmutable(),
-            $keyData
-        );
-
+        $key = $this->keyFactory($request);
         $this->keys->add($key);
-
         $this->response = new CreateKeyResponse(
-            $id
+            $key->getKeyId()
         );
     }
 
@@ -65,5 +57,18 @@ class CreateKey
             $request instanceof CreateKeyLinkedInRequest => SocialNetworks::LinkedIn,
             default => throw new InvalidCreateKeyRequest()
         };
+    }
+
+    private function keyFactory(AbstractCreateKeyRequest $request): Key {
+        $keyData = $this->createKeyData($request);
+        $socialNetwork = $this->determineSocialNetwork($request);
+        $key = new Key(
+            $id = new KeyId(),
+            $socialNetwork,
+            new DateTimeImmutable(),
+            $keyData,
+            new Identity($request->pageId)
+        );
+        return $key;
     }
 }

@@ -6,20 +6,19 @@ use SocialNetworksPublisher\Domain\Model\Page\PageId;
 
 class Identity
 {
-    private PageId $value;
 
-    public function __construct(PageId $value)
+    public function __construct(private string $value)
     {
         $this->value = $value;
     }
 
-    public function getValue(): PageId
+    public function getPageIdValue(): PageId
     {
-        return $this->value;
+        return new PageId($this->value);
     }
 
     public function __toString()
     {
-        return $this->value->__toString();
+        return $this->value;
     }
 }

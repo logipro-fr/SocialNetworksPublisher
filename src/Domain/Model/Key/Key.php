@@ -3,20 +3,18 @@
 namespace SocialNetworksPublisher\Domain\Model\Key;
 
 use Safe\DateTimeImmutable;
-use SebastianBergmann\Type\NullType;
 use SocialNetworksPublisher\Domain\Model\Page\PageId;
 use SocialNetworksPublisher\Domain\Model\Shared\SocialNetworks;
 
 class Key
 {
-    private Identity $value;
     public function __construct(
         private KeyId $keyId,
         private SocialNetworks $socialNetworks,
         private DateTimeImmutable $expirationTime,
         private AbstractKeyData $keyData,
+        private Identity $value
     ) {
-        $this->value = new Identity(new PageId("null"));
     }
 
     public function getKeyId(): KeyId

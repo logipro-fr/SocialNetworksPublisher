@@ -10,10 +10,10 @@ class IdentityTest extends TestCase
 {
     public function testsCreateIdentity(): void
     {
-        $pageId = new PageId();
-        $sut = new Identity($pageId);
+        $pageId = new PageId("page_id");
+        $sut = new Identity("page_id");
 
-        $this->assertEquals($pageId, $sut->getValue());
+        $this->assertEquals($pageId, $sut->getPageIdValue());
         $this->assertEquals($pageId->__toString(), $sut);
     }
 }
