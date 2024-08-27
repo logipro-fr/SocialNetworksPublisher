@@ -6,11 +6,7 @@ Feature: Manage API Key
         Given I want to create a Twitter API key
         And I have the Bearer token "bearer_token"
         And I have the Refresh token "refresh_token"
+        And I want to link my API key to my page with the page ID "page_id"
         When I create the API key
-        Then the API key is created successfully
+        Then the API key is created successfully with the page Id "page_id"
         And I have key ID
-
-    Scenario: Link API Key to Page
-        Given I want to link my API key to my page with the page ID "page_id"
-        When I link the API key
-        Then the API key is linked successfully to the page
