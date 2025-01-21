@@ -18,7 +18,7 @@ class PageIdTypeTest extends TestCase
     {
         $type = new PageIdType();
         $id = $type->convertToPHPValue("pag_", new SqlitePlatform());
-        $this->assertEquals(true, $id instanceof PageId);
+        $this->assertEquals(new PageId("pag_"), $id);
     }
 
     public function testConvertToDatabaseValue(): void

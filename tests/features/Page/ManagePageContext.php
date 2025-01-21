@@ -99,11 +99,10 @@ class ManagePageContext implements Context
     {
         /** @var string $content */
         $content = $this->createPageResponse->getContent();
-        /** @var \stdClass $response */
+        /** @var \stdClass&object{data:object{pageId:string}} $response */
         $response = json_decode($content);
 
         $page = $this->pages->findById(new PageId($response->data->pageId));
-        Assert::assertNotNull($page, "The page was not created.");
         Assert::assertEquals("Page name", $page->getName());
         Assert::assertEquals(SocialNetworks::tryFrom($this->socialNetwork), $page->getSocialNetwork());
     }

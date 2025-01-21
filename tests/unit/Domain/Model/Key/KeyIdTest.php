@@ -11,7 +11,6 @@ class KeyIdTest extends TestCase
     {
         $sut = new KeyId();
         $this->assertInstanceOf(KeyId::class, $sut);
-        $this->assertIsString($sut->__toString());
         $this->assertStringStartsWith(KeyId::PREFIX, $sut);
     }
 

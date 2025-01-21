@@ -36,7 +36,7 @@ class CreateKeyController extends AbstractController
     {
         /** @var string $content */
         $content = $request->getContent();
-        /** @var \stdClass $requestObject */
+        /** @var \stdClass&object{bearerToken:string,refreshToken:string,pageId:string} $requestObject */
         $requestObject = json_decode($content);
         return new CreateKeyTwitterRequest(
             $requestObject->bearerToken,

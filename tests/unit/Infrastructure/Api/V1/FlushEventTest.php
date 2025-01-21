@@ -4,6 +4,7 @@ namespace SocialNetworksPublisher\Tests\Infrastructure\Api\V1;
 
 use Doctrine\ORM\EntityManager;
 use Phariscope\Event\Tools\SpyListener;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SocialNetworksPublisher\Domain\EventFacade\EventFacade;
 use SocialNetworksPublisher\Infrastructure\Api\V1\EventFlush;
@@ -20,7 +21,7 @@ class FlushEventTest extends TestCase
         $facade->dispatch($event);
         $em = $this->createMock(EntityManager::class);
 
-        /** @var EntityManager $em */
+        /** @var EntityManager&MockObject $em */
         $sut = new EventFlush($em);
         $sut->flushAndDistribute();
 
@@ -31,7 +32,7 @@ class FlushEventTest extends TestCase
     {
         $em = $this->createMock(EntityManager::class);
         $em->expects($this->atLeastOnce())->method('flush');
-        /** @var EntityManager $em */
+        /** @var EntityManager&MockObject $em */
         $sut = new EventFlush($em);
         $sut->flushAndDistribute();
     }
@@ -41,7 +42,7 @@ class FlushEventTest extends TestCase
         $em = $this->createMock(EntityManager::class);
         $em->expects($this->atLeastOnce())->method('flush');
 
-        /** @var EntityManager $em */
+        /** @var EntityManager&MockObject $em */
 
         $facade = $this->createMock(EventFacade::class);
         $facade->method('distribute')->willReturnCallback(function () {
@@ -61,7 +62,7 @@ class FlushEventTest extends TestCase
             $callOrder[] = 'flush';
         });
 
-        /** @var EntityManager $em */
+        /** @var EntityManager&MockObject $em */
 
         $facade = $this->createMock(EventFacade::class);
         $facade->method('distribute')->willReturnCallback(function () use (&$callOrder) {

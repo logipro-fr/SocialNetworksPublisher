@@ -36,7 +36,7 @@ class CreatePageController extends AbstractController
     {
         /** @var string $content */
         $content = $request->getContent();
-        /** @var \stdClass $requestObject */
+        /** @var \stdClass&object{pageName:string,socialNetwork:string} $requestObject */
         $requestObject = json_decode($content);
         return new CreatePageRequest(
             $requestObject->pageName,

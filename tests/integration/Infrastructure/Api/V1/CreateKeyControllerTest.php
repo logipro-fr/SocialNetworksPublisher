@@ -45,7 +45,7 @@ class CreateKeyControllerTest extends WebTestCase
 
         /** @var string $content */
         $content = $this->client->getResponse()->getContent();
-        /** @var \stdClass $response */
+        /** @var \stdClass&object{data:object{keyId:string}} $response */
         $response = json_decode($content);
         $this->assertTrue($response->success);
 

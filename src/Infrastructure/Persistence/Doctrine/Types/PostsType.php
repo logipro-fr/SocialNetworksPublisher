@@ -31,7 +31,7 @@ class PostsType extends Type
     public function convertToPHPValue($value, AbstractPlatform $platform): Collection
     {
 
-        /** @var array<\stdClass> $objs */
+        /** @var array<\stdClass&object{createdAt:object{date:string},status:int|string,id:string,content:string}> $objs */
         $objs = json_decode($value);
         $posts = new ArrayCollection();
 
