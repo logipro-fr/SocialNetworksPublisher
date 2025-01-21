@@ -4,10 +4,11 @@ namespace SocialNetworksPublisher\Domain\Model\Page;
 
 class PostId
 {
+    public const PREFIX = "pos_";
     public function __construct(private string $id = "")
     {
         if (empty($this->id)) {
-            $this->id = uniqid("pos_");
+            $this->id = uniqid(self::PREFIX);
         }
     }
     public function equals(PostId $postId): bool
