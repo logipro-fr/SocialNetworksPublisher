@@ -11,7 +11,6 @@ class PostIdTest extends TestCase
     {
         $sut = new PostId();
         $this->assertInstanceOf(PostId::class, $sut);
-        $this->assertIsString($sut->__toString());
     }
 
     public function testCreateCustomPostId(): void

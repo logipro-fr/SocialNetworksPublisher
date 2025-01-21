@@ -46,7 +46,7 @@ class KeyDataType extends Type
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): AbstractKeyData
     {
-        /** @var \stdClass> $obj */
+        /** @var \stdClass&object{socialNetwork:string,bearerToken:string,refreshToken:string} $obj */
         $obj = json_decode($value);
 
 

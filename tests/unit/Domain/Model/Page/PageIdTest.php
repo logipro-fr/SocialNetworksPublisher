@@ -11,7 +11,6 @@ class PageIdTest extends TestCase
     {
         $sut = new PageId();
         $this->assertInstanceOf(PageId::class, $sut);
-        $this->assertIsString($sut->__toString());
         $this->assertStringStartsWith(PageId::PREFIX, $sut);
     }
 

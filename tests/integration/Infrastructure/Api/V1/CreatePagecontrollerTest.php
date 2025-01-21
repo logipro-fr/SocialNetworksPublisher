@@ -45,7 +45,7 @@ class CreatePageControllerTest extends WebTestCase
 
         /** @var string $content */
         $content = $this->client->getResponse()->getContent();
-        /** @var \stdClass $response */
+        /** @var \stdClass&object{data:object{pageId:string}} $response */
         $response = json_decode($content);
         $this->assertTrue($response->success);
 

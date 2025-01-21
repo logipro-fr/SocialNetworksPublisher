@@ -19,7 +19,7 @@ class KeyIdTypeTest extends TestCase
     {
         $type = new KeyIdType();
         $id = $type->convertToPHPValue("key_", new SqlitePlatform());
-        $this->assertEquals(true, $id instanceof KeyId);
+        $this->assertEquals(new KeyId("key_"), $id);
     }
 
     public function testConvertToDatabaseValue(): void

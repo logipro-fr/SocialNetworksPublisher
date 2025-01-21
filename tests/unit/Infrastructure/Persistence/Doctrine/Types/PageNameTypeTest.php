@@ -23,7 +23,6 @@ class PageNameTypeTest extends TestCase
             new SqlitePlatform()
         );
 
-        $this->assertIsString($dbValue);
         $phpValue = $type->convertToPHPValue($dbValue, new SqlitePlatform());
         $this->assertEquals($content, $phpValue);
     }

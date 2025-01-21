@@ -36,7 +36,7 @@ class AddPostController extends AbstractController
     {
         /** @var string $content */
         $content = $request->getContent();
-        /** @var \stdClass $requestObject */
+        /** @var \stdClass&object{pageId:string,content:string} $requestObject */
         $requestObject = json_decode($content);
         return new AddPostRequest(
             $requestObject->pageId,

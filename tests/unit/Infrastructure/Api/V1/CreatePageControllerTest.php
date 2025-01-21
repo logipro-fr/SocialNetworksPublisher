@@ -48,7 +48,7 @@ class CreatePageControllerTest extends TestCase
 
         /** @var string $content */
         $content = $response->getContent();
-        /** @var \stdClass $responseObject */
+        /** @var \stdClass&object{data:object{pageId:string}} $responseObject */
         $responseObject = json_decode($content);
 
         $this->assertEquals(201, $response->getStatusCode());

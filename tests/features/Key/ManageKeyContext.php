@@ -105,12 +105,11 @@ class ManageKeyContext implements Context
     {
         /** @var string $content */
         $content = $this->responseCreateKey->getContent();
-        /** @var \stdClass $response */
+        /** @var \stdClass&object{data:object{keyId:string}} $response */
         $response = json_decode($content);
-        /** @var Key */
+        /** @var Key $key */
         $key = $this->keys->findById(new KeyId($response->data->keyId));
         $this->keyId = $key->getKeyId();
-        Assert::assertNotNull($key);
         Assert::assertTrue($response->success);
         Assert:assertEquals($pageId, $key->getValue());
     }
