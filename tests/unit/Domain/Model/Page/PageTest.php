@@ -27,7 +27,7 @@ class PageTest extends TestCase
         $this->assertTrue((new PageId("page_id"))->equals($sut->getPageId()));
         $this->assertEquals("page_name", $sut->getName());
         $this->assertEquals(SocialNetworks::Twitter, $sut->getSocialNetwork());
-        $this->assertEmpty($sut->getPosts()); //@phpstan-ignore-line phpstan think it cannot be empty. phpstan is wrong
+        $this->assertEquals(0, count($sut->getPosts()));
     }
 
     public function testAddPost(): void
